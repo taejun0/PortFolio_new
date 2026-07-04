@@ -1,0 +1,27 @@
+---
+description: Require purpose and responsibility comments at the top of authored code files
+alwaysApply: true
+---
+
+# File Header Comments
+
+- Every human-authored code file must begin with a concise header comment.
+- The header must explain these three points:
+  1. `생성 이유`: why this file exists.
+  2. `역할`: what role it plays in the architecture.
+  3. `책임`: what it owns and what readers should expect it to manage.
+- Write concrete file-specific information. Do not copy vague boilerplate between files.
+- Keep the header short enough to scan quickly, normally one line per point.
+- Place the comment before imports and before `"use client"`.
+- Keep `"use client"` as the first executable statement after the comment.
+- Update the header when the file's purpose or responsibility materially changes.
+- Apply this to source and manually maintained configuration files.
+- Do not modify generated files, lockfiles, data files, or binary assets solely to add comments.
+
+```ts
+/**
+ * 생성 이유: 페이지 전용 데이터를 외부 요청 로직과 분리한다.
+ * 역할: 프로젝트 목록 API를 호출하는 페이지 전용 서비스다.
+ * 책임: 요청 파라미터 구성, 응답 변환, 오류 전달을 관리한다.
+ */
+```

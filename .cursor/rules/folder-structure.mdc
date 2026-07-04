@@ -1,0 +1,31 @@
+﻿---
+description: Project folder structure preferences
+alwaysApply: true
+---
+
+# Folder Structure Preferences
+
+- Prefer page-owned structure. Logic, components, constants, and services that are used only inside one page should live inside that page feature folder.
+- Do not move page-specific code into global folders just because it might look reusable later. Promote code to `src/components`, `src/lib`, or `src/services` only after reuse is real and clear.
+- Within each page feature, split by role in detail:
+
+```text
+features/<page>/
+├── <PageName>Page.tsx
+├── <PageName>Page.styled.ts
+├── components/
+│   └── <component>/
+│       ├── <Component>.tsx
+│       ├── <Component>.styled.ts
+│       └── constants/          # optional, component-only constants
+├── constants/                  # page-level copy/data/config
+├── services/                   # page-level API or side-effect logic
+├── hooks/                      # page-level hooks
+├── utils/                      # page-level pure helpers
+└── types/                      # page-level types
+```
+
+- Keep the route layer (`src/app`) thin. App Router files should mostly connect routes to feature pages and define metadata/layout when needed.
+- Keep styling colocated: page styles beside the page file, component styles beside the component file.
+- Keep copy and static data out of JSX when it is meaningful page content. Put it in that page's `constants/` folder.
+- Empty folders are not required. Add `components`, `constants`, `services`, `hooks`, `utils`, or `types` only when the page actually needs them.
