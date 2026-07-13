@@ -1,13 +1,34 @@
 /**
  * 생성 이유: 메인 페이지에 속한 UI와 동작을 라우트 계층에서 분리한다.
- * 역할: 메인 페이지 기능의 최상위 조합 컴포넌트다.
- * 책임: 추후 확정될 메인 페이지 구성 요소를 조합하고 페이지 범위를 관리한다.
+ * 역할: Thomas Eduardo식 섹션 스크롤 메인 페이지다.
+ * 책임: Hero→About→Thinking→Projects→Signals→Blog→Contact 순서를 관리한다.
  */
 "use client";
 
 import * as S from "./MainPage.styled";
+import IntroSection from "./components/intro/IntroSection";
+import AboutSection from "./components/about/AboutSection";
+import ThinkingSection from "./components/thinking/ThinkingSection";
+import ProjectsSection from "./components/projects/ProjectsSection";
+import SignalsSection from "./components/signals/SignalsSection";
+import BlogSection from "./components/blog/BlogSection";
+import CloseSection from "./components/close/CloseSection";
+import type { BlogPostMeta } from "@/features/blog/types";
 
-/** TODO: 메인 페이지 구성 확정 후 구현 */
-const MainPage = () => <S.Wrapper />;
+type MainPageProps = {
+  recentPosts: BlogPostMeta[];
+};
+
+const MainPage = ({ recentPosts }: MainPageProps) => (
+  <S.Wrapper>
+    <IntroSection />
+    <AboutSection />
+    <ThinkingSection />
+    <ProjectsSection />
+    <SignalsSection />
+    <BlogSection posts={recentPosts} />
+    <CloseSection />
+  </S.Wrapper>
+);
 
 export default MainPage;
