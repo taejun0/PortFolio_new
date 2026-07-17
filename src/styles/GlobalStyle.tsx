@@ -1,7 +1,8 @@
 /**
  * 생성 이유: 브라우저 기본 스타일 차이를 줄이고 전역 기반 스타일을 일관되게 적용한다.
- * 역할: Emotion Global을 통해 리셋과 기본 폰트 설정을 주입한다.
- * 책임: 페이지별 디자인을 침범하지 않는 최소한의 전역 스타일만 관리한다.
+ * 역할: Emotion Global을 통해 리셋·캔버스·타이포 기반을 주입한다.
+ * 책임: 페이지별 구성을 침범하지 않는 전역 분위기(배경·잉크·선택 색)만 관리한다.
+ *       overflow-x는 sticky pin을 깨뜨리지 않도록 html/body에 두지 않는다.
  */
 "use client";
 
@@ -17,19 +18,36 @@ const globalStyles = (theme: Theme) => css`
   }
 
   html {
-    scroll-behavior: smooth;
+    width: 100%;
+    max-width: 100%;
+    scroll-behavior: auto;
   }
 
-  html,
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   body {
     width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
+    max-width: 100%;
+    font-family: ${theme.fonts.body};
+    font-size: ${theme.typography.body.fontSize};
+    line-height: ${theme.typography.body.lineHeight};
+    color: ${theme.colors.text};
+    background-color: ${theme.colors.background};
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
-  body {
-    font-family: ${theme.fonts.body};
-    -webkit-font-smoothing: antialiased;
+  ::selection {
+    background: color-mix(in srgb, ${theme.colors.accent} 28%, transparent);
+    color: ${theme.colors.text};
   }
 
   a {
