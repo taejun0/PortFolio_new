@@ -5,6 +5,7 @@
  */
 export const ROUTES = {
   MAIN: "/",
+  ABOUT: "/about",
   PROJECTS: "/projects",
   BLOG: "/blog",
 } as const;

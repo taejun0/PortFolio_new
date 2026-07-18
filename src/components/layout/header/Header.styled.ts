@@ -1,9 +1,10 @@
 /**
  * 생성 이유: 헤더 스타일을 렌더링 로직과 분리한다.
- * 역할: Thomas Eduardo식 fixed 오버레이 헤더(좌 로고·중앙 캡슐 네비) 스타일이다.
- * 책임: 위치·캡슐·활성 pill 시각만 소유한다.
+ * 역할: Thomas Eduardo식 fixed 오버레이 헤더(좌 로고·중앙 캡슐 네비·우측 테마) 스타일이다.
+ * 책임: 위치·캡슐·ref 기반 활성 pill·테마 토글 시각만 소유한다.
  */
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
 export const Wrapper = styled.header`
   position: fixed;
@@ -19,6 +20,7 @@ export const Bar = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   height: 100%;
   padding: 0 ${({ theme }) => theme.layout.gutter};
@@ -28,9 +30,9 @@ export const Logo = styled.span`
   position: relative;
   z-index: 1;
   pointer-events: auto;
-  font-size: 0.8125rem;
+  font-size: ${({ theme }) => theme.typography.small.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: ${({ theme }) => theme.colors.text};
   transition: color 0.2s ease;
 
@@ -46,9 +48,9 @@ export const Nav = styled.nav`
   display: flex;
   align-items: center;
   gap: 0.1rem;
-  max-width: calc(100vw - 7.5rem);
+  max-width: calc(100vw - clamp(8rem, 6rem + 8vw, 14rem));
   padding: 0.25rem;
-  overflow-x: auto;
+  overflow: hidden;
   border-radius: 999px;
   border: 1px solid ${({ theme }) => theme.colors.border};
   background: color-mix(
@@ -59,39 +61,95 @@ export const Nav = styled.nav`
   backdrop-filter: blur(14px);
   transform: translate(-50%, -50%);
   pointer-events: auto;
-  scrollbar-width: none;
+`;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
+export const ActivePill = styled(motion.span)`
+  position: absolute;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  left: 0;
+  z-index: 0;
+  border-radius: 999px;
+  background: ${({ theme }) => theme.colors.text};
+  pointer-events: none;
 `;
 
 export const NavItem = styled.span<{ $active: boolean }>`
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  padding: 0.4rem 0.65rem;
+  padding: clamp(0.35rem, 0.3rem + 0.2vw, 0.5rem)
+    clamp(0.55rem, 0.4rem + 0.55vw, 0.9rem);
   border-radius: 999px;
-  font-size: 0.625rem;
+  font-size: ${({ theme }) => theme.typography.nav.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  letter-spacing: 0.08em;
+  letter-spacing: ${({ theme }) => theme.typography.nav.letterSpacing};
   text-transform: uppercase;
   white-space: nowrap;
   color: ${({ theme, $active }) =>
     $active ? theme.colors.accentContrast : theme.colors.textMuted};
-  background: ${({ theme, $active }) =>
-    $active ? theme.colors.text : "transparent"};
-  transition: color 0.2s ease, background 0.2s ease;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: 0.45rem 0.85rem;
-    font-size: 0.6875rem;
-    letter-spacing: 0.1em;
-  }
+  transition: color 0.25s ease;
 
   &:hover {
     color: ${({ theme, $active }) =>
       $active ? theme.colors.accentContrast : theme.colors.text};
   }
+`;
+
+export const NavLabel = styled.span`
+  position: relative;
+`;
+
+export const Actions = styled.div`
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+`;
+
+export const ThemeToggle = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(2rem, 1.7rem + 0.6vw, 2.35rem);
+  height: clamp(2rem, 1.7rem + 0.6vw, 2.35rem);
+  border-radius: 999px;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: color-mix(
+    in srgb,
+    ${({ theme }) => theme.colors.surfaceAlt} 88%,
+    transparent
+  );
+  backdrop-filter: blur(12px);
+  color: ${({ theme }) => theme.colors.text};
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.accent};
+    border-color: ${({ theme }) => theme.colors.borderStrong};
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.accent};
+    outline-offset: 2px;
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+`;
+
+export const ThemeIcon = styled(motion.span)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 `;

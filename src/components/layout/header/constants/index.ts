@@ -1,38 +1,38 @@
 /**
  * 생성 이유: 헤더 문구와 네비게이션 항목을 JSX에서 분리한다.
  * 역할: 사이트 헤더가 사용하는 로고·링크 상수를 제공한다.
- * 책임: Thomas Eduardo식 중앙 캡슐 네비 항목과 섹션 id 매핑을 관리한다.
+ * 책임: 세부 페이지가 있는 라우트만 헤더에 노출한다.
  */
 import { ROUTES } from "@/constants/routes";
 
 export const HEADER_UI = {
-  logo: "ohtaejjun",
+  logo: "Taejun0-portfolio",
+  themeToggle: {
+    toLight: "라이트 모드로 전환",
+    toDark: "다크 모드로 전환",
+  },
 } as const;
 
+/** 헤더 = 세부 페이지가 있는 항목만 */
 export const HEADER_NAV_ITEMS = [
   {
-    href: `${ROUTES.MAIN}#intro`,
+    href: ROUTES.MAIN,
     label: "Home",
-    sectionId: "intro",
+    match: "exact" as const,
   },
   {
-    href: `${ROUTES.MAIN}#about`,
+    href: ROUTES.ABOUT,
     label: "About",
-    sectionId: "about",
+    match: "prefix" as const,
   },
   {
-    href: `${ROUTES.MAIN}#projects`,
+    href: ROUTES.PROJECTS,
     label: "Projects",
-    sectionId: "projects",
+    match: "prefix" as const,
   },
   {
     href: ROUTES.BLOG,
     label: "Blog",
-    sectionId: undefined,
-  },
-  {
-    href: `${ROUTES.MAIN}#close`,
-    label: "Contact",
-    sectionId: "close",
+    match: "prefix" as const,
   },
 ] as const;
