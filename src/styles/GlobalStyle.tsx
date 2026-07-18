@@ -20,6 +20,8 @@ const globalStyles = (theme: Theme) => css`
   html {
     width: 100%;
     max-width: 100%;
+    /* 가로 뷰포트에 따라 rem 기준이 함께 스케일 */
+    font-size: clamp(14px, 0.28vw + 13.1px, 17px);
     scroll-behavior: auto;
   }
 
@@ -43,6 +45,9 @@ const globalStyles = (theme: Theme) => css`
     background-color: ${theme.colors.background};
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    transition:
+      background-color ${theme.motion.duration.ui}s ease,
+      color ${theme.motion.duration.ui}s ease;
   }
 
   ::selection {

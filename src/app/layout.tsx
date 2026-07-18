@@ -4,6 +4,7 @@
  * 책임: 모든 페이지를 동일한 문서 구조와 전역 설정 안에서 렌더링한다.
  */
 import type { Metadata } from "next";
+import Script from "next/script";
 import type { ReactNode } from "react";
 
 import Providers from "./providers";
@@ -19,10 +20,29 @@ export const metadata: Metadata = {
   description: SITE_CONFIG.description,
 };
 
+const themeBootScript = `
+(function(){
+  try {
+    var m = localStorage.getItem('portfolio-theme-mode');
+    if (m !== 'light' && m !== 'dark') m = 'dark';
+    document.documentElement.dataset.theme = m;
+    document.documentElement.style.colorScheme = m;
+  } catch (e) {
+    document.documentElement.dataset.theme = 'dark';
+    document.documentElement.style.colorScheme = 'dark';
+  }
+})();
+`;
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="ko" className={pretendard.variable}>
+    <html lang="ko" className={pretendard.variable} suppressHydrationWarning>
       <body>
+        <Script
+          id="theme-boot"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: themeBootScript }}
+        />
         <Providers>
           <SiteShell>{children}</SiteShell>
         </Providers>
