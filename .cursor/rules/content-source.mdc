@@ -1,0 +1,13 @@
+---
+description: Prefer PortfolioPage as the content source of truth
+alwaysApply: true
+---
+
+# Content Source
+
+- When copy, personal info, project descriptions, or blog-related text is unclear, scan the sibling project `../PortfolioPage` first.
+- Prefer existing constants and markdown there (`src/features/**/constants`, `src/lib/projectData.ts`, `src/lib/siteConfig.ts`, `content/blog`) over inventing new wording.
+- Adapt that content into this repo's page structure; do not invent alternate bios, emails, or project summaries unless the user asks.
+- Keep using the user-provided Pretendard font files only. Do not introduce other display/body font families unless the user explicitly requests them.
+- Visual system reference: Thomas Eduardo (https://www.thomaseduardo.com.br) — deep black canvas, lime accent (#a0ec06), numbered sections, large titles. Keep Korean PortfolioPage copy tone. Keep project/blog detail routes.
+- Blog sources: existing posts live in `content/blog` markdown; new posts can be added via GitHub Discussions category `Blog` (merged in blog service). Giscus is for comments, not the primary post body.
