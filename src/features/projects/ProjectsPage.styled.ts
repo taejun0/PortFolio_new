@@ -1,14 +1,15 @@
 /**
  * 생성 이유: 프로젝트 목록 스타일을 분리한다.
- * 역할: ProjectsPage 레이아웃·리스트 스타일을 정의한다.
- * 책임: 다크 톤 목록 페이지 시각만 소유한다.
+ * 역할: ProjectsPage 레이아웃·케이스 리스트 스타일을 정의한다.
+ * 책임: Blog와 구분되는 컴팩트 미디어 쇼케이스 시각만 소유한다.
  */
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   width: 100%;
-  padding: ${({ theme }) => theme.layout.sectionPaddingY}
-    ${({ theme }) => theme.layout.gutter};
+  padding-top: clamp(5rem, 3rem + 8vw, 9rem);
+  padding-bottom: ${({ theme }) => theme.space[6]};
+  padding-inline: ${({ theme }) => theme.layout.gutter};
   background: ${({ theme }) => theme.colors.background};
 `;
 
@@ -17,8 +18,13 @@ export const Inner = styled.div`
   margin: 0 auto;
 `;
 
+export const Intro = styled.header`
+  margin-bottom: ${({ theme }) => theme.space[8]};
+  max-width: 36rem;
+`;
+
 export const Label = styled.p`
-  margin-bottom: ${({ theme }) => theme.space[3]};
+  margin-bottom: ${({ theme }) => theme.space[4]};
   font-size: ${({ theme }) => theme.typography.label.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   letter-spacing: ${({ theme }) => theme.typography.label.letterSpacing};
@@ -27,55 +33,146 @@ export const Label = styled.p`
 `;
 
 export const Title = styled.h1`
-  margin-bottom: ${({ theme }) => theme.space[8]};
+  margin-bottom: ${({ theme }) => theme.space[4]};
   font-size: ${({ theme }) => theme.typography.title.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   letter-spacing: ${({ theme }) => theme.typography.title.letterSpacing};
+  line-height: ${({ theme }) => theme.typography.title.lineHeight};
   color: ${({ theme }) => theme.colors.text};
+`;
+
+export const Subtitle = styled.p`
+  font-size: ${({ theme }) => theme.typography.bodyLg.fontSize};
+  line-height: ${({ theme }) => theme.typography.bodyLg.lineHeight};
+  color: ${({ theme }) => theme.colors.textMuted};
+`;
+
+export const Empty = styled.p`
+  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 export const List = styled.ul`
   display: grid;
-  gap: ${({ theme }) => theme.space[4]};
+  gap: clamp(2.25rem, 1.4rem + 3vw, 3.5rem);
 `;
 
 export const Item = styled.li`
-  padding: ${({ theme }) => theme.space[5]};
-  border-radius: 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  background: ${({ theme }) => theme.colors.surface};
-  transition: border-color 0.2s ease, transform 0.2s ease;
-
   a {
     display: block;
+    text-decoration: none;
+    color: inherit;
   }
 
-  &:hover {
-    transform: translateY(-2px);
-    border-color: ${({ theme }) => theme.colors.borderStrong};
+  &:hover img {
+    transform: scale(1.04);
+  }
 
-    h2 {
-      color: ${({ theme }) => theme.colors.accent};
-    }
+  &:hover h2 {
+    color: ${({ theme }) => theme.colors.accent};
   }
 `;
 
-export const ItemTitle = styled.h2`
-  margin-bottom: ${({ theme }) => theme.space[2]};
-  font-size: ${({ theme }) => theme.typography.heading.fontSize};
+export const Row = styled.div`
+  display: grid;
+  gap: ${({ theme }) => theme.space[5]};
+  align-items: center;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: minmax(12rem, 22rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  }
+`;
+
+export const Media = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 22rem;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: clamp(0.85rem, 0.6rem + 0.7vw, 1.15rem);
+  background: ${({ theme }) => theme.colors.surfaceAlt};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+
+  img {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+`;
+
+export const Copy = styled.div`
+  display: grid;
+  gap: ${({ theme }) => theme.space[3]};
+  min-width: 0;
+  max-width: 34rem;
+`;
+
+export const IndexRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ${({ theme }) => theme.space[3]};
+`;
+
+export const Index = styled.span`
+  font-size: ${({ theme }) => theme.typography.small.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
+  letter-spacing: 0.12em;
+  color: ${({ theme }) => theme.colors.accent};
+`;
+
+export const Featured = styled.span`
+  font-size: ${({ theme }) => theme.typography.small.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.textMuted};
+`;
+
+export const ItemTitle = styled.h2`
+  font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+  font-weight: ${({ theme }) => theme.fonts.weights.bold};
+  letter-spacing: -0.025em;
+  line-height: 1.25;
   color: ${({ theme }) => theme.colors.text};
   transition: color 0.2s ease;
 `;
 
 export const ItemSummary = styled.p`
-  margin-bottom: ${({ theme }) => theme.space[3]};
-  max-width: ${({ theme }) => theme.layout.measure};
-  line-height: 1.65;
+  max-width: 36ch;
+  font-size: ${({ theme }) => theme.typography.body.fontSize};
+  line-height: 1.7;
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 export const Meta = styled.p`
-  font-size: 0.8125rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  line-height: 1.5;
+  color: ${({ theme }) => theme.colors.textMuted};
+`;
+
+export const Dot = styled.span`
+  opacity: 0.55;
+`;
+
+export const Tags = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: ${({ theme }) => theme.space[1]};
+`;
+
+export const Tag = styled.li`
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  font-size: ${({ theme }) => theme.typography.small.fontSize};
   color: ${({ theme }) => theme.colors.textMuted};
 `;

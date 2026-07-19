@@ -1,11 +1,10 @@
 /**
  * 생성 이유: 메인 프로젝트를 스크롤 연동 가로 트랙으로 보여 주기 위함이다.
  * 역할: sticky pin 구간에서 세로 스크롤을 가로 translate로만 매핑한다.
- * 책임: 트랙 폭 측정·스크롤 진행도→x 변환·카드 렌더링을 관리한다.
+ * 책임: 트랙 폭 측정·스크롤 진행도→x 변환·플립 카드 렌더링을 관리한다.
  */
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import {
@@ -15,8 +14,9 @@ import {
 } from "framer-motion";
 
 import * as S from "./ProjectsSection.styled";
+import ProjectFlipCard from "./projectFlipCard/ProjectFlipCard";
 import { MAIN_PROJECTS_UI, MAIN_SECTION_IDS } from "../../constants";
-import { ROUTES, projectDetailPath } from "@/constants/routes";
+import { ROUTES } from "@/constants/routes";
 import { PROJECTS } from "@/features/projects/constants/projects";
 
 const ProjectsSection = () => {
@@ -68,44 +68,16 @@ const ProjectsSection = () => {
     </S.Header>
   );
 
-  const cards = PROJECTS.map((project, index) => (
-    <S.Card key={project.slug}>
-      <Link href={projectDetailPath(project.slug)}>
-        <S.CardTop>
-          <S.Badge>
-            {String(index + 1).padStart(2, "0")} · {project.role}
-          </S.Badge>
-          {!reduceMotion ? (
-            <S.ClickHint>{MAIN_PROJECTS_UI.clickHint}</S.ClickHint>
-          ) : null}
-        </S.CardTop>
-        <S.Media>
-          <Image
-            src={project.image}
-            alt={`${project.title} 대표 이미지`}
-            width={720}
-            height={480}
-            sizes="(max-width: 768px) 85vw, 42vw"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-            onLoadingComplete={measure}
-          />
-        </S.Media>
-        <S.CardBottom>
-          <div>
-            <S.CardTitle>{project.title}</S.CardTitle>
-            <S.CardSummary>{project.summary}</S.CardSummary>
-          </div>
-          {!reduceMotion ? (
-            <S.Year>{project.period.slice(0, 4)}</S.Year>
-          ) : null}
-        </S.CardBottom>
-      </Link>
-    </S.Card>
-  ));
+  const cards = PROJECTS.filter((project) => project.featured).map(
+    (project, index) => (
+      <ProjectFlipCard
+        key={project.slug}
+        project={project}
+        index={index}
+        onMediaLoad={measure}
+      />
+    )
+  );
 
   if (reduceMotion) {
     return (

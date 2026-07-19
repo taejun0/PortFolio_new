@@ -5,9 +5,13 @@
  */
 export const PROJECTS_PAGE_UI = {
   label: "Projects",
-  title: "Projects",
+  title: "Featured projects",
+  subtitle: "팀·솔로·해커톤에서 진행한 프로젝트들입니다.",
   empty: "등록된 프로젝트가 없습니다.",
-  backToList: "목록으로",
+  featuredBadge: "Featured",
+  backToList: "← Projects",
+  viewGithub: "GitHub",
+  viewDemo: "Live demo",
   decisionsHeading: "기술적 의사결정",
   rolesHeading: "담당 역할",
   challengesHeading: "Challenge & Solution",
