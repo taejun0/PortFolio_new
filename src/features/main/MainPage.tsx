@@ -1,16 +1,16 @@
 /**
  * 생성 이유: 메인 페이지에 속한 UI와 동작을 라우트 계층에서 분리한다.
  * 역할: Thomas Eduardo식 섹션 스크롤 메인 페이지다.
- * 책임: Hero→About→Thinking→Projects→Signals→Blog→Contact 순서를 관리한다.
+ * 책임: Hero→지표→About→Projects→Stack→Blog→Contact 순서를 관리한다.
  */
 "use client";
 
 import * as S from "./MainPage.styled";
 import IntroSection from "./components/intro/IntroSection";
+import StatsSection from "./components/stats/StatsSection";
 import AboutSection from "./components/about/AboutSection";
-import ThinkingSection from "./components/thinking/ThinkingSection";
 import ProjectsSection from "./components/projects/ProjectsSection";
-import SignalsSection from "./components/signals/SignalsSection";
+import StackSection from "./components/stack/StackSection";
 import BlogSection from "./components/blog/BlogSection";
 import CloseSection from "./components/close/CloseSection";
 import type { BlogPostMeta } from "@/features/blog/types";
@@ -22,10 +22,10 @@ type MainPageProps = {
 const MainPage = ({ recentPosts }: MainPageProps) => (
   <S.Wrapper>
     <IntroSection />
+    <StatsSection />
     <AboutSection />
-    <ThinkingSection />
     <ProjectsSection />
-    <SignalsSection />
+    <StackSection />
     <BlogSection posts={recentPosts} />
     <CloseSection />
   </S.Wrapper>

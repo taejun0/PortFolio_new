@@ -1,66 +1,81 @@
 /**
  * 생성 이유: 메인 블로그 티저 스타일을 분리한다.
- * 역할: Blog 리스트·서사 스타일을 정의한다.
- * 책임: Blog 섹션 내부 목록·설명 시각만 소유한다.
+ * 역할: Articles 헤더·행 리스트 스타일을 정의한다.
+ * 책임: 날짜·제목·화살표 행 시각만 소유한다.
  */
 import styled from "@emotion/styled";
 
-export const PostList = styled.ul`
-  display: grid;
-  gap: ${({ theme }) => theme.space[3]};
+export const Header = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.space[4]};
   margin-bottom: ${({ theme }) => theme.space[6]};
 `;
 
+export const Aside = styled.p`
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  color: ${({ theme }) => theme.colors.textMuted};
+`;
+
+export const Stats = styled.p`
+  margin-bottom: ${({ theme }) => theme.space[5]};
+  font-size: ${({ theme }) => theme.typography.label.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.accent};
+`;
+
+export const PostList = styled.ul`
+  display: grid;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+`;
+
 export const PostItem = styled.li`
-  padding: ${({ theme }) => theme.space[5]};
-  border-radius: 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  background: ${({ theme }) => theme.colors.surface};
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
-  &:hover {
-    transform: translateY(-2px);
-    border-color: ${({ theme }) => theme.colors.borderStrong};
+  a {
+    display: grid;
+    gap: ${({ theme }) => theme.space[2]};
+    padding: ${({ theme }) => theme.space[5]} 0;
+    transition: color 0.2s ease;
 
-    h3 {
-      color: ${({ theme }) => theme.colors.accent};
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      grid-template-columns: clamp(5.5rem, 12vw, 7.5rem) 1fr auto;
+      align-items: baseline;
+      gap: ${({ theme }) => theme.space[5]};
     }
+  }
+
+  &:hover h3 {
+    color: ${({ theme }) => theme.colors.accent};
   }
 `;
 
 export const PostMeta = styled.p`
-  margin-bottom: ${({ theme }) => theme.space[1]};
-  font-size: 0.8125rem;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 export const PostTitle = styled.h3`
-  margin-bottom: ${({ theme }) => theme.space[2]};
-  font-size: 1.125rem;
+  font-size: ${({ theme }) => theme.typography.heading.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   color: ${({ theme }) => theme.colors.text};
   transition: color 0.2s ease;
 `;
 
-export const PostDesc = styled.p`
-  font-size: 0.9375rem;
-  line-height: 1.55;
+export const Arrow = styled.span`
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   color: ${({ theme }) => theme.colors.textMuted};
-`;
-
-export const Description = styled.div`
-  margin-top: ${({ theme }) => theme.space[5]};
-`;
-
-export const Stats = styled.p`
-  margin-bottom: ${({ theme }) => theme.space[4]};
-  font-size: 1.0625rem;
-  font-weight: ${({ theme }) => theme.fonts.weights.medium};
-  line-height: 1.6;
-  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const Empty = styled.p`
   margin-bottom: ${({ theme }) => theme.space[5]};
   color: ${({ theme }) => theme.colors.textMuted};
+`;
+
+export const CtaWrap = styled.div`
+  margin-top: ${({ theme }) => theme.space[6]};
 `;

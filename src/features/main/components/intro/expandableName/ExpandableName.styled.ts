@@ -1,7 +1,7 @@
 /**
  * 생성 이유: 확장형 디스플레이 네임 스타일을 로직과 분리한다.
- * 역할: ExpandableName 고정 슬롯·glyph scaleX 시각을 정의한다.
- * 책임: 글자마다 동등한 자리를 두고, 확장 시 대비가 분명한 타이포만 소유한다.
+ * 역할: 균등 슬롯 안에서의 렌즈형 연출만 정의한다.
+ * 책임: scale·리프트·액센트 틴트 시각만 소유한다.
  */
 import styled from "@emotion/styled";
 
@@ -10,7 +10,7 @@ export const Name = styled.span`
   flex-wrap: nowrap;
   align-items: flex-end;
   width: 100%;
-  line-height: 0.9;
+  line-height: ${({ theme }) => theme.typography.heroName.lineHeight};
   user-select: none;
   cursor: default;
 `;
@@ -25,17 +25,32 @@ export const Slot = styled.span`
 
 export const Glyph = styled.span`
   display: inline-block;
-  font-size: clamp(2.75rem, 11vw, 7.5rem);
+  font-size: ${({ theme }) => theme.typography.heroName.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.extraBold};
-  line-height: 0.9;
-  color: ${({ theme }) => theme.colors.text};
-  transform: scaleX(var(--sx, 0.18));
+  letter-spacing: ${({ theme }) => theme.typography.heroName.letterSpacing};
+  line-height: ${({ theme }) => theme.typography.heroName.lineHeight};
+  color: color-mix(
+    in srgb,
+    ${({ theme }) => theme.colors.accent} calc(var(--tint, 0) * 100%),
+    ${({ theme }) => theme.colors.text}
+  );
+  text-shadow:
+    0 0 calc(var(--tint, 0) * 22px)
+      color-mix(
+        in srgb,
+        ${({ theme }) => theme.colors.accent} calc(var(--tint, 0) * 55%),
+        transparent
+      ),
+    0 calc(var(--tint, 0) * 10px) calc(var(--tint, 0) * 28px)
+      rgba(0, 0, 0, 0.35);
+  transform: translate3d(0, var(--ty, 0px), 0)
+    scaleX(var(--sx, 0.2)) scaleY(var(--sy, 0.94));
   transform-origin: center bottom;
-  opacity: calc(0.6 + var(--sx, 0.18) * 0.4);
   transition:
-    transform 0.16s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.16s ease-out;
-  will-change: transform, opacity;
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.18s ease,
+    text-shadow 0.18s ease;
+  will-change: transform, color, text-shadow;
 `;
 
 export const Space = styled.span`

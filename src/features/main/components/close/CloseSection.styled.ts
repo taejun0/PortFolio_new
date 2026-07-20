@@ -6,15 +6,15 @@
 import styled from "@emotion/styled";
 
 export const Inner = styled.div`
-  max-width: 36rem;
+  max-width: min(36rem, 100%);
   margin: 0 auto;
   text-align: center;
 `;
 
 export const Body = styled.p`
   margin-bottom: ${({ theme }) => theme.space[5]};
-  font-size: 1.125rem;
-  line-height: 1.7;
+  font-size: ${({ theme }) => theme.typography.bodyLg.fontSize};
+  line-height: ${({ theme }) => theme.typography.bodyLg.lineHeight};
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
@@ -28,9 +28,10 @@ export const Cta = styled.a`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.95rem 1.9rem;
+  padding: clamp(0.8rem, 0.65rem + 0.5vw, 1rem)
+    clamp(1.4rem, 1rem + 1.4vw, 2rem);
   border-radius: 999px;
-  font-size: 0.9375rem;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   color: ${({ theme }) => theme.colors.accentContrast};
   background: ${({ theme }) => theme.colors.accent};
@@ -50,7 +51,7 @@ export const Secondary = styled.div`
 `;
 
 export const SecondaryLink = styled.a`
-  font-size: 0.9375rem;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   color: ${({ theme }) => theme.colors.textMuted};
   transition: color 0.2s ease;

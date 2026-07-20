@@ -1,7 +1,7 @@
 /**
- * 생성 이유: 메인에서 최근 글과 글쓰기 이유를 보여 주기 위함이다.
+ * 생성 이유: 메인에서 최근 글을 가벼운 Articles 리스트로 보여 준다.
  * 역할: Blog 티저 섹션 컴포넌트다.
- * 책임: Velog/포폴 글 수 서사, 최근 글, /blog CTA를 렌더링한다.
+ * 책임: 통계·최근 글 행·/blog CTA만 렌더링한다.
  */
 "use client";
 
@@ -17,52 +17,39 @@ type BlogSectionProps = {
   posts: BlogPostMeta[];
 };
 
-const BlogSection = ({ posts }: BlogSectionProps) => {
-  const portfolioCount = posts.length;
-  const total = MAIN_BLOG_UI.velogCount + portfolioCount;
-
-  return (
-    <P.Section id={MAIN_SECTION_IDS.blog}>
-      <P.SectionInner>
-        <P.Label>{MAIN_BLOG_UI.label}</P.Label>
-        <P.Title>{MAIN_BLOG_UI.title}</P.Title>
-        {posts.length === 0 ? (
-          <S.Empty>{MAIN_BLOG_UI.empty}</S.Empty>
-        ) : (
-          <S.PostList>
-            {posts.map((post) => (
-              <S.PostItem key={post.slug}>
-                <Link href={blogDetailPath(post.slug)}>
-                  <S.PostMeta>{post.date}</S.PostMeta>
-                  <S.PostTitle>{post.title}</S.PostTitle>
-                  {post.description ? (
-                    <S.PostDesc>{post.description}</S.PostDesc>
-                  ) : null}
-                </Link>
-              </S.PostItem>
-            ))}
-          </S.PostList>
-        )}
-        <S.Description>
-          <S.Stats>
-            {MAIN_BLOG_UI.statsTemplate(
-              MAIN_BLOG_UI.velogCount,
-              portfolioCount,
-              total
-            )}
-          </S.Stats>
-          {MAIN_BLOG_UI.paragraphs.map((paragraph) => (
-            <P.Body key={paragraph}>{paragraph}</P.Body>
+const BlogSection = ({ posts }: BlogSectionProps) => (
+  <P.Section id={MAIN_SECTION_IDS.blog}>
+    <P.SectionInner>
+      <P.Label>{MAIN_BLOG_UI.label}</P.Label>
+      <S.Header>
+        <P.Title $flush>{MAIN_BLOG_UI.title}</P.Title>
+        <S.Aside>{MAIN_BLOG_UI.aside}</S.Aside>
+      </S.Header>
+      <S.Stats>
+        {MAIN_BLOG_UI.statsTemplate(MAIN_BLOG_UI.velogCount, posts.length)}
+      </S.Stats>
+      {posts.length === 0 ? (
+        <S.Empty>{MAIN_BLOG_UI.empty}</S.Empty>
+      ) : (
+        <S.PostList>
+          {posts.map((post) => (
+            <S.PostItem key={post.slug}>
+              <Link href={blogDetailPath(post.slug)}>
+                <S.PostMeta>{post.date}</S.PostMeta>
+                <S.PostTitle>{post.title}</S.PostTitle>
+                <S.Arrow aria-hidden>→</S.Arrow>
+              </Link>
+            </S.PostItem>
           ))}
-        </S.Description>
+        </S.PostList>
+      )}
+      <S.CtaWrap>
         <Link href={ROUTES.BLOG}>
-          <P.TextLink>
-            {MAIN_BLOG_UI.cta} {"->"}
-          </P.TextLink>
+          <P.TextLink>{MAIN_BLOG_UI.cta} →</P.TextLink>
         </Link>
-      </P.SectionInner>
-    </P.Section>
-  );
-};
+      </S.CtaWrap>
+    </P.SectionInner>
+  </P.Section>
+);
 
 export default BlogSection;

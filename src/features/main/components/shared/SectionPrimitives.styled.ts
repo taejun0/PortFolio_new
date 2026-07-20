@@ -1,12 +1,17 @@
 /**
  * 생성 이유: 메인 섹션 공통 레이아웃 스타일을 재사용한다.
  * 역할: Thomas Eduardo식 섹션 라벨·타이틀·CTA 프리미티브다.
- * 책임: 포트폴리오 본문 섹션의 기본 간격·타이포 골격만 제공한다.
+ * 책임: 포트폴리오 본문 섹션의 기본 간격·타이포·챕터(100dvh) 골격을 제공한다.
  */
 import styled from "@emotion/styled";
 
 export const Section = styled.section<{ $alt?: boolean }>`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
   padding: ${({ theme }) => theme.layout.sectionPaddingY}
     ${({ theme }) => theme.layout.gutter};
   background: ${({ theme, $alt }) =>
@@ -15,6 +20,7 @@ export const Section = styled.section<{ $alt?: boolean }>`
 `;
 
 export const SectionInner = styled.div`
+  width: 100%;
   max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
 `;
@@ -28,8 +34,9 @@ export const Label = styled.p`
   color: ${({ theme }) => theme.colors.accent};
 `;
 
-export const Title = styled.h2`
-  margin-bottom: ${({ theme }) => theme.space[6]};
+export const Title = styled.h2<{ $flush?: boolean }>`
+  margin-bottom: ${({ theme, $flush }) =>
+    $flush ? "0" : theme.space[6]};
   font-size: ${({ theme }) => theme.typography.title.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   line-height: ${({ theme }) => theme.typography.title.lineHeight};
@@ -51,9 +58,10 @@ export const CtaButton = styled.span`
   align-items: center;
   justify-content: center;
   margin-top: ${({ theme }) => theme.space[5]};
-  padding: 0.9rem 1.75rem;
+  padding: clamp(0.8rem, 0.65rem + 0.5vw, 1rem)
+    clamp(1.35rem, 1rem + 1.2vw, 1.9rem);
   border-radius: 999px;
-  font-size: 0.9375rem;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   color: ${({ theme }) => theme.colors.accentContrast};
   background: ${({ theme }) => theme.colors.accent};
@@ -68,7 +76,7 @@ export const CtaButton = styled.span`
 export const TextLink = styled.span`
   display: inline-block;
   margin-top: ${({ theme }) => theme.space[5]};
-  font-size: 0.9375rem;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   color: ${({ theme }) => theme.colors.accent};
   transition: color 0.2s ease;

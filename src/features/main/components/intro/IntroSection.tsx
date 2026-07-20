@@ -1,7 +1,7 @@
 /**
  * 생성 이유: Thomas Eduardo식 히어로를 메인 조합과 분리한다.
  * 역할: Intro(Hero) 섹션 컴포넌트다.
- * 책임: 역할 라인·확장형 이름·소개·스크롤 힌트를 렌더링한다. CTA는 두지 않는다.
+ * 책임: 역할·이름·소개·스크롤 힌트만 렌더링한다. (마퀴는 About으로 이동)
  */
 "use client";
 
@@ -25,9 +25,9 @@ const IntroSection = () => (
       </S.DisplayWrap>
       <S.Title>{MAIN_HERO_UI.title}</S.Title>
     </S.Inner>
-    <S.ScrollHint href={MAIN_HERO_UI.scrollHref}>
+    <S.ScrollHint href={MAIN_HERO_UI.scrollHref} aria-label="아래로 스크롤">
+      <S.ScrollMouse aria-hidden />
       <span>{MAIN_HERO_UI.scroll}</span>
-      <S.ScrollLine aria-hidden />
     </S.ScrollHint>
   </S.Section>
 );

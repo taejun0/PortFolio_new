@@ -1,7 +1,12 @@
 /**
  * 생성 이유: Thomas Eduardo식 가변 폭 이름 연출을 히어로 본문과 분리한다.
- * 역할: 커서 근접에 따라 주변 글자 가로 폭이 늘어나는 디스플레이 네임이다.
- * 책임: 슬롯 고정 + 넓은 영향 반경의 scaleX 보간, rAF 기반 갱신을 담당한다.
+ * 역할: 커서 근접에 반응하는 디스플레이 네임이다.
+ * 책임: scale·리프트·액센트 틴트로 렌즈형 반응을 보간한다.
+ *
+ * 심미 원칙 (Pretendard는 wdth 축이 없음):
+ * - 슬롯 폭은 고정 → 레이아웃이 덜렁거리지 않음
+ * - 근접 글자만 scaleX/Y·색·그림자로 강조
+ * - 완만한 falloff로 2~3글자가 같이 숨 쉬듯 반응
  */
 "use client";
 
@@ -9,13 +14,17 @@ import { useEffect, useRef, useState } from "react";
 
 import * as S from "./ExpandableName.styled";
 
-const MIN_SCALE = 0.18;
-const MAX_SCALE = 1;
-/** 커서에서 이 거리(px) 안이면 글자가 펼쳐지기 시작 */
-const INFLUENCE_RADIUS = 200;
-/** 이름 영역 바깥에서도 반응을 받기 위한 여유 */
-const HIT_PAD = 96;
-const Y_WEIGHT = 0.7;
+const MIN_SCALE_X = 0.2;
+const MAX_SCALE_X = 1.08;
+const MIN_SCALE_Y = 0.94;
+const MAX_SCALE_Y = 1.14;
+const MAX_LIFT = -14;
+const Y_WEIGHT = 0.55;
+
+const influenceRadius = () =>
+  Math.min(280, Math.max(150, window.innerWidth * 0.145));
+
+const hitPad = () => Math.min(160, Math.max(96, window.innerWidth * 0.09));
 
 type ExpandableNameProps = {
   text: string;
@@ -26,9 +35,6 @@ const ExpandableName = ({ text }: ExpandableNameProps) => {
   const rootRef = useRef<HTMLSpanElement>(null);
   const slotRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const glyphRefs = useRef<Array<HTMLSpanElement | null>>([]);
-  const scalesRef = useRef<number[]>(
-    letters.map((char) => (char === " " ? 1 : MIN_SCALE))
-  );
   const pointerRef = useRef<{ x: number; y: number; inside: boolean }>({
     x: 0,
     y: 0,
@@ -49,55 +55,93 @@ const ExpandableName = ({ text }: ExpandableNameProps) => {
     const chars = Array.from(text);
     const glyphs = glyphRefs.current;
 
-    const paint = (values: number[]) => {
-      values.forEach((scale, index) => {
+    const paint = (
+      scalesX: number[],
+      scalesY: number[],
+      lifts: number[],
+      tints: number[]
+    ) => {
+      scalesX.forEach((scaleX, index) => {
         const glyph = glyphs[index];
         if (!glyph || chars[index] === " ") return;
-        glyph.style.setProperty("--sx", scale.toFixed(3));
+        glyph.style.setProperty("--sx", scaleX.toFixed(3));
+        glyph.style.setProperty("--sy", scalesY[index].toFixed(3));
+        glyph.style.setProperty("--ty", `${lifts[index].toFixed(2)}px`);
+        glyph.style.setProperty("--tint", tints[index].toFixed(3));
       });
     };
 
     if (reducedMotion) {
-      const full = chars.map(() => MAX_SCALE);
-      scalesRef.current = full;
-      paint(full);
+      const ones = chars.map(() => 1);
+      const zeros = chars.map(() => 0);
+      paint(
+        chars.map(() => MAX_SCALE_X),
+        ones,
+        zeros,
+        zeros
+      );
       return;
     }
 
-    const reset = () => {
-      const next = chars.map((char) => (char === " " ? 1 : MIN_SCALE));
-      scalesRef.current = next;
-      paint(next);
+    const idle = () => {
+      paint(
+        chars.map((char) => (char === " " ? 1 : MIN_SCALE_X)),
+        chars.map((char) => (char === " " ? 1 : MIN_SCALE_Y)),
+        chars.map(() => 0),
+        chars.map(() => 0)
+      );
     };
 
-    reset();
+    idle();
 
     const tick = () => {
       rafRef.current = null;
       const { x, y, inside } = pointerRef.current;
 
       if (!inside) {
-        reset();
+        idle();
         return;
       }
 
-      const next = chars.map((char, index) => {
-        if (char === " ") return 1;
+      const scalesX: number[] = [];
+      const scalesY: number[] = [];
+      const lifts: number[] = [];
+      const tints: number[] = [];
+
+      chars.forEach((char, index) => {
+        if (char === " ") {
+          scalesX.push(1);
+          scalesY.push(1);
+          lifts.push(0);
+          tints.push(0);
+          return;
+        }
+
         const slot = slotRefs.current[index];
-        if (!slot) return MIN_SCALE;
+        if (!slot) {
+          scalesX.push(MIN_SCALE_X);
+          scalesY.push(MIN_SCALE_Y);
+          lifts.push(0);
+          tints.push(0);
+          return;
+        }
 
         const rect = slot.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
         const cy = rect.top + rect.height / 2;
         const distance = Math.hypot(x - cx, (y - cy) * Y_WEIGHT);
-        const t = Math.max(0, 1 - distance / INFLUENCE_RADIUS);
-        // 부드러운 falloff — 근처만 가도 여러 글자가 함께 반응
+        const t = Math.max(0, 1 - distance / influenceRadius());
+        // 중심은 더 세게, 가장자리는 부드럽게
         const eased = t * t * (3 - 2 * t);
-        return MIN_SCALE + (MAX_SCALE - MIN_SCALE) * eased;
+        const punch = Math.pow(eased, 0.85);
+
+        scalesX.push(MIN_SCALE_X + (MAX_SCALE_X - MIN_SCALE_X) * punch);
+        scalesY.push(MIN_SCALE_Y + (MAX_SCALE_Y - MIN_SCALE_Y) * punch);
+        lifts.push(MAX_LIFT * punch);
+        tints.push(punch);
       });
 
-      scalesRef.current = next;
-      paint(next);
+      paint(scalesX, scalesY, lifts, tints);
     };
 
     const requestTick = () => {
@@ -109,11 +153,12 @@ const ExpandableName = ({ text }: ExpandableNameProps) => {
       const root = rootRef.current;
       if (!root) return;
       const bounds = root.getBoundingClientRect();
+      const pad = hitPad();
       const inside =
-        event.clientX >= bounds.left - HIT_PAD &&
-        event.clientX <= bounds.right + HIT_PAD &&
-        event.clientY >= bounds.top - HIT_PAD &&
-        event.clientY <= bounds.bottom + HIT_PAD;
+        event.clientX >= bounds.left - pad &&
+        event.clientX <= bounds.right + pad &&
+        event.clientY >= bounds.top - pad &&
+        event.clientY <= bounds.bottom + pad;
 
       pointerRef.current = {
         x: event.clientX,
