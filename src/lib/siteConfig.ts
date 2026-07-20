@@ -22,7 +22,7 @@ export const SITE_CONFIG = {
  * 댓글: Giscus(Discussions Announcements 등) — 본문 소스와 분리.
  */
 export const BLOG_DISCUSSIONS_CONFIG = {
-  repo: "taejun0/Portfolio" as `${string}/${string}`,
+  repo: "taejun0/PortFolio_new" as `${string}/${string}`,
   /** Discussions에서 블로그 본문으로 쓸 카테고리 이름 */
   category: "Blog",
   slugPrefix: "d-",
@@ -33,7 +33,7 @@ export const BLOG_DISCUSSIONS_CONFIG = {
  * 레포 Discussions 활성화 및 giscus 앱 설치 후 repo/category id를 채운다.
  */
 export const GISCUS_CONFIG = {
-  repo: "taejun0/Portfolio" as `${string}/${string}`,
+  repo: "taejun0/PortFolio_new" as `${string}/${string}`,
   repoId: "",
   category: "Announcements",
   categoryId: "",
