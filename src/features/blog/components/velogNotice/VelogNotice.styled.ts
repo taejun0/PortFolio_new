@@ -6,10 +6,9 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  margin-bottom: ${({ theme }) => theme.space[5]};
-  padding: ${({ theme }) => theme.space[4]} 0;
+  margin-top: ${({ theme }) => theme.space[6]};
+  padding: ${({ theme }) => theme.space[5]} 0 ${({ theme }) => theme.space[4]};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   text-align: center;
 `;
 

@@ -5,9 +5,15 @@
  */
 export const BLOG_DATE_FORMAT = "yyyy년 M월 d일" as const;
 
+/** Velog에 먼저 작성된 글 수. 포트폴리오·Discussions 글 번호는 이어서 매깁니다. */
+export const BLOG_LEGACY_VELOG_POST_COUNT = 51;
+
+export const formatBlogPostNumber = (index: number, total: number) =>
+  String(BLOG_LEGACY_VELOG_POST_COUNT + (total - index)).padStart(2, "0");
+
 export const BLOG_PAGE_UI = {
   label: "Blog",
-  title: "My Blog.",
+  title: "My Blog",
   subtitle: "제가 작성한 기술 블로그 글을 모아볼 수 있습니다",
   empty: "작성된 글이 없습니다.",
   backToList: "목록으로",

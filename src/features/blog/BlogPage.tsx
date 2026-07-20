@@ -10,7 +10,7 @@ import Link from "next/link";
 
 import * as S from "./BlogPage.styled";
 import VelogNotice from "./components/velogNotice/VelogNotice";
-import { BLOG_PAGE_UI } from "./constants";
+import { BLOG_PAGE_UI, formatBlogPostNumber } from "./constants";
 import type { BlogPostMeta } from "./types";
 import { blogDetailPath } from "@/constants/routes";
 
@@ -24,8 +24,6 @@ const BlogPage = ({ posts }: BlogPageProps) => (
       <S.Label>{BLOG_PAGE_UI.label}</S.Label>
       <S.Title>{BLOG_PAGE_UI.title}</S.Title>
       <S.Subtitle>{BLOG_PAGE_UI.subtitle}</S.Subtitle>
-      <VelogNotice />
-      <S.Hint>{BLOG_PAGE_UI.discussionsHint}</S.Hint>
       {posts.length === 0 ? (
         <S.Empty>{BLOG_PAGE_UI.empty}</S.Empty>
       ) : (
@@ -36,7 +34,7 @@ const BlogPage = ({ posts }: BlogPageProps) => (
                 <S.Row>
                   <S.Copy>
                     <S.Index>
-                      {String(index + 1).padStart(2, "0")}
+                      {formatBlogPostNumber(index, posts.length)}
                       {post.source === "discussion"
                         ? ` · ${BLOG_PAGE_UI.discussionBadge}`
                         : ""}
@@ -67,6 +65,7 @@ const BlogPage = ({ posts }: BlogPageProps) => (
           ))}
         </S.List>
       )}
+      <VelogNotice />
     </S.Inner>
   </S.Wrapper>
 );

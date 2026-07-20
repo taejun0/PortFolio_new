@@ -7,8 +7,9 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   width: 100%;
-  padding: ${({ theme }) => theme.layout.sectionPaddingY}
-    ${({ theme }) => theme.layout.gutter};
+  padding-top: ${({ theme }) => theme.layout.sectionPaddingY};
+  padding-bottom: ${({ theme }) => theme.space[6]};
+  padding-inline: ${({ theme }) => theme.layout.gutter};
   background: ${({ theme }) => theme.colors.background};
 `;
 
@@ -42,9 +43,9 @@ export const Subtitle = styled.p`
 export const Hint = styled.p`
   margin-bottom: ${({ theme }) => theme.space[6]};
   padding: ${({ theme }) => theme.space[4]};
-  border-radius: 0.75rem;
+  border-radius: ${({ theme }) => theme.layout.radius.md};
   border: 1px dashed ${({ theme }) => theme.colors.borderStrong};
-  font-size: 0.9375rem;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   line-height: 1.55;
   color: ${({ theme }) => theme.colors.textMuted};
 `;
@@ -60,7 +61,7 @@ export const List = styled.ul`
 
 export const Item = styled.li`
   padding: ${({ theme }) => theme.space[5]};
-  border-radius: 1rem;
+  border-radius: ${({ theme }) => theme.layout.radius.md};
   border: 1px solid ${({ theme }) => theme.colors.border};
   background: ${({ theme }) => theme.colors.surface};
   transition: border-color 0.2s ease, transform 0.2s ease;
@@ -100,7 +101,7 @@ export const Copy = styled.div`
 
 export const Index = styled.p`
   margin-bottom: ${({ theme }) => theme.space[2]};
-  font-size: 0.75rem;
+  font-size: ${({ theme }) => theme.typography.small.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   letter-spacing: 0.06em;
   color: ${({ theme }) => theme.colors.accent};
@@ -122,7 +123,7 @@ export const ItemDescription = styled.p`
 `;
 
 export const Meta = styled.p`
-  font-size: 0.8125rem;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
@@ -138,9 +139,9 @@ export const ThumbWrap = styled.div`
 export const Thumb = styled.div`
   overflow: hidden;
   width: 100%;
-  max-width: 13.5rem;
+  max-width: clamp(10rem, 22vw, 13.5rem);
   aspect-ratio: 16 / 10;
-  border-radius: 0.85rem;
+  border-radius: ${({ theme }) => theme.layout.radius.md};
   border: 1px solid ${({ theme }) => theme.colors.border};
   background: ${({ theme }) => theme.colors.surfaceAlt};
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);

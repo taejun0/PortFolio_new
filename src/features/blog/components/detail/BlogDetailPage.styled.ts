@@ -13,14 +13,15 @@ export const Wrapper = styled.article`
 `;
 
 export const Inner = styled.div`
-  max-width: 40rem;
+  width: 100%;
+  max-width: min(40rem, 100%);
   margin: 0 auto;
 `;
 
 export const BackLink = styled.span`
   display: inline-block;
   margin-bottom: ${({ theme }) => theme.space[5]};
-  font-size: 0.875rem;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   color: ${({ theme }) => theme.colors.accent};
 `;
@@ -30,7 +31,7 @@ export const Badge = styled.span`
   margin-bottom: ${({ theme }) => theme.space[3]};
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: ${({ theme }) => theme.typography.small.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   color: ${({ theme }) => theme.colors.accentContrast};
   background: ${({ theme }) => theme.colors.accent};
@@ -38,29 +39,29 @@ export const Badge = styled.span`
 
 export const Title = styled.h1`
   margin-bottom: ${({ theme }) => theme.space[3]};
-  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-size: ${({ theme }) => theme.typography.title.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  line-height: ${({ theme }) => theme.typography.title.lineHeight};
+  letter-spacing: ${({ theme }) => theme.typography.title.letterSpacing};
   color: ${({ theme }) => theme.colors.text};
 `;
 
 export const Meta = styled.p`
   margin-bottom: ${({ theme }) => theme.space[4]};
-  font-size: 0.875rem;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 export const DiscussionLink = styled.a`
   display: inline-block;
   margin-bottom: ${({ theme }) => theme.space[6]};
-  font-size: 0.875rem;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   color: ${({ theme }) => theme.colors.accent};
 `;
 
 export const Content = styled.div`
-  font-size: 1.0625rem;
+  font-size: ${({ theme }) => theme.typography.bodyLg.fontSize};
   line-height: 1.8;
   color: ${({ theme }) => theme.colors.text};
 
@@ -90,7 +91,7 @@ export const Content = styled.div`
 
   img {
     margin: ${({ theme }) => theme.space[5]} 0;
-    border-radius: 0.75rem;
+    border-radius: ${({ theme }) => theme.layout.radius.md};
   }
 
   code {
@@ -102,7 +103,7 @@ export const Content = styled.div`
     overflow-x: auto;
     margin-bottom: ${({ theme }) => theme.space[5]};
     padding: ${({ theme }) => theme.space[4]};
-    border-radius: 0.5rem;
+    border-radius: ${({ theme }) => theme.layout.radius.sm};
     border: 1px solid ${({ theme }) => theme.colors.border};
     background: ${({ theme }) => theme.colors.surface};
   }
