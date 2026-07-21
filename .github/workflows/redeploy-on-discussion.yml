@@ -1,0 +1,23 @@
+# 생성 이유: Discussions Blog 글이 올라오면 사이트를 다시 빌드하기 위함이다.
+# 역할: Discussion 이벤트에 반응해 Vercel Deploy Hook을 호출한다.
+# 책임: Blog 카테고리 discussion 생성·수정·삭제 시에만 재배포를 트리거한다.
+name: Redeploy on Blog discussion
+
+on:
+  discussion:
+    types: [created, edited, deleted, category_changed]
+
+jobs:
+  redeploy:
+    if: github.event.discussion.category.name == 'Blog'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel Deploy Hook
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$DEPLOY_HOOK_URL" ]; then
+            echo "VERCEL_DEPLOY_HOOK_URL secret is missing"
+            exit 1
+          fi
+          curl -fsS -X POST "$DEPLOY_HOOK_URL"
