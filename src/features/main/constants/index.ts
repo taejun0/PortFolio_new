@@ -1,6 +1,6 @@
 /**
  * 생성 이유: 메인 섹션 문구를 컴포넌트 JSX에서 분리한다.
- * 역할: Hero→지표→About→Projects→Stack→Blog→Contact 카피·앵커 id를 제공한다.
+ * 역할: Hero→About→Projects→Stack→Blog→Contact 카피·앵커 id를 제공한다.
  * 책임: PortfolioPage 톤을 유지한 채 Thomas Eduardo식 섹션 서사에 배치한다.
  */
 export const MAIN_SECTION_IDS = {
@@ -22,13 +22,13 @@ export const MAIN_HERO_UI = {
 
 export const MAIN_STATS_UI = {
   items: [
-    { value: "20+", unit: "Projects", detail: "팀·솔로·해커톤·외주 포함" },
-    { value: "1만+", unit: "Users", detail: "실사용자가 있는 서비스 제공 경험" },
-    { value: "51+", unit: "Writing", detail: "Velog 기술 기록" },
+    { value: "20+", unit: "Projects", detail: "다양한 프로젝트 경험" },
+    { value: "1만+", unit: "Users", detail: "사용자 있는 서비스" },
+    { value: "50+", unit: "Writing", detail: "공유의 가치" },
     {
-      value: "FE",
+      value: "FE·BE·Infra",
       unit: "Oriented",
-      detail: "FE·BE·Infra 경험, FE 중심",
+      detail: "FE·BE·Infra 경험",
     },
   ],
 } as const;
@@ -55,6 +55,7 @@ export const MAIN_ABOUT_UI = {
 export const MAIN_PROJECTS_UI = {
   label: "Projects",
   title: "Featured projects",
+  aside: "카드를 누르면 상세 정보를 볼 수 있습니다.",
   cta: "전체 보기",
   detailCta: "자세히",
   demoCta: "웹 뷰",
@@ -80,11 +81,32 @@ export const MAIN_BLOG_UI = {
 
 export const MAIN_CLOSE_UI = {
   label: "Contact",
-  title: "Contact me",
-  body: "언제든 편하게 연락주세요",
-  githubLabel: "GitHub",
-  emailLabel: "Email",
-  cta: "Get In Touch",
+  title: "Contact me.",
+  body: "프로젝트·협업·커피챗 모두 환영합니다. 편하게 메일이나 GitHub로 연락 주세요.",
+  availability: "Available for projects",
+  location: "Uijeongbu, KR",
+  channels: [
+    {
+      label: "Email",
+      hint: "가장 빠른 연락",
+      valueKey: "email" as const,
+      hrefKind: "mailto" as const,
+    },
+    {
+      label: "GitHub",
+      hint: "코드와 활동",
+      valueKey: "githubPath" as const,
+      hrefKind: "github" as const,
+    },
+    {
+      label: "Velog",
+      hint: "기술 기록",
+      valueKey: "velog" as const,
+      hrefKind: "velog" as const,
+    },
+  ],
+  cta: "Send email",
+  ctaHint: "또는 아래 채널로 바로 이동",
 } as const;
 
 export const MAIN_FOOTER_UI = {

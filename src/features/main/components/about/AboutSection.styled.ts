@@ -1,9 +1,56 @@
 /**
  * 생성 이유: 메인 About 티저를 균형 잡힌 2열로 보여 준다.
  * 역할: AboutSection 레이아웃 스타일을 정의한다.
- * 책임: 초상·본문·팩트 배치만 소유한다. (상세 구도는 AboutPage)
+ * 책임: 능력 지표·초상·본문·팩트 배치만 소유한다. (상세 구도는 AboutPage)
  */
 import styled from "@emotion/styled";
+
+export const Stats = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: ${({ theme }) => theme.space[4]} ${({ theme }) => theme.space[5]};
+  margin: 0 0 ${({ theme }) => theme.space[7]};
+  padding: ${({ theme }) => theme.space[5]} 0;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+export const Stat = styled.article`
+  display: grid;
+  gap: ${({ theme }) => theme.space[1]};
+  min-width: 0;
+`;
+
+export const StatValue = styled.p`
+  font-size: clamp(1.85rem, 1.2rem + 2vw, 2.75rem);
+  font-weight: ${({ theme }) => theme.fonts.weights.extraBold};
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+export const StatUnit = styled.p`
+  font-size: ${({ theme }) => theme.typography.small.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.accent};
+`;
+
+export const StatDetail = styled.p`
+  max-width: 16ch;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  line-height: 1.5;
+  color: ${({ theme }) => theme.colors.textMuted};
+`;
 
 export const Layout = styled.div`
   display: grid;
