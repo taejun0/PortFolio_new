@@ -35,9 +35,6 @@ const BlogPage = ({ posts }: BlogPageProps) => (
                   <S.Copy>
                     <S.Index>
                       {formatBlogPostNumber(index, posts.length)}
-                      {post.source === "discussion"
-                        ? ` · ${BLOG_PAGE_UI.discussionBadge}`
-                        : ""}
                     </S.Index>
                     <S.ItemTitle>{post.title}</S.ItemTitle>
                     <S.ItemDescription>{post.description}</S.ItemDescription>

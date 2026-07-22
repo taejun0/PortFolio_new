@@ -18,7 +18,6 @@ export const BLOG_PAGE_UI = {
   empty: "작성된 글이 없습니다.",
   backToList: "목록으로",
   commentsHeading: "Comments",
-  discussionBadge: "Discussion",
   discussionLink: "GitHub Discussion에서 보기 →",
   discussionCommentsHint: "댓글은 GitHub Discussion에서 이어갈 수 있습니다 →",
   discussionsHint:

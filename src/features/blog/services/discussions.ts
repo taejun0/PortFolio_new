@@ -104,7 +104,7 @@ const toMeta = (node: DiscussionNode): BlogPostMeta => ({
   title: node.title,
   date: toDate(node.createdAt),
   description: toDescription(node.body ?? ""),
-  tags: ["Discussion"],
+  tags: [],
   source: "discussion",
   discussionNumber: node.number,
   discussionUrl: node.url,

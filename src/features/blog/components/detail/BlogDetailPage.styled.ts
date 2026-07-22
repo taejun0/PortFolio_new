@@ -26,17 +26,6 @@ export const BackLink = styled.span`
   color: ${({ theme }) => theme.colors.accent};
 `;
 
-export const Badge = styled.span`
-  display: inline-block;
-  margin-bottom: ${({ theme }) => theme.space[3]};
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  font-size: ${({ theme }) => theme.typography.small.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  color: ${({ theme }) => theme.colors.accentContrast};
-  background: ${({ theme }) => theme.colors.accent};
-`;
-
 export const Title = styled.h1`
   margin-bottom: ${({ theme }) => theme.space[3]};
   font-size: ${({ theme }) => theme.typography.title.fontSize};

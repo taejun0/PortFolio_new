@@ -23,9 +23,6 @@ const BlogDetailPage = ({ post }: BlogDetailPageProps) => (
       <Link href={ROUTES.BLOG}>
         <S.BackLink>{BLOG_PAGE_UI.backToList}</S.BackLink>
       </Link>
-      {post.source === "discussion" ? (
-        <S.Badge>{BLOG_PAGE_UI.discussionBadge}</S.Badge>
-      ) : null}
       <S.Title>{post.title}</S.Title>
       <S.Meta>
         {post.date}
