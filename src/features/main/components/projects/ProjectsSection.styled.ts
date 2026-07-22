@@ -61,6 +61,14 @@ export const Title = styled.h2`
   color: ${({ theme }) => theme.colors.text};
 `;
 
+export const Aside = styled.p`
+  margin-top: ${({ theme }) => theme.space[2]};
+  max-width: 28ch;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  line-height: 1.5;
+  color: ${({ theme }) => theme.colors.textMuted};
+`;
+
 export const ArchiveLink = styled.span`
   flex-shrink: 0;
   font-size: ${({ theme }) => theme.typography.small.fontSize};
@@ -68,10 +76,10 @@ export const ArchiveLink = styled.span`
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textMuted};
-  transition: color 0.2s ease;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 

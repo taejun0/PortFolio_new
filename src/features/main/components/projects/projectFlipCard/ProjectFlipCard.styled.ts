@@ -40,7 +40,8 @@ export const Face = styled.div<{ $front?: boolean; $back?: boolean }>`
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
-  transform: ${({ $back }) => ($back ? "rotateY(180deg)" : "rotateY(0deg)")};
+  transform: ${({ $back }) =>
+    $back ? "rotateY(180deg) translateZ(1px)" : "rotateY(0deg) translateZ(1px)"};
 `;
 
 export const Badge = styled.span`
@@ -75,9 +76,12 @@ export const FrontCopy = styled.div`
 `;
 
 export const Title = styled.h3`
+  min-width: 0;
   font-size: ${({ theme }) => theme.typography.heading.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   line-height: 1.25;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
   color: ${({ theme }) => theme.colors.text};
 `;
 
@@ -88,23 +92,33 @@ export const Summary = styled.p`
   overflow: hidden;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   line-height: 1.5;
+  word-break: keep-all;
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 export const BackScroll = styled.div`
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: ${({ theme }) => theme.space[3]};
-  height: 100%;
   min-height: 0;
+  overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
+  touch-action: pan-y;
   scrollbar-width: thin;
+  padding-right: 0.15rem;
+  mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 calc(100% - 1.25rem),
+    transparent 100%
+  );
 `;
 
 export const BackHeader = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: ${({ theme }) => theme.space[3]};
   flex-shrink: 0;
 `;
@@ -113,6 +127,7 @@ export const TitleMark = styled.span`
   flex-shrink: 0;
   width: clamp(1.25rem, 1rem + 0.5vw, 1.5rem);
   height: clamp(1.25rem, 1rem + 0.5vw, 1.5rem);
+  margin-top: 0.15rem;
   border-radius: ${({ theme }) => theme.layout.radius.sm};
   border: 1px solid ${({ theme }) => theme.colors.border};
   background: linear-gradient(
@@ -123,12 +138,10 @@ export const TitleMark = styled.span`
 `;
 
 export const Overview = styled.p`
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   line-height: 1.55;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
@@ -136,28 +149,37 @@ export const Tags = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
+  flex-shrink: 0;
 `;
 
 export const Tag = styled.li`
+  max-width: 100%;
   padding: 0.25rem 0.5rem;
   border-radius: 999px;
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
   font-size: ${({ theme }) => theme.typography.small.fontSize};
   color: ${({ theme }) => theme.colors.text};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Meta = styled.div`
   display: grid;
   gap: 0.2rem;
+  flex-shrink: 0;
   font-size: ${({ theme }) => theme.typography.small.fontSize};
   line-height: 1.45;
+  word-break: keep-all;
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 export const RoleTitle = styled.p`
+  flex-shrink: 0;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
+  word-break: keep-all;
   color: ${({ theme }) => theme.colors.text};
 `;
 
@@ -169,23 +191,29 @@ export const RoleList = styled.ul`
   line-height: 1.45;
   color: ${({ theme }) => theme.colors.textMuted};
   list-style: disc;
+
+  li {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
 `;
 
 export const Actions = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex-shrink: 0;
   gap: ${({ theme }) => theme.space[3]};
-  margin-top: auto;
   padding-top: ${({ theme }) => theme.space[2]};
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 export const TextLink = styled.span`
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  color: ${({ theme }) => theme.colors.text};
-  transition: color 0.2s ease;
+  color: ${({ theme }) => theme.colors.textMuted};
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   a:hover & {
-    color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;

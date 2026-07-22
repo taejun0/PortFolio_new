@@ -7,8 +7,9 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.article`
   width: 100%;
-  padding: clamp(4.5rem, 2.5rem + 7vw, 8rem)
-    ${({ theme }) => theme.layout.gutter};
+  padding-top: clamp(4.5rem, 2.5rem + 7vw, 8rem);
+  padding-bottom: ${({ theme }) => theme.space[6]};
+  padding-inline: ${({ theme }) => theme.layout.gutter};
   background: ${({ theme }) => theme.colors.background};
 `;
 
@@ -87,11 +88,12 @@ export const Links = styled.div`
 export const ExtLink = styled.a`
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  color: ${({ theme }) => theme.colors.accent};
+  color: ${({ theme }) => theme.colors.textMuted};
   text-decoration: none;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    opacity: 0.85;
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -106,7 +108,7 @@ export const Cover = styled.div`
 `;
 
 export const Overview = styled.p`
-  max-width: ${({ theme }) => theme.layout.measure};
+  max-width: min(56rem, 100%);
   margin-bottom: ${({ theme }) => theme.space[9]};
   font-size: ${({ theme }) => theme.typography.bodyLg.fontSize};
   line-height: ${({ theme }) => theme.typography.bodyLg.lineHeight};
@@ -129,7 +131,7 @@ export const BlockTitle = styled.h2`
 export const List = styled.ul`
   display: grid;
   gap: ${({ theme }) => theme.space[4]};
-  max-width: 42rem;
+  max-width: min(56rem, 100%);
 `;
 
 export const ListItem = styled.li`
@@ -154,7 +156,7 @@ export const Challenge = styled.div`
   margin-bottom: ${({ theme }) => theme.space[7]};
   padding-bottom: ${({ theme }) => theme.space[6]};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  max-width: 42rem;
+  max-width: min(56rem, 100%);
 
   &:last-child {
     margin-bottom: 0;
@@ -175,4 +177,8 @@ export const ChallengeText = styled.p`
   margin-bottom: ${({ theme }) => theme.space[4]};
   line-height: 1.75;
   color: ${({ theme }) => theme.colors.textMuted};
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;

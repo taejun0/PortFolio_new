@@ -61,6 +61,7 @@ const ProjectsSection = () => {
       <div>
         <S.Label>{MAIN_PROJECTS_UI.label}</S.Label>
         <S.Title>{MAIN_PROJECTS_UI.title}</S.Title>
+        <S.Aside>{MAIN_PROJECTS_UI.aside}</S.Aside>
       </div>
       <Link href={ROUTES.PROJECTS}>
         <S.ArchiveLink>{MAIN_PROJECTS_UI.cta} →</S.ArchiveLink>
