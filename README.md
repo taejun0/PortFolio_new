@@ -4,8 +4,6 @@
 
 **Live:** [https://www.taejun0-portfolio.site](https://www.taejun0-portfolio.site)
 
-디자인 레퍼런스: [Thomas Eduardo](https://www.thomaseduardo.com.br) — deep black canvas, lime accent, numbered sections.
-
 ## 기술 스택
 
 | 구분 | 사용 |
@@ -43,11 +41,13 @@ GITHUB_DISCUSSIONS_TOKEN=ghp_...
 
 Giscus 댓글은 `src/lib/siteConfig.ts`의 `GISCUS_CONFIG`에 `repoId`·`categoryId`를 채우면 활성화됩니다.
 
+Discussion이 올라오면 Vercel 재배포를 트리거하려면 `.github/workflows/redeploy-on-discussion.yml`과 `VERCEL_DEPLOY_HOOK_URL` 시크릿을 설정합니다.
+
 ## 사이트 맵
 
 | 경로 | 설명 |
 | --- | --- |
-| `/` | Intro → Stats → About 티저 → Projects → Stack → Blog → Contact |
+| `/` | Intro → About → Featured Projects → Stack → Blog → Contact |
 | `/about` | Profile · Approach · Trajectory · Tools |
 | `/projects` | 프로젝트 쇼케이스 목록 |
 | `/projects/[slug]` | 프로젝트 상세 |
@@ -58,16 +58,15 @@ Giscus 댓글은 `src/lib/siteConfig.ts`의 `GISCUS_CONFIG`에 `repoId`·`catego
 
 ### Main (`/`)
 
-- 히어로와 핵심 지표(Stats)로 후킹
-- About 티저 → `/about`으로 상세 연결
-- Featured 프로젝트, Stack, 최근 글, Contact
+- 히어로와 About 섹션(핵심 지표 포함)
+- Featured 프로젝트 가로 트랙, Stack, 최근 글, Contact
 
 ### About (`/about`)
 
-- Profile + Tools 마퀴
+- Profile
 - Development Philosophy (소통 / 협업 / 경험)
 - Trajectory 타임라인
-- Stack 미리보기
+- Tools / Stack
 
 ### Projects
 
@@ -88,10 +87,10 @@ Giscus 댓글은 `src/lib/siteConfig.ts`의 `GISCUS_CONFIG`에 `repoId`·`catego
 
 ```text
 src/
-├── app/                 # App Router (라우트·metadata만)
+├── app/                 # App Router (라우트·metadata)
 ├── components/          # 공통 레이아웃·UI
 │   ├── layout/          # Header, Footer, Splash, PageTransition
-│   ├── common/          # PortraitFrame 등
+│   ├── common/
 │   └── theme/           # light/dark ThemeModeProvider
 ├── features/            # 페이지 단위 feature
 │   ├── main/
@@ -105,8 +104,7 @@ content/blog/            # 마크다운 블로그 본문
 public/images/           # 프로필·스택·프로젝트 이미지
 ```
 
-페이지 전용 로직·컴포넌트·상수는 해당 `features/<page>/` 안에 둡니다.  
-자세한 규칙은 `.cursor/rules/`를 참고합니다.
+페이지 전용 로직·컴포넌트·상수는 해당 `features/<page>/` 안에 둡니다.
 
 ## 연락
 
