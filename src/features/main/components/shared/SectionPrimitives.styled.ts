@@ -65,11 +65,17 @@ export const CtaButton = styled.span`
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   color: ${({ theme }) => theme.colors.accentContrast};
   background: ${({ theme }) => theme.colors.accent};
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     background: ${({ theme }) => theme.colors.accentSecondary};
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
   }
 `;
 
@@ -78,10 +84,10 @@ export const TextLink = styled.span`
   margin-top: ${({ theme }) => theme.space[5]};
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  color: ${({ theme }) => theme.colors.accent};
-  transition: color 0.2s ease;
+  color: ${({ theme }) => theme.colors.textMuted};
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    color: ${({ theme }) => theme.colors.accentSecondary};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;

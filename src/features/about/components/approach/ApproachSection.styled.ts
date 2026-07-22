@@ -29,15 +29,14 @@ export const Tab = styled.button<{ $active: boolean }>`
   cursor: pointer;
   color: ${({ theme, $active }) =>
     $active ? theme.colors.text : theme.colors.textMuted};
-  opacity: ${({ $active }) => ($active ? 1 : 0.55)};
+  opacity: ${({ $active }) => ($active ? 1 : 0.45)};
   transition:
-    color 0.2s ease,
-    opacity 0.2s ease;
+    color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    opacity: ${({ $active }) => ($active ? 1 : 0.82)};
-    color: ${({ theme, $active }) =>
-      $active ? theme.colors.text : theme.colors.text};
+    opacity: 1;
+    color: ${({ theme }) => theme.colors.text};
   }
 
   &:focus-visible {

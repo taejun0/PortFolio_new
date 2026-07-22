@@ -45,11 +45,11 @@ export const Email = styled.a`
   font-size: clamp(1.2rem, 0.9rem + 1.8vw, 2rem);
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   letter-spacing: -0.02em;
-  color: ${({ theme }) => theme.colors.text};
-  transition: color 0.2s ease;
+  color: ${({ theme }) => theme.colors.textMuted};
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -71,7 +71,7 @@ export const Nav = styled.nav`
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: ${({ theme }) => theme.colors.textMuted};
-    transition: color 0.2s ease;
+    transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
     &:hover {
       color: ${({ theme }) => theme.colors.text};
@@ -97,12 +97,22 @@ export const Social = styled.a`
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   color: ${({ theme }) => theme.colors.textMuted};
   transition:
-    color 0.2s ease,
-    border-color 0.2s ease;
+    color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    color: ${({ theme }) => theme.colors.accent};
-    border-color: ${({ theme }) => theme.colors.borderStrong};
+    color: ${({ theme }) => theme.colors.text};
+    border-color: color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.text} 30%,
+      transparent
+    );
+    background: color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.text} 8%,
+      transparent
+    );
   }
 `;
 

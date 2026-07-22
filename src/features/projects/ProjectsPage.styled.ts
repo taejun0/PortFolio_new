@@ -56,33 +56,6 @@ export const List = styled.ul`
   gap: clamp(2.25rem, 1.4rem + 3vw, 3.5rem);
 `;
 
-export const Item = styled.li`
-  a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  &:hover img {
-    transform: scale(1.04);
-  }
-
-  &:hover h2 {
-    color: ${({ theme }) => theme.colors.accent};
-  }
-`;
-
-export const Row = styled.div`
-  display: grid;
-  gap: ${({ theme }) => theme.space[5]};
-  align-items: center;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    grid-template-columns: minmax(12rem, 22rem) minmax(0, 1fr);
-    gap: clamp(1.5rem, 1rem + 2vw, 2.75rem);
-  }
-`;
-
 export const Media = styled.div`
   position: relative;
   width: 100%;
@@ -94,12 +67,48 @@ export const Media = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.border};
 
   img {
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     max-width: 100%;
     aspect-ratio: 16 / 9;
+  }
+`;
+
+export const ItemTitle = styled.h2`
+  font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+  font-weight: ${({ theme }) => theme.fonts.weights.bold};
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: ${({ theme }) => theme.colors.text};
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+`;
+
+export const Item = styled.li`
+  a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+
+  &:hover ${ItemTitle} {
+    color: ${({ theme }) => theme.colors.text};
+  }
+`;
+
+export const Row = styled.div`
+  display: grid;
+  gap: ${({ theme }) => theme.space[5]};
+  align-items: center;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: minmax(12rem, 22rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 1rem + 2vw, 2.75rem);
   }
 `;
 
@@ -130,15 +139,6 @@ export const Featured = styled.span`
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textMuted};
-`;
-
-export const ItemTitle = styled.h2`
-  font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
-  font-weight: ${({ theme }) => theme.fonts.weights.bold};
-  letter-spacing: -0.025em;
-  line-height: 1.25;
-  color: ${({ theme }) => theme.colors.text};
-  transition: color 0.2s ease;
 `;
 
 export const ItemSummary = styled.p`

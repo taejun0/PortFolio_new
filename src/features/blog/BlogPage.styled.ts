@@ -63,24 +63,34 @@ export const Item = styled.li`
   padding: ${({ theme }) => theme.space[5]};
   border-radius: ${({ theme }) => theme.layout.radius.md};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  background: ${({ theme }) => theme.colors.surface};
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  background: color-mix(
+    in srgb,
+    ${({ theme }) => theme.colors.text} 2%,
+    transparent
+  );
+  transition:
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   a {
     display: block;
   }
 
   &:hover {
-    transform: translateY(-2px);
-    border-color: ${({ theme }) => theme.colors.borderStrong};
-
-    h2 {
-      color: ${({ theme }) => theme.colors.accent};
-    }
+    border-color: color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.text} 12%,
+      transparent
+    );
+    background: color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.text} 4.5%,
+      transparent
+    );
 
     img {
-      transform: translateY(-4px) scale(1.02);
-      opacity: 0.95;
+      transform: scale(1.05);
+      opacity: 1;
     }
   }
 `;
@@ -112,7 +122,6 @@ export const ItemTitle = styled.h2`
   font-size: ${({ theme }) => theme.typography.heading.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   color: ${({ theme }) => theme.colors.text};
-  transition: color 0.2s ease;
 `;
 
 export const ItemDescription = styled.p`
@@ -152,6 +161,6 @@ export const Thumb = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
   }
 `;

@@ -33,6 +33,23 @@ export const PostList = styled.ul`
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
+export const Arrow = styled.span`
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  color: ${({ theme }) => theme.colors.textMuted};
+  opacity: 0.55;
+  transition:
+    color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+`;
+
+export const PostTitle = styled.h3`
+  font-size: ${({ theme }) => theme.typography.heading.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
+  color: ${({ theme }) => theme.colors.text};
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+`;
+
 export const PostItem = styled.li`
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
@@ -40,7 +57,6 @@ export const PostItem = styled.li`
     display: grid;
     gap: ${({ theme }) => theme.space[2]};
     padding: ${({ theme }) => theme.space[5]} 0;
-    transition: color 0.2s ease;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       grid-template-columns: clamp(5.5rem, 12vw, 7.5rem) 1fr auto;
@@ -49,24 +65,19 @@ export const PostItem = styled.li`
     }
   }
 
-  &:hover h3 {
-    color: ${({ theme }) => theme.colors.accent};
+  &:hover ${PostTitle} {
+    color: ${({ theme }) => theme.colors.text};
+    opacity: 1;
+  }
+
+  &:hover ${Arrow} {
+    color: ${({ theme }) => theme.colors.text};
+    opacity: 1;
+    transform: translateX(2px);
   }
 `;
 
 export const PostMeta = styled.p`
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  color: ${({ theme }) => theme.colors.textMuted};
-`;
-
-export const PostTitle = styled.h3`
-  font-size: ${({ theme }) => theme.typography.heading.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  color: ${({ theme }) => theme.colors.text};
-  transition: color 0.2s ease;
-`;
-
-export const Arrow = styled.span`
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   color: ${({ theme }) => theme.colors.textMuted};
 `;

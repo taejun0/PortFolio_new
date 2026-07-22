@@ -127,11 +127,17 @@ export const PrimaryCta = styled.span`
   color: ${({ theme }) =>
     theme.mode === "light" ? theme.colors.accentContrast : "#000000"};
   background: ${({ theme }) => theme.colors.text};
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   a:hover & {
     transform: translateY(-1px);
-    opacity: 0.92;
+    opacity: 0.9;
+  }
+
+  a:active & {
+    transform: translateY(0) scale(0.98);
   }
 `;
 
@@ -143,12 +149,25 @@ export const SecondaryCta = styled.span`
   border: 1px solid ${({ theme }) => theme.colors.border};
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.textMuted};
   background: transparent;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition:
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   a:hover & {
-    border-color: ${({ theme }) => theme.colors.textMuted};
+    border-color: color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.text} 30%,
+      transparent
+    );
+    color: ${({ theme }) => theme.colors.text};
+    background: color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.text} 8%,
+      transparent
+    );
   }
 `;
 

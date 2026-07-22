@@ -22,11 +22,10 @@ export const Text = styled.p`
 export const Link = styled.a`
   margin-left: ${({ theme }) => theme.space[1]};
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
-  color: ${({ theme }) => theme.colors.accent};
-  transition: color 0.2s ease;
+  color: ${({ theme }) => theme.colors.textMuted};
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    color: ${({ theme }) => theme.colors.accentSecondary};
-    text-decoration: underline;
+    color: ${({ theme }) => theme.colors.text};
   }
 `;

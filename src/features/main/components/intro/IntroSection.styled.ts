@@ -19,6 +19,7 @@ export const Section = styled.section`
   justify-content: center;
   min-height: 100vh;
   min-height: 100dvh;
+  overflow: visible;
   padding: ${({ theme }) => theme.space[8]} ${({ theme }) => theme.layout.gutter}
     ${({ theme }) => theme.space[9]};
   background:
@@ -69,6 +70,7 @@ export const RoleDot = styled.span`
 
 export const DisplayWrap = styled.h1`
   margin-bottom: ${({ theme }) => theme.space[6]};
+  overflow: visible;
 `;
 
 export const Title = styled.p`
@@ -96,10 +98,10 @@ export const ScrollHint = styled.a`
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textMuted};
-  transition: color 0.2s ease;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 

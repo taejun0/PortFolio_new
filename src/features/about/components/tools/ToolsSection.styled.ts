@@ -22,10 +22,10 @@ export const Aside = styled.span`
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textMuted};
-  transition: color 0.2s ease;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   a:hover & {
-    color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -75,13 +75,6 @@ export const Tools = styled.ul`
   gap: ${({ theme }) => theme.space[4]} ${({ theme }) => theme.space[3]};
 `;
 
-export const Tool = styled.li`
-  display: grid;
-  gap: ${({ theme }) => theme.space[2]};
-  justify-items: center;
-  text-align: center;
-`;
-
 export const Icon = styled.span`
   display: inline-flex;
   align-items: center;
@@ -91,6 +84,9 @@ export const Icon = styled.span`
   border-radius: ${({ theme }) => theme.layout.radius.md};
   border: 1px solid ${({ theme }) => theme.colors.border};
   background: ${({ theme }) => theme.colors.surfaceAlt};
+  transition:
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   img {
     width: 1.65rem;
@@ -105,4 +101,25 @@ export const Name = styled.span`
   letter-spacing: 0.02em;
   line-height: 1.35;
   color: ${({ theme }) => theme.colors.textMuted};
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+`;
+
+export const Tool = styled.li`
+  display: grid;
+  gap: ${({ theme }) => theme.space[2]};
+  justify-items: center;
+  text-align: center;
+
+  &:hover ${Icon} {
+    border-color: color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.text} 30%,
+      transparent
+    );
+    transform: scale(1.1);
+  }
+
+  &:hover ${Name} {
+    color: ${({ theme }) => theme.colors.text};
+  }
 `;

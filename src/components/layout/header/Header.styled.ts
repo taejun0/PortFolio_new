@@ -33,11 +33,11 @@ export const Logo = styled.span`
   font-size: ${({ theme }) => theme.typography.small.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   letter-spacing: 0.02em;
-  color: ${({ theme }) => theme.colors.text};
-  transition: color 0.2s ease;
+  color: ${({ theme }) => theme.colors.textMuted};
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -91,7 +91,7 @@ export const NavItem = styled.span<{ $active: boolean }>`
   white-space: nowrap;
   color: ${({ theme, $active }) =>
     $active ? theme.colors.accentContrast : theme.colors.textMuted};
-  transition: color 0.25s ease;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
     color: ${({ theme, $active }) =>
@@ -127,14 +127,22 @@ export const ThemeToggle = styled.button`
   backdrop-filter: blur(12px);
   color: ${({ theme }) => theme.colors.text};
   transition:
-    color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+    color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    color: ${({ theme }) => theme.colors.accent};
-    border-color: ${({ theme }) => theme.colors.borderStrong};
-    transform: translateY(-1px);
+    color: ${({ theme }) => theme.colors.text};
+    border-color: color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.text} 30%,
+      transparent
+    );
+    background: color-mix(
+      in srgb,
+      ${({ theme }) => theme.colors.text} 8%,
+      transparent
+    );
   }
 
   &:focus-visible {
