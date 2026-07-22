@@ -34,9 +34,26 @@ const themeBootScript = `
 })();
 `;
 
+/** React/Emotion hydrate 전에 캔버스 색을 맞춰 라이트 모드 검정 플래시를 막는다. */
+const themeBootCss = `
+html{background-color:#000000;color-scheme:dark}
+html[data-theme="light"]{background-color:#f3f3f4;color-scheme:light}
+html,body{min-height:100%}
+body{margin:0;background-color:inherit}
+html[data-theme="dark"] body{background-color:#000000;color:#ffffff}
+html[data-theme="light"] body{background-color:#f3f3f4;color:#0c0c0c}
+html:not([data-theme-ready="1"]) body{transition:none!important}
+`;
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko" className={pretendard.variable} suppressHydrationWarning>
+      <head>
+        <style
+          id="theme-boot-css"
+          dangerouslySetInnerHTML={{ __html: themeBootCss }}
+        />
+      </head>
       <body>
         <Script
           id="theme-boot"

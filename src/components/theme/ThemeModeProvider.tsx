@@ -42,7 +42,8 @@ const readStoredMode = (): ThemeMode => {
 };
 
 export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
-  const [mode, setModeState] = useState<ThemeMode>("dark");
+  // 클라이언트 첫 페인트부터 data-theme/localStorage와 맞춰 검정 플래시를 줄인다.
+  const [mode, setModeState] = useState<ThemeMode>(readStoredMode);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -50,6 +51,7 @@ export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
     setModeState(initial);
     document.documentElement.dataset.theme = initial;
     document.documentElement.style.colorScheme = initial;
+    document.documentElement.dataset.themeReady = "1";
     setReady(true);
   }, []);
 
