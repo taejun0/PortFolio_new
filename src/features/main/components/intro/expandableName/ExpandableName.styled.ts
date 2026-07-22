@@ -1,9 +1,10 @@
 /**
  * 생성 이유: 확장형 디스플레이 네임 스타일을 로직과 분리한다.
- * 역할: 균등 슬롯 안에서의 렌즈형 연출만 정의한다.
- * 책임: scale·리프트·액센트 틴트 시각만 소유한다.
+ * 역할: 균등 슬롯 안에서의 낙하 진입·렌즈형 연출만 정의한다.
+ * 책임: 낙하 래퍼와 scale·리프트·액센트 틴트 시각만 소유한다.
  */
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
 export const Name = styled.span`
   display: flex;
@@ -13,6 +14,7 @@ export const Name = styled.span`
   line-height: ${({ theme }) => theme.typography.heroName.lineHeight};
   user-select: none;
   cursor: default;
+  overflow: visible;
 `;
 
 export const Slot = styled.span`
@@ -21,9 +23,18 @@ export const Slot = styled.span`
   align-items: flex-end;
   justify-content: center;
   min-width: 0;
+  overflow: visible;
 `;
 
-export const Glyph = styled.span`
+export const Fall = styled(motion.span)`
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  transform-origin: center top;
+  will-change: transform, opacity;
+`;
+
+export const Glyph = styled.span<{ $interactive?: boolean }>`
   display: inline-block;
   font-size: ${({ theme }) => theme.typography.heroName.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.extraBold};
@@ -44,12 +55,14 @@ export const Glyph = styled.span`
     0 calc(var(--tint, 0) * 10px) calc(var(--tint, 0) * 28px)
       rgba(0, 0, 0, 0.35);
   transform: translate3d(0, var(--ty, 0px), 0)
-    scaleX(var(--sx, 0.2)) scaleY(var(--sy, 0.94));
+    scaleX(var(--sx, 1)) scaleY(var(--sy, 1));
   transform-origin: center bottom;
-  transition:
-    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-    color 0.18s ease,
-    text-shadow 0.18s ease;
+  transition: ${({ $interactive }) =>
+    $interactive
+      ? `transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+         color 0.18s ease,
+         text-shadow 0.18s ease`
+      : "none"};
   will-change: transform, color, text-shadow;
 `;
 
