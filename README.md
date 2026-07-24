@@ -2,7 +2,7 @@
 
 프론트엔드 개발자 오태준의 프로젝트·경험·기술 블로그를 소개하는 포트폴리오입니다.
 
-**Live:** [https://www.taejun0-portfolio.site](https://www.taejun0-portfolio.site)
+**Live:** [https://www.taejun0-portfolio.com](https://www.taejun0-portfolio.com)
 
 ## 기술 스택
 

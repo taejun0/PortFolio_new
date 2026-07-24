@@ -4,7 +4,7 @@
  * 책임: PortfolioPage 원본 연락 정보와 Discussions 기반 신규 글 카테고리를 관리한다.
  */
 export const SITE_CONFIG = {
-  origin: "https://www.taejun0-portfolio.site",
+  origin: "https://www.taejun0-portfolio.com",
   name: "오태준 포트폴리오",
   title: "Taejun's PortFolio",
   description:

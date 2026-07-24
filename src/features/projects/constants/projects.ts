@@ -93,7 +93,7 @@ export const PROJECTS: Project[] = [
     featured: true,
     image: "/images/projectsImage/PortFolio.webp",
     github: "https://github.com/taejun0/PortFolio_new",
-    demo: "https://www.taejun0-portfolio.site",
+    demo: "https://www.taejun0-portfolio.com",
     overview:
       "저를 가장 잘 표현하는 색이 회색이라 생각해 선택했습니다. “흑과 백이 아닌 회색의 명도차일 뿐이다.” React·TypeScript·Next.js 기반으로 프론트엔드 개발자로서의 저를 소개하고, Emotion·Framer Motion으로 몰입감 있는 인터페이스를 구성했습니다.",
     decisions: [
