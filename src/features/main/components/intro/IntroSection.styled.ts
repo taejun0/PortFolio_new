@@ -1,7 +1,7 @@
 /**
  * 생성 이유: 히어로 풀뷰포트 스타일을 본문 섹션과 분리한다.
  * 역할: IntroSection 레이아웃·타이포 스타일을 정의한다.
- * 책임: 그리드 배경·역할 라인·디스플레이 네임·스크롤 힌트 시각만 소유한다.
+ * 책임: 플랫 배경·약한 비네트·역할 라인·디스플레이 네임·스크롤 힌트 시각만 소유한다.
  */
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
@@ -22,24 +22,29 @@ export const Section = styled.section`
   overflow: visible;
   padding: ${({ theme }) => theme.space[8]} ${({ theme }) => theme.layout.gutter}
     ${({ theme }) => theme.space[9]};
-  background:
-    radial-gradient(
-      ellipse 55% 45% at 78% 18%,
-      ${({ theme }) => theme.colors.splashWash},
-      transparent 60%
-    ),
-    linear-gradient(${({ theme }) => theme.colors.gridLine} 1px, transparent 1px),
-    linear-gradient(90deg, ${({ theme }) => theme.colors.gridLine} 1px, transparent 1px),
-    ${({ theme }) => theme.colors.background};
-  background-size:
-    auto,
-    clamp(40px, 5vw, 64px) clamp(40px, 5vw, 64px),
-    clamp(40px, 5vw, 64px) clamp(40px, 5vw, 64px),
-    auto;
+  background: ${({ theme }) => theme.colors.background};
   scroll-margin-top: ${({ theme }) => theme.layout.headerHeight};
-`;
 
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 90% 75% at 50% 42%,
+      transparent 42%,
+      color-mix(
+          in srgb,
+          ${({ theme }) => theme.colors.background} 72%,
+          transparent
+        )
+        100%
+    );
+  }
+`;
 export const Inner = styled.div`
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
@@ -82,6 +87,7 @@ export const Title = styled.p`
 
 export const ScrollHint = styled.a`
   position: absolute;
+  z-index: 1;
   left: 0;
   right: 0;
   bottom: ${({ theme }) => theme.space[5]};

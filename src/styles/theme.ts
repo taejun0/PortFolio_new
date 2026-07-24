@@ -25,9 +25,9 @@ const fonts = {
 
 const typography = {
   heroName: {
-    fontSize: "clamp(2.35rem, 1rem + 7.5vw, 6.25rem)",
-    lineHeight: 0.9,
-    letterSpacing: "-0.03em",
+    fontSize: "clamp(2.6rem, 0.55rem + 9.2vw, 7.25rem)",
+    lineHeight: 0.84,
+    letterSpacing: "-0.05em",
   },
   display: {
     fontSize: "clamp(2.15rem, 1.1rem + 4vw, 4rem)",
@@ -101,8 +101,8 @@ const layout = {
   sectionPaddingY: "clamp(3.25rem, 1.75rem + 6vw, 7.5rem)",
   gutter: "clamp(1rem, 0.4rem + 3.2vw, 3rem)",
   portraitCol: "clamp(12.5rem, 22vw, 18.5rem)",
-  cardWidth: "min(78vw, clamp(18rem, 42vw, 28rem))",
-  cardHeight: "clamp(24rem, 55vh, 32rem)",
+  cardWidth: "min(82vw, clamp(19rem, 44vw, 30rem))",
+  cardHeight: "clamp(26rem, 62vh, 36rem)",
   panelMinHeight: "clamp(14rem, 28vh, 20rem)",
   radius: {
     sm: "clamp(0.4rem, 0.3rem + 0.25vw, 0.55rem)",
@@ -147,9 +147,9 @@ const darkColors = {
   accentSecondary: "#c8f54a",
   accentGradient: "linear-gradient(135deg, #a0ec06 0%, #c8f54a 100%)",
   accentContrast: "#000000",
-  wash: "#121212",
+  wash: "#0a0a0a",
   gridLine: "rgba(255, 255, 255, 0.035)",
-  splashWash: "rgba(160, 236, 6, 0.1)",
+  splashWash: "rgba(160, 236, 6, 0.06)",
 } as const;
 
 const lightColors = {
@@ -164,9 +164,9 @@ const lightColors = {
   accentSecondary: "#8acc14",
   accentGradient: "linear-gradient(135deg, #6fad00 0%, #8acc14 100%)",
   accentContrast: "#ffffff",
-  wash: "#ebebec",
+  wash: "#ececed",
   gridLine: "rgba(0, 0, 0, 0.05)",
-  splashWash: "rgba(111, 173, 0, 0.12)",
+  splashWash: "rgba(111, 173, 0, 0.08)",
 } as const;
 
 export const darkTheme = {

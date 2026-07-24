@@ -218,7 +218,7 @@ const ExpandableName = ({ text }: ExpandableNameProps) => {
         scalesX.push(MIN_SCALE_X + (MAX_SCALE_X - MIN_SCALE_X) * punch);
         scalesY.push(MIN_SCALE_Y + (MAX_SCALE_Y - MIN_SCALE_Y) * punch);
         lifts.push(MAX_LIFT * punch);
-        tints.push(punch);
+        tints.push(punch * 0.4);
       });
 
       paint(scalesX, scalesY, lifts, tints);

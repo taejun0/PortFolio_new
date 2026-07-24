@@ -1,7 +1,7 @@
 /**
  * 생성 이유: Contact 마무리 장면 시각을 로직과 분리한다.
  * 역할: CloseSection 레이아웃·채널 카드 스타일을 정의한다.
- * 책임: 히어로와 맞는 그리드 분위기·2열 카피/채널·CTA 시각만 소유한다.
+ * 책임: 플랫 배경·2열 카피/채널·CTA 시각만 소유한다.
  */
 import styled from "@emotion/styled";
 
@@ -14,27 +14,9 @@ export const Section = styled.section`
   min-height: 100dvh;
   padding: ${({ theme }) => theme.layout.sectionPaddingY}
     ${({ theme }) => theme.layout.gutter};
-  background:
-    radial-gradient(
-      ellipse 50% 42% at 18% 78%,
-      ${({ theme }) => theme.colors.splashWash},
-      transparent 62%
-    ),
-    linear-gradient(${({ theme }) => theme.colors.gridLine} 1px, transparent 1px),
-    linear-gradient(
-      90deg,
-      ${({ theme }) => theme.colors.gridLine} 1px,
-      transparent 1px
-    ),
-    ${({ theme }) => theme.colors.surface};
-  background-size:
-    auto,
-    clamp(40px, 5vw, 64px) clamp(40px, 5vw, 64px),
-    clamp(40px, 5vw, 64px) clamp(40px, 5vw, 64px),
-    auto;
+  background: ${({ theme }) => theme.colors.background};
   scroll-margin-top: ${({ theme }) => theme.layout.headerHeight};
 `;
-
 export const Inner = styled.div`
   width: 100%;
   max-width: ${({ theme }) => theme.layout.maxWidth};

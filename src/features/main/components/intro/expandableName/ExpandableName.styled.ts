@@ -1,7 +1,7 @@
 /**
  * 생성 이유: 확장형 디스플레이 네임 스타일을 로직과 분리한다.
  * 역할: 균등 슬롯 안에서의 낙하 진입·렌즈형 연출만 정의한다.
- * 책임: 낙하 래퍼와 scale·리프트·액센트 틴트 시각만 소유한다.
+ * 책임: 낙하 래퍼와 scale·리프트·약한 액센트 틴트 시각만 소유한다.
  */
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
@@ -37,23 +37,16 @@ export const Fall = styled(motion.span)`
 export const Glyph = styled.span<{ $interactive?: boolean }>`
   display: inline-block;
   font-size: ${({ theme }) => theme.typography.heroName.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.extraBold};
+  font-weight: ${({ theme }) => theme.fonts.weights.bold};
   letter-spacing: ${({ theme }) => theme.typography.heroName.letterSpacing};
   line-height: ${({ theme }) => theme.typography.heroName.lineHeight};
   color: color-mix(
     in srgb,
-    ${({ theme }) => theme.colors.accent} calc(var(--tint, 0) * 100%),
+    ${({ theme }) => theme.colors.accent} calc(var(--tint, 0) * 35%),
     ${({ theme }) => theme.colors.text}
   );
-  text-shadow:
-    0 0 calc(var(--tint, 0) * 22px)
-      color-mix(
-        in srgb,
-        ${({ theme }) => theme.colors.accent} calc(var(--tint, 0) * 55%),
-        transparent
-      ),
-    0 calc(var(--tint, 0) * 10px) calc(var(--tint, 0) * 28px)
-      rgba(0, 0, 0, 0.35);
+  text-shadow: 0 calc(var(--tint, 0) * 8px) calc(var(--tint, 0) * 18px)
+    rgba(0, 0, 0, 0.28);
   transform: translate3d(0, var(--ty, 0px), 0)
     scaleX(var(--sx, 1)) scaleY(var(--sy, 1));
   transform-origin: center bottom;
