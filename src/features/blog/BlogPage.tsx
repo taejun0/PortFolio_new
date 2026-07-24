@@ -1,7 +1,7 @@
 /**
  * 생성 이유: 블로그 목록 UI를 라우트 계층과 분리한다.
  * 역할: /blog 페이지 feature 컴포넌트다.
- * 책임: Velog 안내·글 리스트·우측 썸네일 플로팅을 렌더링한다.
+ * 책임: Velog 안내·글 리스트·호버 미리보기 썸네일을 렌더링한다.
  */
 "use client";
 
@@ -48,10 +48,10 @@ const BlogPage = ({ posts }: BlogPageProps) => (
                       <S.Thumb>
                         <Image
                           src={post.thumbnail}
-                          alt=""
+                          alt={`${post.title} 미리보기`}
                           width={280}
                           height={180}
-                          sizes="(max-width: 768px) 40vw, 220px"
+                          sizes="(max-width: 768px) 40vw, 240px"
                         />
                       </S.Thumb>
                     </S.ThumbWrap>

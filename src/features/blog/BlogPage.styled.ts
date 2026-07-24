@@ -1,7 +1,7 @@
 /**
  * 생성 이유: 블로그 목록 스타일을 분리한다.
  * 역할: BlogPage 레이아웃·리스트·우측 썸네일 스타일을 정의한다.
- * 책임: 다크 톤 목록과 가벼운 플로팅 썸네일 시각만 소유한다.
+ * 책임: 다크 톤 목록과 호버 시 확대되는 미리보기 썸네일 시각만 소유한다.
  */
 import styled from "@emotion/styled";
 
@@ -59,7 +59,46 @@ export const List = styled.ul`
   gap: ${({ theme }) => theme.space[4]};
 `;
 
+export const Thumb = styled.div`
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: clamp(10rem, 22vw, 13.5rem);
+  aspect-ratio: 16 / 10;
+  border-radius: ${({ theme }) => theme.layout.radius.md};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.colors.surfaceAlt};
+  opacity: 0.62;
+  transform: scale(0.96);
+  transform-origin: center right;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+`;
+
+export const ThumbWrap = styled.div`
+  display: none;
+  justify-content: flex-end;
+  align-self: center;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: flex;
+  }
+`;
+
 export const Item = styled.li`
+  position: relative;
   padding: ${({ theme }) => theme.space[5]};
   border-radius: ${({ theme }) => theme.layout.radius.md};
   border: 1px solid ${({ theme }) => theme.colors.border};
@@ -77,6 +116,7 @@ export const Item = styled.li`
   }
 
   &:hover {
+    z-index: 2;
     border-color: color-mix(
       in srgb,
       ${({ theme }) => theme.colors.text} 12%,
@@ -88,9 +128,19 @@ export const Item = styled.li`
       transparent
     );
 
-    img {
-      transform: scale(1.05);
+    ${Thumb} {
       opacity: 1;
+      transform: scale(1.14);
+      border-color: color-mix(
+        in srgb,
+        ${({ theme }) => theme.colors.text} 18%,
+        transparent
+      );
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+
+      img {
+        transform: scale(1.1);
+      }
     }
   }
 `;
@@ -134,33 +184,4 @@ export const ItemDescription = styled.p`
 export const Meta = styled.p`
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   color: ${({ theme }) => theme.colors.textMuted};
-`;
-
-export const ThumbWrap = styled.div`
-  display: none;
-  justify-content: flex-end;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: flex;
-  }
-`;
-
-export const Thumb = styled.div`
-  overflow: hidden;
-  width: 100%;
-  max-width: clamp(10rem, 22vw, 13.5rem);
-  aspect-ratio: 16 / 10;
-  border-radius: ${({ theme }) => theme.layout.radius.md};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  background: ${({ theme }) => theme.colors.surfaceAlt};
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
-  transform: translateY(-2px) rotate(1.2deg);
-  opacity: 0.82;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-  }
 `;
