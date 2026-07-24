@@ -50,6 +50,18 @@ export const PostTitle = styled.h3`
   transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 `;
 
+export const PostCopy = styled.div`
+  display: grid;
+  gap: ${({ theme }) => theme.space[1]};
+  min-width: 0;
+`;
+
+export const PostNote = styled.p`
+  font-size: ${({ theme }) => theme.typography.small.fontSize};
+  letter-spacing: 0.04em;
+  color: ${({ theme }) => theme.colors.textMuted};
+`;
+
 export const PostItem = styled.li`
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
@@ -88,5 +100,13 @@ export const Empty = styled.p`
 `;
 
 export const CtaWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ${({ theme }) => theme.space[4]};
   margin-top: ${({ theme }) => theme.space[6]};
+
+  a span {
+    margin-top: 0;
+  }
 `;

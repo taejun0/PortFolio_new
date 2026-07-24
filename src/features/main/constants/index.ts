@@ -55,9 +55,9 @@ export const MAIN_ABOUT_UI = {
 export const MAIN_PROJECTS_UI = {
   label: "Projects",
   title: "Featured projects",
-  aside: "카드를 누르면 상세 정보를 볼 수 있습니다.",
+  aside: "프로젝트를 누르면 상세 정보를 볼 수 있습니다.",
   cta: "전체 보기",
-  detailCta: "자세히",
+  detailCta: "자세히 보기",
   demoCta: "웹 뷰",
   githubCta: "Github",
 } as const;
@@ -65,19 +65,43 @@ export const MAIN_PROJECTS_UI = {
 export const MAIN_STACK_UI = {
   label: "Stack",
   title: "Tools & technologies",
-  aside: "실제 프로젝트에서 쓰는 스택입니다.",
+  aside: "실제 프로젝트에서 사용해온 기술들입니다.",
 } as const;
 
 export const MAIN_BLOG_UI = {
   label: "Articles",
-  title: "Recent writing",
-  aside: "배운 것을 글로 남깁니다.",
-  velogCount: 51,
-  statsTemplate: (velog: number, portfolio: number) =>
-    `Velog ${velog} · Portfolio ${portfolio}`,
+  title: "Selected writing",
+  aside: "50편 넘게 써온 기록 중, 지금 읽히길 바라는 글입니다.",
+  stats: "기술 글 50+",
   cta: "전체 글 보기",
+  velogCta: "Velog에서 더 보기",
   empty: "아직 등록된 글이 없습니다.",
 } as const;
+
+/** 메인에 고정으로 노출할 큐레이션 글. 1번은 반응·조회가 가장 큰 Velog 글. */
+export const MAIN_BLOG_FEATURED = [
+  {
+    title: "24시간 안에 서비스를 만들면서 느낀점, 바이브 코딩",
+    date: "2025-11-17",
+    href: "https://velog.io/@taejun0/24시간-안에-서비스를-만들면서-느낀점-바이브-코딩",
+    external: true as const,
+    meta: "Velog · 조회 500+",
+  },
+  {
+    title: "기술적 의사결정이 중요한 이유",
+    date: "2026-05-10",
+    slug: "2026-05-10-01",
+    external: false as const,
+    meta: "의사결정",
+  },
+  {
+    title: "왜 Next.js를 선택했는가 (프로젝트에서의 문제→적용 회고)",
+    date: "2025-04-22",
+    slug: "2026-04-22-01",
+    external: false as const,
+    meta: "회고",
+  },
+] as const;
 
 export const MAIN_CLOSE_UI = {
   label: "Contact",
