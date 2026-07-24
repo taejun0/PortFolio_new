@@ -1,118 +1,50 @@
 /**
- * 생성 이유: 메인 프로젝트를 스크롤 연동 가로 트랙으로 보여 주기 위함이다.
- * 역할: sticky pin 구간에서 세로 스크롤을 가로 translate로만 매핑한다.
- * 책임: 트랙 폭 측정·스크롤 진행도→x 변환·플립 카드 렌더링을 관리한다.
+ * 생성 이유: 메인 Featured 프로젝트를 Process 가로 아코디언 책장으로 보여 주기 위함이다.
+ * 역할: Projects 섹션 컴포넌트다.
+ * 책임: 활성 spine 상태·헤더·책장 트랙·아카이브 링크를 관리한다.
  */
 "use client";
 
 import Link from "next/link";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import {
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { useState } from "react";
 
+import * as P from "../shared/SectionPrimitives.styled";
 import * as S from "./ProjectsSection.styled";
-import ProjectFlipCard from "./projectFlipCard/ProjectFlipCard";
+import ProjectShelfItem from "./projectShelfItem/ProjectShelfItem";
 import { MAIN_PROJECTS_UI, MAIN_SECTION_IDS } from "../../constants";
 import { ROUTES } from "@/constants/routes";
-import { PROJECTS } from "@/features/projects/constants/projects";
+import { getFeaturedProjects } from "@/features/projects/constants/projects";
 
 const ProjectsSection = () => {
-  const pinRef = useRef<HTMLElement>(null);
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [travel, setTravel] = useState(0);
-  const reduceMotion = useReducedMotion();
-
-  const measure = useCallback(() => {
-    const viewport = viewportRef.current;
-    const track = trackRef.current;
-    if (!viewport || !track) return;
-    const next = Math.max(0, track.scrollWidth - viewport.clientWidth);
-    setTravel((prev) => (prev === next ? prev : next));
-  }, []);
-
-  useLayoutEffect(() => {
-    if (reduceMotion) return;
-    measure();
-    const id = window.requestAnimationFrame(measure);
-    const observer = new ResizeObserver(measure);
-    if (viewportRef.current) observer.observe(viewportRef.current);
-    if (trackRef.current) observer.observe(trackRef.current);
-    window.addEventListener("resize", measure);
-    return () => {
-      window.cancelAnimationFrame(id);
-      observer.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [measure, reduceMotion]);
-
-  const { scrollYProgress } = useScroll({
-    target: pinRef,
-    offset: ["start start", "end end"],
-  });
-
-  const x = useTransform(scrollYProgress, [0, 1], [0, -Math.max(travel, 0)]);
-
-  const header = (
-    <S.Header>
-      <div>
-        <S.Label>{MAIN_PROJECTS_UI.label}</S.Label>
-        <S.Title>{MAIN_PROJECTS_UI.title}</S.Title>
-        <S.Aside>{MAIN_PROJECTS_UI.aside}</S.Aside>
-      </div>
-      <Link href={ROUTES.PROJECTS}>
-        <S.ArchiveLink>{MAIN_PROJECTS_UI.cta} →</S.ArchiveLink>
-      </Link>
-    </S.Header>
-  );
-
-  const cards = PROJECTS.filter((project) => project.featured).map(
-    (project, index) => (
-      <ProjectFlipCard
-        key={project.slug}
-        project={project}
-        index={index}
-        onMediaLoad={measure}
-      />
-    )
-  );
-
-  if (reduceMotion) {
-    return (
-      <S.Pin id={MAIN_SECTION_IDS.projects}>
-        <S.Sticky $static>
-          {header}
-          <S.Viewport>
-            <S.StaticTrack>{cards}</S.StaticTrack>
-          </S.Viewport>
-        </S.Sticky>
-      </S.Pin>
-    );
-  }
+  const featured = getFeaturedProjects();
+  const [active, setActive] = useState(0);
 
   return (
-    <S.Pin
-      id={MAIN_SECTION_IDS.projects}
-      ref={pinRef}
-      style={
-        travel > 0
-          ? { height: `calc(100vh + ${travel}px)` }
-          : { height: "100vh" }
-      }
-    >
-      <S.Sticky>
-        {header}
-        <S.Viewport ref={viewportRef}>
-          <S.MotionTrack ref={trackRef} style={{ x }}>
-            {cards}
-            <S.TrackEnd aria-hidden />
-          </S.MotionTrack>
-        </S.Viewport>
-      </S.Sticky>
-    </S.Pin>
+    <P.Section id={MAIN_SECTION_IDS.projects}>
+      <P.SectionInner>
+        <P.Label>{MAIN_PROJECTS_UI.label}</P.Label>
+        <S.Header>
+          <S.TitleBlock>
+            <P.Title $flush>{MAIN_PROJECTS_UI.title}</P.Title>
+            <S.Aside>{MAIN_PROJECTS_UI.aside}</S.Aside>
+          </S.TitleBlock>
+          <Link href={ROUTES.PROJECTS}>
+            <S.ArchiveLink>{MAIN_PROJECTS_UI.cta} →</S.ArchiveLink>
+          </Link>
+        </S.Header>
+        <S.Shelf>
+          {featured.map((project, index) => (
+            <ProjectShelfItem
+              key={project.slug}
+              project={project}
+              index={index}
+              expanded={active === index}
+              onActivate={() => setActive(index)}
+            />
+          ))}
+        </S.Shelf>
+      </P.SectionInner>
+    </P.Section>
   );
 };
 

@@ -5,17 +5,21 @@
  */
 import styled from "@emotion/styled";
 
-export const Section = styled.section<{ $alt?: boolean }>`
+export const Section = styled.section<{
+  $alt?: boolean;
+  $alignStart?: boolean;
+}>`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: ${({ $alignStart }) =>
+    $alignStart ? "flex-start" : "center"};
   min-height: 100vh;
   min-height: 100dvh;
   padding: ${({ theme }) => theme.layout.sectionPaddingY}
     ${({ theme }) => theme.layout.gutter};
   background: ${({ theme, $alt }) =>
-    $alt ? theme.colors.surface : theme.colors.background};
+    $alt ? theme.colors.wash : theme.colors.background};
   scroll-margin-top: ${({ theme }) => theme.layout.headerHeight};
 `;
 

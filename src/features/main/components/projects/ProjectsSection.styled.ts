@@ -1,69 +1,26 @@
 /**
- * 생성 이유: 스크롤 연동 가로 프로젝트 트랙 스타일을 분리한다.
- * 역할: ProjectsSection sticky pin·트랙 스타일을 정의한다.
- * 책임: sticky 패널과 가로 트랙 셸만 소유한다.
+ * 생성 이유: Featured 가로 아코디언 책장 섹션 스타일을 분리한다.
+ * 역할: ProjectsSection 헤더·책장 트랙 셸 스타일을 정의한다.
+ * 책임: 섹션 헤더와 가로 shelf 컨테이너만 소유한다.
  */
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
-
-export const Pin = styled.section`
-  position: relative;
-  background: ${({ theme }) => theme.colors.background};
-`;
-
-export const Sticky = styled.div<{ $static?: boolean }>`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.space[5]};
-  width: 100%;
-  overflow: hidden;
-  background: ${({ theme }) => theme.colors.background};
-
-  ${({ $static, theme }) =>
-    $static
-      ? `
-    position: relative;
-    height: auto;
-    padding: ${theme.space[8]} 0 ${theme.space[6]};
-  `
-      : `
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    height: 100dvh;
-    padding: calc(${theme.layout.headerHeight} + ${theme.space[4]}) 0 ${theme.space[5]};
-  `}
-`;
 
 export const Header = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
   gap: ${({ theme }) => theme.space[4]};
-  padding: 0 ${({ theme }) => theme.layout.gutter};
-  flex-shrink: 0;
+  margin-bottom: ${({ theme }) => theme.space[6]};
 `;
 
-export const Label = styled.p`
-  margin-bottom: ${({ theme }) => theme.space[2]};
-  font-size: ${({ theme }) => theme.typography.label.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  letter-spacing: ${({ theme }) => theme.typography.label.letterSpacing};
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.accent};
-`;
-
-export const Title = styled.h2`
-  font-size: ${({ theme }) => theme.typography.title.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.bold};
-  letter-spacing: ${({ theme }) => theme.typography.title.letterSpacing};
-  line-height: 1.15;
-  color: ${({ theme }) => theme.colors.text};
+export const TitleBlock = styled.div`
+  max-width: 36rem;
 `;
 
 export const Aside = styled.p`
   margin-top: ${({ theme }) => theme.space[2]};
-  max-width: 28ch;
+  max-width: 32ch;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   line-height: 1.5;
   color: ${({ theme }) => theme.colors.textMuted};
@@ -83,36 +40,15 @@ export const ArchiveLink = styled.span`
   }
 `;
 
-export const Viewport = styled.div`
-  flex: 1;
+export const Shelf = styled.div`
   display: flex;
-  align-items: center;
-  min-height: 0;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.space[2]};
   width: 100%;
-  padding-left: ${({ theme }) => theme.layout.gutter};
-  overflow: hidden;
-`;
-
-export const MotionTrack = styled(motion.div)`
-  display: flex;
-  align-items: stretch;
-  gap: ${({ theme }) => theme.space[5]};
-  width: max-content;
-  will-change: transform;
-`;
-
-export const StaticTrack = styled.div`
-  display: grid;
-  gap: ${({ theme }) => theme.space[5]};
-  width: 100%;
-  padding-right: ${({ theme }) => theme.layout.gutter};
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex-direction: row;
+    align-items: stretch;
+    height: clamp(22rem, 56vh, 34rem);
   }
-`;
-
-export const TrackEnd = styled.div`
-  flex: 0 0 ${({ theme }) => theme.layout.gutter};
-  width: ${({ theme }) => theme.layout.gutter};
 `;
