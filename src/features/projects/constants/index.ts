@@ -4,10 +4,14 @@
  * 책임: projects feature의 정적 문구만 관리한다.
  */
 export const PROJECTS_PAGE_UI = {
-  label: "Projects",
+  label: "Portfolio · Case studies",
   title: "Featured projects",
-  subtitle: "팀·솔로·해커톤에서 진행한 프로젝트들입니다.",
+  subtitle:
+    "팀·솔로·해커톤에서 실제로 마주친 문제를 풀며 만든 프로젝트들입니다.",
   empty: "등록된 프로젝트가 없습니다.",
+  resultLabel: "Result",
+  galleryLabel: "Stack",
+  viewProject: "View project",
   featuredBadge: "Featured",
   backToList: "← Projects",
   viewGithub: "GitHub",
@@ -19,3 +23,8 @@ export const PROJECTS_PAGE_UI = {
   solutionLabel: "해결",
   learningsLabel: "배운 점",
 } as const;
+
+export const extractProjectYear = (period: string) => {
+  const match = period.match(/20\d{2}/);
+  return match?.[0] ?? "";
+};
