@@ -114,11 +114,10 @@ export const IndexPill = styled.span`
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   letter-spacing: 0.06em;
   color: ${({ theme }) => theme.colors.text};
-  background: color-mix(
-    in srgb,
-    ${({ theme }) => theme.colors.background} 55%,
-    transparent
-  );
+  background: ${({ theme }) =>
+    theme.mode === "light"
+      ? `color-mix(in srgb, ${theme.colors.surface} 82%, transparent)`
+      : `color-mix(in srgb, ${theme.colors.background} 55%, transparent)`};
   backdrop-filter: blur(8px);
 `;
 
@@ -138,17 +137,25 @@ export const Media = styled.div`
     object-fit: cover;
   }
 
-  /* 하단 카피 가독성만 — 이미지 전체 흐림은 피함 */
+  /* 하단 카피 가독성 — 라이트는 흰 스크림, 다크는 검정 스크림 */
   &::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.58) 0%,
-      rgba(0, 0, 0, 0.18) 32%,
-      transparent 58%
-    );
+    background: ${({ theme }) =>
+      theme.mode === "light"
+        ? `linear-gradient(
+            to top,
+            color-mix(in srgb, ${theme.colors.surface} 92%, transparent) 0%,
+            color-mix(in srgb, ${theme.colors.surface} 55%, transparent) 36%,
+            transparent 62%
+          )`
+        : `linear-gradient(
+            to top,
+            color-mix(in srgb, ${theme.colors.background} 72%, transparent) 0%,
+            color-mix(in srgb, ${theme.colors.background} 28%, transparent) 32%,
+            transparent 58%
+          )`};
   }
 `;
 
@@ -178,7 +185,10 @@ export const PanelTitle = styled.h3`
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   line-height: 1.15;
   color: ${({ theme }) => theme.colors.text};
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+  text-shadow: ${({ theme }) =>
+    theme.mode === "light"
+      ? `0 1px 14px color-mix(in srgb, ${theme.colors.surface} 90%, transparent)`
+      : `0 1px 12px color-mix(in srgb, ${theme.colors.background} 55%, transparent)`};
 `;
 
 export const PanelSummary = styled.p`
@@ -186,10 +196,12 @@ export const PanelSummary = styled.p`
   max-width: 36ch;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   line-height: 1.5;
-  color: color-mix(
-    in srgb,
-    ${({ theme }) => theme.colors.text} 88%,
-    transparent
-  );
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+  color: ${({ theme }) =>
+    theme.mode === "light"
+      ? theme.colors.textMuted
+      : `color-mix(in srgb, ${theme.colors.text} 88%, transparent)`};
+  text-shadow: ${({ theme }) =>
+    theme.mode === "light"
+      ? `0 1px 12px color-mix(in srgb, ${theme.colors.surface} 85%, transparent)`
+      : `0 1px 10px color-mix(in srgb, ${theme.colors.background} 50%, transparent)`};
 `;
