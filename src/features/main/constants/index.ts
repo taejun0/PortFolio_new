@@ -71,7 +71,7 @@ export const MAIN_STACK_UI = {
 export const MAIN_BLOG_UI = {
   label: "Articles",
   title: "Selected writing",
-  aside: "50편 넘게 써온 기록 중, 지금 읽히길 바라는 글입니다.",
+  aside: "공유의 가치를 남기기 위해 작성한 글들입니다.",
   stats: "기술 글 50+",
   cta: "전체 글 보기",
   velogCta: "Velog에서 더 보기",
@@ -112,25 +112,24 @@ export const MAIN_CLOSE_UI = {
   channels: [
     {
       label: "Email",
-      hint: "가장 빠른 연락",
+      hint: "빠른 연락을 원한다면 이메일로 연락주세요.",
       valueKey: "email" as const,
       hrefKind: "mailto" as const,
     },
     {
       label: "GitHub",
-      hint: "코드와 활동",
+      hint: "코드와 활동을 보고 싶다면 GitHub를 방문해주세요.",
       valueKey: "githubPath" as const,
       hrefKind: "github" as const,
     },
     {
       label: "Velog",
-      hint: "기술 기록",
+      hint: "기술 기록을 보고 싶다면 Velog를 방문해주세요.",
       valueKey: "velog" as const,
       hrefKind: "velog" as const,
     },
   ],
   cta: "Send email",
-  ctaHint: "또는 아래 채널로 바로 이동",
 } as const;
 
 export const MAIN_FOOTER_UI = {

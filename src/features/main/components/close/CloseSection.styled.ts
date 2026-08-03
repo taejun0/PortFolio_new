@@ -119,12 +119,6 @@ export const Cta = styled.a`
   }
 `;
 
-export const CtaHint = styled.p`
-  font-size: ${({ theme }) => theme.typography.small.fontSize};
-  letter-spacing: 0.04em;
-  color: ${({ theme }) => theme.colors.textMuted};
-`;
-
 export const Channels = styled.div`
   display: grid;
   gap: ${({ theme }) => theme.space[3]};

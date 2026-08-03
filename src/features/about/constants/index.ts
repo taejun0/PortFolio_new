@@ -164,6 +164,6 @@ export const ABOUT_PAGE_UI = {
     label: "Stack",
     title: "주요 기술 스택",
     asideHref: "/#stack",
-    aside: "메인 Stack에서 보기",
-  },
+    aside: "실제 프로젝트에서 사용해온 기술들입니다.",
+  }
 } as const;

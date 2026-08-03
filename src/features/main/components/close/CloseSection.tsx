@@ -37,7 +37,6 @@ const CloseSection = () => (
           <S.StatusMuted>{MAIN_CLOSE_UI.location}</S.StatusMuted>
         </S.StatusRow>
         <S.Cta href={`mailto:${SITE_CONFIG.email}`}>{MAIN_CLOSE_UI.cta} →</S.Cta>
-        <S.CtaHint>{MAIN_CLOSE_UI.ctaHint}</S.CtaHint>
       </S.Intro>
 
       <S.Channels aria-label="연락 채널">
