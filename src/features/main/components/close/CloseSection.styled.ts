@@ -82,16 +82,6 @@ export const Status = styled.span`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export const StatusSep = styled.span`
-  color: ${({ theme }) => theme.colors.textMuted};
-  opacity: 0.7;
-`;
-
-export const StatusMuted = styled.span`
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  color: ${({ theme }) => theme.colors.textMuted};
-`;
-
 export const Cta = styled.a`
   display: inline-flex;
   width: fit-content;

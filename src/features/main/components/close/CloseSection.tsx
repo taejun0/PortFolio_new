@@ -33,8 +33,6 @@ const CloseSection = () => (
         <S.StatusRow>
           <S.StatusDot aria-hidden />
           <S.Status>{MAIN_CLOSE_UI.availability}</S.Status>
-          <S.StatusSep aria-hidden>·</S.StatusSep>
-          <S.StatusMuted>{MAIN_CLOSE_UI.location}</S.StatusMuted>
         </S.StatusRow>
         <S.Cta href={`mailto:${SITE_CONFIG.email}`}>{MAIN_CLOSE_UI.cta} →</S.Cta>
       </S.Intro>

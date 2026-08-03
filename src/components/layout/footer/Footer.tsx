@@ -55,7 +55,7 @@ const Footer = () => {
         <S.Bottom>
           <S.Brand>{MAIN_FOOTER_UI.brand}</S.Brand>
           <S.Legal>
-            © {year} {SITE_CONFIG.author} · {MAIN_FOOTER_UI.location}
+            © {year} {SITE_CONFIG.author}
           </S.Legal>
         </S.Bottom>
       </S.Inner>

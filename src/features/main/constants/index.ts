@@ -40,13 +40,13 @@ export const MAIN_ABOUT_UI = {
   quote: '"집단에서 공유되는 정보가, 곧 그 집단의 IQ다"',
   paragraphs: [
     "아무리 뛰어난 개인이 있더라도, 구성원들 간 대화가 없다면 팀 전체의 성장이 어려워지게 됩니다.",
-    "저는 그러한 흐름을 만들어가는 개발자가 되고 싶습니다. 내가 아는 것을 아낌없이 나누고, 다른 사람의 의견을 경청하며, 더 나은 방향으로 함께 나아갈 수 있도록.",
+    "내가 아는 것을 아낌없이 나누고, 다른 사람의 의견을 경청하며, 더 나은 방향으로 함께 나아갈 수 있도록 노력하고 싶습니다.",
   ],
   photo: "/images/myimage/1.png",
   photoAlt: "오태준 프로필 사진",
   facts: [
     { label: "이름", value: "오태준" },
-    { label: "거주지", value: "경기도 의정부시" },
+    { label: "생년월일", value: "2001.09.29" },
     { label: "학력", value: "동국대학교 컴퓨터정보통신공학부" },
   ],
   cta: "자세히 보기 →",
@@ -108,7 +108,6 @@ export const MAIN_CLOSE_UI = {
   title: "Contact me.",
   body: "프로젝트·협업·커피챗 모두 환영합니다. 편하게 메일이나 GitHub로 연락 주세요.",
   availability: "Available for projects",
-  location: "Uijeongbu, KR",
   channels: [
     {
       label: "Email",
@@ -135,7 +134,6 @@ export const MAIN_CLOSE_UI = {
 export const MAIN_FOOTER_UI = {
   availability: "Available for projects",
   brand: "taejun0",
-  location: "Uijeongbu, KR",
   nav: [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },

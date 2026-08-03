@@ -23,7 +23,7 @@ export const BLOG_PAGE_UI = {
   discussionsHint:
     "새 글은 GitHub Discussions의 Blog 카테고리에 올리면 이 목록에 자동으로 반영됩니다.",
   giscusNotConfigured:
-    "Giscus repo/category id를 siteConfig에 설정하면 댓글이 활성화됩니다.",
+    "댓글은 아직 연결해 두지 않았습니다. 곧 열어둘 예정이에요.",
 } as const;
 
 export const BLOG_VELOG_NOTICE_UI = {

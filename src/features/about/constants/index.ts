@@ -22,7 +22,7 @@ export const ABOUT_PAGE_UI = {
     photo: "/images/myimage/1.png",
     photoAlt: "오태준 프로필 사진",
     photoRole: "Frontend oriented Developer",
-    photoMeta: "UIJEONGBU, KR · AVAILABLE",
+    photoMeta: "AVAILABLE",
   },
   marquee: {
     label: "Tools & Partners in craft",
