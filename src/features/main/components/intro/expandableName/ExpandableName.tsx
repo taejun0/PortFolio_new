@@ -13,7 +13,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import * as S from "./ExpandableName.styled";
-import { SPLASH_UI } from "@/components/layout/splash/constants";
+import { SPLASH_DISMISS_EVENT } from "@/components/layout/splash/constants";
 
 const MIN_SCALE_X = 0.2;
 const MAX_SCALE_X = 1.08;
@@ -70,11 +70,18 @@ const ExpandableName = ({ text }: ExpandableNameProps) => {
 
   useEffect(() => {
     if (reducedMotion) return;
-    const timer = window.setTimeout(
-      () => setPhase((current) => (current === "waiting" ? "enter" : current)),
-      SPLASH_UI.minMs
-    );
-    return () => window.clearTimeout(timer);
+
+    const startEnter = () => {
+      setPhase((current) => (current === "waiting" ? "enter" : current));
+    };
+
+    if (document.documentElement.dataset.splashDone === "1") {
+      startEnter();
+      return;
+    }
+
+    window.addEventListener(SPLASH_DISMISS_EVENT, startEnter);
+    return () => window.removeEventListener(SPLASH_DISMISS_EVENT, startEnter);
   }, [reducedMotion]);
 
   useEffect(() => {
