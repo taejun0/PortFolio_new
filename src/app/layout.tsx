@@ -4,7 +4,6 @@
  * 책임: 모든 페이지를 동일한 문서 구조와 전역 설정 안에서 렌더링한다.
  */
 import type { Metadata } from "next";
-import Script from "next/script";
 import type { ReactNode } from "react";
 
 import Providers from "./providers";
@@ -53,13 +52,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           id="theme-boot-css"
           dangerouslySetInnerHTML={{ __html: themeBootCss }}
         />
-      </head>
-      <body>
-        <Script
+        {/* next/script beforeInteractive는 Next 16에서 client script 경고를 냄 → head 인라인으로 차단 실행 */}
+        <script
           id="theme-boot"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: themeBootScript }}
         />
+      </head>
+      <body>
         <Providers>
           <SiteShell>{children}</SiteShell>
         </Providers>

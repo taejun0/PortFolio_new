@@ -9,7 +9,7 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
+  useLayoutEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -42,11 +42,11 @@ const readStoredMode = (): ThemeMode => {
 };
 
 export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
-  // 클라이언트 첫 페인트부터 data-theme/localStorage와 맞춰 검정 플래시를 줄인다.
-  const [mode, setModeState] = useState<ThemeMode>(readStoredMode);
+  // SSR·클라이언트 첫 렌더는 동일하게 dark. localStorage는 hydrate 이후에만 반영한다.
+  const [mode, setModeState] = useState<ThemeMode>("dark");
   const [ready, setReady] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const initial = readStoredMode();
     setModeState(initial);
     document.documentElement.dataset.theme = initial;
