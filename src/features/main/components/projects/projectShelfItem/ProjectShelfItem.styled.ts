@@ -137,7 +137,7 @@ export const Media = styled.div`
     object-fit: cover;
   }
 
-  /* 하단 카피 가독성 — 라이트는 흰 스크림, 다크는 검정 스크림 */
+  /* 하단 카피 가독성 — 라이트는 흰 스크림, 다크는 검정 스크림 (약하게) */
   &::after {
     content: "";
     position: absolute;
@@ -146,15 +146,15 @@ export const Media = styled.div`
       theme.mode === "light"
         ? `linear-gradient(
             to top,
-            color-mix(in srgb, ${theme.colors.surface} 92%, transparent) 0%,
-            color-mix(in srgb, ${theme.colors.surface} 55%, transparent) 36%,
-            transparent 62%
+            color-mix(in srgb, ${theme.colors.surface} 58%, transparent) 0%,
+            color-mix(in srgb, ${theme.colors.surface} 22%, transparent) 28%,
+            transparent 52%
           )`
         : `linear-gradient(
             to top,
-            color-mix(in srgb, ${theme.colors.background} 72%, transparent) 0%,
-            color-mix(in srgb, ${theme.colors.background} 28%, transparent) 32%,
-            transparent 58%
+            color-mix(in srgb, ${theme.colors.background} 42%, transparent) 0%,
+            color-mix(in srgb, ${theme.colors.background} 12%, transparent) 28%,
+            transparent 52%
           )`};
   }
 `;
@@ -185,10 +185,6 @@ export const PanelTitle = styled.h3`
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   line-height: 1.15;
   color: ${({ theme }) => theme.colors.text};
-  text-shadow: ${({ theme }) =>
-    theme.mode === "light"
-      ? `0 1px 14px color-mix(in srgb, ${theme.colors.surface} 90%, transparent)`
-      : `0 1px 12px color-mix(in srgb, ${theme.colors.background} 55%, transparent)`};
 `;
 
 export const PanelSummary = styled.p`
@@ -200,8 +196,4 @@ export const PanelSummary = styled.p`
     theme.mode === "light"
       ? theme.colors.textMuted
       : `color-mix(in srgb, ${theme.colors.text} 88%, transparent)`};
-  text-shadow: ${({ theme }) =>
-    theme.mode === "light"
-      ? `0 1px 12px color-mix(in srgb, ${theme.colors.surface} 85%, transparent)`
-      : `0 1px 10px color-mix(in srgb, ${theme.colors.background} 50%, transparent)`};
 `;
