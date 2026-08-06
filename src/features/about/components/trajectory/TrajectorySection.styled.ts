@@ -1,9 +1,10 @@
 /**
  * 생성 이유: Trajectory 타임라인 시각을 로직과 분리한다.
  * 역할: TrajectorySection 스타일이다.
- * 책임: 촘촘한 세로 라인·기간·포인트·키워드 배치만 소유한다.
+ * 책임: 스크롤 연동 세로 레일·기간·포인트·키워드 배치만 소유한다.
  */
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
 export const Title = styled.h2`
   margin-bottom: ${({ theme }) => theme.space[4]};
@@ -24,11 +25,34 @@ export const Subtitle = styled.p`
 `;
 
 export const List = styled.ol`
+  position: relative;
   display: grid;
   gap: 0;
-  border-left: 1px solid ${({ theme }) => theme.colors.border};
   margin-left: 0.35rem;
   max-width: 48rem;
+  padding-left: 0;
+`;
+
+export const Rail = styled.div`
+  position: absolute;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  left: 0;
+  width: 1px;
+  background: ${({ theme }) => theme.colors.border};
+  pointer-events: none;
+`;
+
+export const RailProgress = styled(motion.div)`
+  position: absolute;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  left: 0;
+  width: 1px;
+  background: ${({ theme }) => theme.colors.accent};
+  transform-origin: top center;
+  pointer-events: none;
+  will-change: transform;
 `;
 
 export const Item = styled.li`
@@ -54,13 +78,14 @@ export const Item = styled.li`
   &::before {
     content: "";
     position: absolute;
-    left: -0.3rem;
+    left: -0.22rem;
     top: calc(${({ theme }) => theme.space[4]} + 0.35rem);
+    z-index: 1;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 999px;
     border: 1px solid ${({ theme }) => theme.colors.accent};
-    background: ${({ theme }) => theme.colors.surface};
+    background: ${({ theme }) => theme.colors.background};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
