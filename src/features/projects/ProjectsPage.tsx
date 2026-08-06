@@ -58,7 +58,6 @@ const ProjectsPage = () => (
                     <S.Category>{project.role}</S.Category>
                     <S.ItemTitle>{project.title}</S.ItemTitle>
                     <S.ItemSummary>{project.summary}</S.ItemSummary>
-                    <S.ItemBody>{project.overview}</S.ItemBody>
 
                     {result ? (
                       <S.Block>

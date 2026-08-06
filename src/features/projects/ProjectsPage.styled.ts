@@ -78,7 +78,7 @@ export const Item = styled.li`
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
-      min-height: clamp(22rem, 48vh, 30rem);
+      min-height: clamp(16.5rem, 32vh, 22rem);
     }
   }
 
@@ -102,7 +102,7 @@ export const Item = styled.li`
 
 export const Media = styled.div`
   position: relative;
-  min-height: clamp(14rem, 42vw, 20rem);
+  min-height: clamp(12rem, 36vw, 16rem);
   overflow: hidden;
   background: ${({ theme }) => theme.colors.surfaceAlt};
 
@@ -147,12 +147,13 @@ export const Badge = styled.span`
 export const Copy = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.space[4]};
-  padding: ${({ theme }) => theme.space[5]};
+  gap: ${({ theme }) => theme.space[3]};
+  padding: ${({ theme }) => theme.space[4]};
   min-width: 0;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: clamp(1.4rem, 1rem + 1.5vw, 2.25rem);
+    padding: clamp(1.15rem, 0.85rem + 1.1vw, 1.75rem);
+    justify-content: center;
   }
 `;
 
@@ -165,7 +166,7 @@ export const Category = styled.p`
 `;
 
 export const ItemTitle = styled.h2`
-  font-size: clamp(1.55rem, 1.2rem + 1.4vw, 2.35rem);
+  font-size: clamp(1.4rem, 1.15rem + 1.1vw, 2rem);
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   letter-spacing: -0.03em;
   line-height: 1.15;
@@ -173,24 +174,18 @@ export const ItemTitle = styled.h2`
 `;
 
 export const ItemSummary = styled.p`
-  font-size: ${({ theme }) => theme.typography.body.fontSize};
-  line-height: 1.55;
-  color: ${({ theme }) => theme.colors.textMuted};
-`;
-
-export const ItemBody = styled.p`
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  line-height: 1.65;
+  line-height: 1.5;
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 export const Block = styled.div`
   display: grid;
-  gap: ${({ theme }) => theme.space[2]};
+  gap: ${({ theme }) => theme.space[1]};
 `;
 
 export const BlockLabel = styled.p`
@@ -203,11 +198,11 @@ export const BlockLabel = styled.p`
 
 export const BlockText = styled.p`
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  line-height: 1.6;
+  line-height: 1.55;
   color: ${({ theme }) => theme.colors.text};
 `;
 
@@ -229,8 +224,8 @@ export const Cta = styled.span`
   display: inline-flex;
   width: fit-content;
   align-items: center;
-  margin-top: auto;
-  padding: 0.7rem 1.15rem;
+  margin-top: ${({ theme }) => theme.space[1]};
+  padding: 0.6rem 1rem;
   border-radius: 999px;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
