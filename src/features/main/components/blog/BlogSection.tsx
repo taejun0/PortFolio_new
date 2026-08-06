@@ -47,7 +47,7 @@ const BlogSection = () => (
                   <S.PostTitle>{post.title}</S.PostTitle>
                   <S.PostNote>{post.meta}</S.PostNote>
                 </S.PostCopy>
-                <S.Arrow aria-hidden>{post.external ? "↗" : "→"}</S.Arrow>
+                <S.Arrow aria-hidden />
               </a>
             </S.PostItem>
           );
@@ -55,14 +55,20 @@ const BlogSection = () => (
       </S.PostList>
       <S.CtaWrap>
         <Link href={ROUTES.BLOG}>
-          <P.TextLink>{MAIN_BLOG_UI.cta} →</P.TextLink>
+          <P.TextLink>
+            {MAIN_BLOG_UI.cta}
+            <S.LinkArrow aria-hidden />
+          </P.TextLink>
         </Link>
         <a
           href={SITE_CONFIG.velog}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <P.TextLink>{MAIN_BLOG_UI.velogCta} ↗</P.TextLink>
+          <P.TextLink>
+            {MAIN_BLOG_UI.velogCta}
+            <S.LinkArrow aria-hidden />
+          </P.TextLink>
         </a>
       </S.CtaWrap>
     </P.SectionInner>

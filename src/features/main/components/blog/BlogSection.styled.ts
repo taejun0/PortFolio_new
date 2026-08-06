@@ -34,6 +34,10 @@ export const PostList = styled.ul`
 `;
 
 export const Arrow = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1em;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   color: ${({ theme }) => theme.colors.textMuted};
   opacity: 0.55;
@@ -41,6 +45,10 @@ export const Arrow = styled.span`
     color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &::before {
+    content: "→";
+  }
 `;
 
 export const PostTitle = styled.h3`
@@ -85,7 +93,11 @@ export const PostItem = styled.li`
   &:hover ${Arrow} {
     color: ${({ theme }) => theme.colors.text};
     opacity: 1;
-    transform: translateX(2px);
+    transform: translate(2px, -2px);
+
+    &::before {
+      content: "↗";
+    }
   }
 `;
 
@@ -99,6 +111,16 @@ export const Empty = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
+export const LinkArrow = styled.span`
+  display: inline-block;
+  margin-left: 0.35em;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &::before {
+    content: "→";
+  }
+`;
+
 export const CtaWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -108,5 +130,13 @@ export const CtaWrap = styled.div`
 
   a span {
     margin-top: 0;
+  }
+
+  a:hover ${LinkArrow} {
+    transform: translate(2px, -2px);
+
+    &::before {
+      content: "↗";
+    }
   }
 `;

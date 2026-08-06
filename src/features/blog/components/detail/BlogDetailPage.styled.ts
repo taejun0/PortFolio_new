@@ -79,8 +79,32 @@ export const Content = styled.div`
   }
 
   img {
-    margin: ${({ theme }) => theme.space[5]} 0;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: ${({ theme }) => theme.space[5]} auto;
     border-radius: ${({ theme }) => theme.layout.radius.md};
+  }
+
+  p:has(> img) {
+    text-align: center;
+  }
+
+  p:has(> img) img {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: ${({ theme }) => theme.space[5]} 0;
+  }
+
+  figure img {
+    margin: 0 auto;
   }
 
   code {
