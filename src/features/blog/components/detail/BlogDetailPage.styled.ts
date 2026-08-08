@@ -1,7 +1,7 @@
 /**
  * 생성 이유: 블로그 상세 스타일을 목록과 분리한다.
  * 역할: BlogDetailPage 레이아웃·본문·댓글 영역 스타일을 정의한다.
- * 책임: 다크 톤 상세 페이지 시각만 소유한다.
+ * 책임: 테마 토큰 기준 상세 레이아웃과 본문(제목·코드 블록) 시각을 소유한다.
  */
 import styled from "@emotion/styled";
 
@@ -57,11 +57,24 @@ export const Content = styled.div`
   line-height: 1.8;
   color: ${({ theme }) => theme.colors.text};
 
+  h1,
   h2,
   h3 {
     margin: ${({ theme }) => theme.space[7]} 0 ${({ theme }) => theme.space[3]};
     font-weight: ${({ theme }) => theme.fonts.weights.bold};
     letter-spacing: -0.015em;
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  h1 {
+    font-size: ${({ theme }) => theme.typography.quote.fontSize};
+    line-height: ${({ theme }) => theme.typography.quote.lineHeight};
+    letter-spacing: ${({ theme }) => theme.typography.quote.letterSpacing};
+  }
+
+  h2 {
+    font-size: ${({ theme }) => theme.typography.heading.fontSize};
+    line-height: ${({ theme }) => theme.typography.heading.lineHeight};
   }
 
   p {
@@ -110,18 +123,36 @@ export const Content = styled.div`
     margin: 0 auto;
   }
 
-  code {
+  :not(pre) > code {
+    padding: 0.15em 0.4em;
+    border-radius: ${({ theme }) => theme.layout.radius.sm};
+    border: 1px solid ${({ theme }) => theme.colors.border};
+    background: ${({ theme }) => theme.colors.surfaceAlt};
     font-family: ${({ theme }) => theme.fonts.mono};
-    font-size: 0.9em;
+    font-size: 0.86em;
+    color: ${({ theme }) => theme.colors.text};
   }
 
   pre {
     overflow-x: auto;
-    margin-bottom: ${({ theme }) => theme.space[5]};
+    margin: 0 0 ${({ theme }) => theme.space[5]};
     padding: ${({ theme }) => theme.space[4]};
     border-radius: ${({ theme }) => theme.layout.radius.sm};
     border: 1px solid ${({ theme }) => theme.colors.border};
     background: ${({ theme }) => theme.colors.surface};
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  pre code {
+    display: block;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-family: ${({ theme }) => theme.fonts.mono};
+    font-size: 0.86em;
+    line-height: 1.65;
+    color: inherit;
+    white-space: pre;
   }
 `;
 
