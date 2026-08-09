@@ -36,7 +36,7 @@ export const List = styled.ol`
 export const Rail = styled.div`
   position: absolute;
   top: 0.35rem;
-  bottom: 0.35rem;
+  bottom: 0;
   left: 0;
   width: 1px;
   background: ${({ theme }) => theme.colors.border};
@@ -46,7 +46,7 @@ export const Rail = styled.div`
 export const RailProgress = styled(motion.div)`
   position: absolute;
   top: 0.35rem;
-  bottom: 0.35rem;
+  bottom: 0;
   left: 0;
   width: 1px;
   background: ${({ theme }) => theme.colors.accent};
@@ -65,27 +65,14 @@ export const Item = styled.li`
 
   &:first-of-type {
     padding-top: 0;
+  }
 
-    &::before {
-      top: 0.35rem;
-    }
+  &:first-of-type > [data-dot] {
+    top: 0.35rem;
   }
 
   &:last-child {
     padding-bottom: 0;
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    left: -0.22rem;
-    top: calc(${({ theme }) => theme.space[4]} + 0.35rem);
-    z-index: 1;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 999px;
-    border: 1px solid ${({ theme }) => theme.colors.accent};
-    background: ${({ theme }) => theme.colors.background};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -95,6 +82,26 @@ export const Item = styled.li`
   }
 `;
 
+export const Dot = styled.span<{ $active?: boolean }>`
+  position: absolute;
+  left: -0.22rem;
+  top: calc(${({ theme }) => theme.space[4]} + 0.35rem);
+  z-index: 1;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid ${({ theme }) => theme.colors.accent};
+  background: ${({ $active, theme }) =>
+    $active ? theme.colors.accent : theme.colors.background};
+  box-shadow: ${({ $active, theme }) =>
+    $active ? `0 0 0 0.2rem color-mix(in srgb, ${theme.colors.accent} 28%, transparent)` : "none"};
+  transform: ${({ $active }) => ($active ? "scale(1.2)" : "scale(1)")};
+  transition:
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+`;
+
 export const PeriodCol = styled.div`
   display: grid;
   gap: ${({ theme }) => theme.space[2]};
@@ -102,12 +109,14 @@ export const PeriodCol = styled.div`
   padding-top: 0.1rem;
 `;
 
-export const Period = styled.p`
+export const Period = styled.p<{ $active?: boolean }>`
   font-size: ${({ theme }) => theme.typography.small.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textMuted};
+  color: ${({ $active, theme }) =>
+    $active ? theme.colors.accent : theme.colors.textMuted};
+  transition: color 180ms ease;
 `;
 
 export const Badge = styled.span`
