@@ -1,9 +1,11 @@
 ﻿/**
  * 생성 이유: 프로젝트 목록 스타일을 분리한다.
- * 역할: ProjectsPage 케이스 스터디형 쇼케이스 스타일을 정의한다.
- * 책임: 히어로·대형 미디어/카피 카드 시각만 소유한다.
+ * 역할: ProjectsPage 슬림 케이스 카드 쇼케이스 스타일을 정의한다.
+ * 책임: 히어로·미디어 비중·짧은 카피 카드 시각만 소유한다.
  */
 import styled from "@emotion/styled";
+
+import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -54,7 +56,7 @@ export const Empty = styled.p`
 
 export const List = styled.ul`
   display: grid;
-  gap: ${({ theme }) => theme.space[6]};
+  gap: ${({ theme }) => theme.space[5]};
 `;
 
 export const Item = styled.li`
@@ -75,10 +77,11 @@ export const Item = styled.li`
     transition:
       border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
       background 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    ${hoverArrowParent}
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
-      min-height: clamp(16.5rem, 32vh, 22rem);
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.75fr);
+      min-height: clamp(15rem, 28vh, 20rem);
     }
   }
 
@@ -147,12 +150,12 @@ export const Badge = styled.span`
 export const Copy = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.space[3]};
+  gap: ${({ theme }) => theme.space[2]};
   padding: ${({ theme }) => theme.space[4]};
   min-width: 0;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: clamp(1.15rem, 0.85rem + 1.1vw, 1.75rem);
+    padding: clamp(1.1rem, 0.8rem + 1vw, 1.6rem);
     justify-content: center;
   }
 `;
@@ -166,7 +169,7 @@ export const Category = styled.p`
 `;
 
 export const ItemTitle = styled.h2`
-  font-size: clamp(1.4rem, 1.15rem + 1.1vw, 2rem);
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.85rem);
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   letter-spacing: -0.03em;
   line-height: 1.15;
@@ -175,7 +178,7 @@ export const ItemTitle = styled.h2`
 
 export const ItemSummary = styled.p`
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
@@ -183,12 +186,13 @@ export const ItemSummary = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
-export const Block = styled.div`
+export const Result = styled.div`
   display: grid;
-  gap: ${({ theme }) => theme.space[1]};
+  gap: 0.25rem;
+  margin-top: ${({ theme }) => theme.space[1]};
 `;
 
-export const BlockLabel = styled.p`
+export const ResultLabel = styled.p`
   font-size: ${({ theme }) => theme.typography.small.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   letter-spacing: 0.12em;
@@ -196,48 +200,29 @@ export const BlockLabel = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
-export const BlockText = styled.p`
+export const ResultText = styled.p`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  line-height: 1.55;
+  line-height: 1.5;
   color: ${({ theme }) => theme.colors.text};
-`;
-
-export const Tags = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-`;
-
-export const Tag = styled.li`
-  padding: 0.28rem 0.6rem;
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  font-size: ${({ theme }) => theme.typography.small.fontSize};
-  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 export const Cta = styled.span`
   display: inline-flex;
   width: fit-content;
   align-items: center;
-  margin-top: ${({ theme }) => theme.space[1]};
-  padding: 0.6rem 1rem;
-  border-radius: 999px;
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  margin-top: ${({ theme }) => theme.space[2]};
+  font-size: ${({ theme }) => theme.typography.small.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  color: ${({ theme }) =>
-    theme.mode === "light" ? theme.colors.accentContrast : "#000000"};
-  background: ${({ theme }) => theme.colors.text};
-  transition:
-    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.textMuted};
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   ${Item}:hover & {
-    transform: translateY(-1px);
-    opacity: 0.92;
+    color: ${({ theme }) => theme.colors.text};
   }
 `;

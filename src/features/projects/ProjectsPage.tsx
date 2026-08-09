@@ -1,13 +1,14 @@
 ﻿/**
  * 생성 이유: 프로젝트 목록 UI를 라우트 계층과 분리한다.
  * 역할: /projects 페이지 feature 컴포넌트다.
- * 책임: 히어로·대형 케이스 카드 리스트와 상세 링크를 렌더링한다.
+ * 책임: 히어로·슬림 케이스 카드 리스트와 상세 링크를 렌더링한다.
  */
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 
+import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import * as S from "./ProjectsPage.styled";
 import {
   PROJECTS_PAGE_UI,
@@ -31,6 +32,7 @@ const ProjectsPage = () => (
         <S.List>
           {PROJECTS.map((project, index) => {
             const year = extractProjectYear(project.period);
+            const badge = year ?? String(index + 1).padStart(2, "0");
             const result =
               project.challenges[0]?.learnings ??
               project.challenges[0]?.solution ??
@@ -44,13 +46,12 @@ const ProjectsPage = () => (
                       src={project.image}
                       alt={`${project.title} 미리보기`}
                       fill
-                      sizes="(max-width: 768px) 92vw, 55vw"
+                      sizes="(max-width: 768px) 92vw, 58vw"
                       style={{ objectFit: "cover" }}
                       priority={index < 2}
                     />
                     <S.Badges>
-                      <S.Badge>{String(index + 1).padStart(2, "0")}</S.Badge>
-                      {year ? <S.Badge>{year}</S.Badge> : null}
+                      <S.Badge>{badge}</S.Badge>
                     </S.Badges>
                   </S.Media>
 
@@ -60,26 +61,18 @@ const ProjectsPage = () => (
                     <S.ItemSummary>{project.summary}</S.ItemSummary>
 
                     {result ? (
-                      <S.Block>
-                        <S.BlockLabel>
+                      <S.Result>
+                        <S.ResultLabel>
                           {PROJECTS_PAGE_UI.resultLabel}
-                        </S.BlockLabel>
-                        <S.BlockText>{result}</S.BlockText>
-                      </S.Block>
+                        </S.ResultLabel>
+                        <S.ResultText>{result}</S.ResultText>
+                      </S.Result>
                     ) : null}
 
-                    <S.Block>
-                      <S.BlockLabel>
-                        {PROJECTS_PAGE_UI.galleryLabel}
-                      </S.BlockLabel>
-                      <S.Tags>
-                        {project.tags.map((tag) => (
-                          <S.Tag key={tag}>{tag}</S.Tag>
-                        ))}
-                      </S.Tags>
-                    </S.Block>
-
-                    <S.Cta>{PROJECTS_PAGE_UI.viewProject} ↗</S.Cta>
+                    <S.Cta>
+                      {PROJECTS_PAGE_UI.viewProject}
+                      <HoverArrow aria-hidden />
+                    </S.Cta>
                   </S.Copy>
                 </Link>
               </S.Item>

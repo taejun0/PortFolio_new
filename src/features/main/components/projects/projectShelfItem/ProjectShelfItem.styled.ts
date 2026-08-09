@@ -47,8 +47,8 @@ export const Spine = styled.div<{ $expanded: boolean }>`
       min-width: 0;
     `
         : `
-      flex: 0 0 clamp(4.25rem, 6.5vw, 5.75rem);
-      width: clamp(4.25rem, 6.5vw, 5.75rem);
+      flex: 0 0 clamp(4.75rem, 7vw, 6.25rem);
+      width: clamp(4.75rem, 7vw, 6.25rem);
     `}
   }
 
@@ -71,14 +71,14 @@ export const Collapsed = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    padding: ${({ theme }) => theme.space[4]} ${({ theme }) => theme.space[2]};
+    padding: ${({ theme }) => theme.space[5]} ${({ theme }) => theme.space[3]};
   }
 `;
 
 export const SpineLabel = styled.span`
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: ${({ theme }) => theme.colors.textMuted};
   white-space: nowrap;
 
@@ -91,11 +91,13 @@ export const SpineLabel = styled.span`
     display: flex;
     align-items: center;
     justify-content: center;
-    max-height: calc(100% - 3rem);
+    max-height: calc(100% - 3.25rem);
     overflow: hidden;
     writing-mode: vertical-rl;
     text-orientation: mixed;
     font-size: ${({ theme }) => theme.typography.small.fontSize};
+    letter-spacing: 0.18em;
+    line-height: 1.35;
   }
 `;
 
@@ -137,7 +139,7 @@ export const Media = styled.div`
     object-fit: cover;
   }
 
-  /* 하단 카피 가독성 — 라이트는 흰 스크림, 다크는 검정 스크림 (약하게) */
+  /* 하단 카피 가독성 — 라이트는 흰 스크림, 다크는 검정 스크림 */
   &::after {
     content: "";
     position: absolute;
@@ -146,15 +148,15 @@ export const Media = styled.div`
       theme.mode === "light"
         ? `linear-gradient(
             to top,
-            color-mix(in srgb, ${theme.colors.surface} 58%, transparent) 0%,
-            color-mix(in srgb, ${theme.colors.surface} 22%, transparent) 28%,
-            transparent 52%
+            color-mix(in srgb, ${theme.colors.surface} 88%, transparent) 0%,
+            color-mix(in srgb, ${theme.colors.surface} 48%, transparent) 38%,
+            transparent 62%
           )`
         : `linear-gradient(
             to top,
-            color-mix(in srgb, ${theme.colors.background} 42%, transparent) 0%,
-            color-mix(in srgb, ${theme.colors.background} 12%, transparent) 28%,
-            transparent 52%
+            color-mix(in srgb, ${theme.colors.background} 78%, transparent) 0%,
+            color-mix(in srgb, ${theme.colors.background} 32%, transparent) 38%,
+            transparent 62%
           )`};
   }
 `;
@@ -181,19 +183,22 @@ export const PanelText = styled.div`
 `;
 
 export const PanelTitle = styled.h3`
-  font-size: ${({ theme }) => theme.typography.heading.fontSize};
+  font-size: clamp(1.15rem, 1rem + 0.55vw, 1.55rem);
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   line-height: 1.15;
+  letter-spacing: -0.02em;
   color: ${({ theme }) => theme.colors.text};
 `;
 
 export const PanelSummary = styled.p`
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   margin-top: ${({ theme }) => theme.space[2]};
-  max-width: 36ch;
+  max-width: 38ch;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   line-height: 1.5;
-  color: ${({ theme }) =>
-    theme.mode === "light"
-      ? theme.colors.textMuted
-      : `color-mix(in srgb, ${theme.colors.text} 88%, transparent)`};
+  color: ${({ theme }) => theme.colors.text};
+  opacity: 0.92;
 `;

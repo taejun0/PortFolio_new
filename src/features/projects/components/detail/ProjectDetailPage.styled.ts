@@ -5,6 +5,8 @@
  */
 import styled from "@emotion/styled";
 
+import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
+
 export const Wrapper = styled.article`
   width: 100%;
   padding-top: clamp(4.5rem, 2.5rem + 7vw, 8rem);
@@ -91,6 +93,7 @@ export const ExtLink = styled.a`
   color: ${({ theme }) => theme.colors.textMuted};
   text-decoration: none;
   transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  ${hoverArrowParent}
 
   &:hover {
     color: ${({ theme }) => theme.colors.text};
@@ -123,8 +126,10 @@ export const Block = styled.section`
 
 export const BlockTitle = styled.h2`
   margin-bottom: ${({ theme }) => theme.space[5]};
-  font-size: ${({ theme }) => theme.typography.heading.fontSize};
+  font-size: ${({ theme }) => theme.typography.title.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
+  letter-spacing: ${({ theme }) => theme.typography.title.letterSpacing};
+  line-height: ${({ theme }) => theme.typography.title.lineHeight};
   color: ${({ theme }) => theme.colors.text};
 `;
 
