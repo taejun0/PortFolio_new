@@ -1,7 +1,7 @@
 /**
  * 생성 이유: Thomas Eduardo식 하단 푸터를 사이트 공통으로 둔다.
- * 역할: 연락·내비·브랜드 푸터 컴포넌트다.
- * 책임: availability 이메일, 섹션 내비, 소셜, 카피라이트만 렌더링한다.
+ * 역할: 보조 내비·소셜·브랜드 푸터 컴포넌트다.
+ * 책임: 작은 mailto·섹션 내비·소셜·카피라이트만 렌더링한다. (주 CTA는 Contact)
  */
 "use client";
 
@@ -18,20 +18,17 @@ const Footer = () => {
     <S.Footer>
       <S.Inner>
         <S.Top>
-          <S.Contact>
-            <S.Availability>{MAIN_FOOTER_UI.availability}</S.Availability>
-            <S.Email href={`mailto:${SITE_CONFIG.email}`}>
-              {SITE_CONFIG.email}
-            </S.Email>
-          </S.Contact>
+          <S.Nav>
+            {MAIN_FOOTER_UI.nav.map((item) => (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </S.Nav>
           <S.TopRight>
-            <S.Nav>
-              {MAIN_FOOTER_UI.nav.map((item) => (
-                <Link key={item.href} href={item.href}>
-                  {item.label}
-                </Link>
-              ))}
-            </S.Nav>
+            <S.Mail href={`mailto:${SITE_CONFIG.email}`}>
+              {SITE_CONFIG.email}
+            </S.Mail>
             <S.Socials>
               <S.Social
                 href={SITE_CONFIG.github}
