@@ -1,7 +1,7 @@
 /**
  * 생성 이유: 다크/라이트 전환 상태를 Emotion Theme과 동기화한다.
  * 역할: 테마 모드 Context와 Provider다.
- * 책임: 로컬 스토리지 유지, html data-theme, ThemeProvider 주입을 관리한다.
+ * 책임: localStorage·cookie·html data-theme과 ThemeProvider 주입을 관리한다.
  */
 "use client";
 
@@ -17,8 +17,7 @@ import {
 import { ThemeProvider } from "@emotion/react";
 
 import { themes, type ThemeMode, type AppTheme } from "@/styles/theme";
-
-const STORAGE_KEY = "portfolio-theme-mode";
+import { THEME_STORAGE_KEY } from "./themeBoot";
 
 type ThemeModeContextValue = {
   mode: ThemeMode;
@@ -28,10 +27,18 @@ type ThemeModeContextValue = {
 
 const ThemeModeContext = createContext<ThemeModeContextValue | null>(null);
 
+const writeThemeCookie = (mode: ThemeMode) => {
+  try {
+    document.cookie = `${THEME_STORAGE_KEY}=${mode}; path=/; max-age=31536000; SameSite=Lax`;
+  } catch {
+    /* ignore */
+  }
+};
+
 const readStoredMode = (): ThemeMode => {
   if (typeof window === "undefined") return "dark";
   try {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
+    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
     if (stored === "light" || stored === "dark") return stored;
   } catch {
     /* ignore */
@@ -42,7 +49,8 @@ const readStoredMode = (): ThemeMode => {
 };
 
 export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
-  // SSR·클라이언트 첫 렌더는 동일하게 dark. localStorage는 hydrate 이후에만 반영한다.
+  // SSR·hydrate 첫 트리는 dark로 맞춰 mismatch를 피하고,
+  // 캔버스/스플래시는 layout boot의 --canvas-* + data-theme이 담당한다.
   const [mode, setModeState] = useState<ThemeMode>("dark");
   const [ready, setReady] = useState(false);
 
@@ -52,6 +60,12 @@ export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
     document.documentElement.dataset.theme = initial;
     document.documentElement.style.colorScheme = initial;
     document.documentElement.dataset.themeReady = "1";
+    writeThemeCookie(initial);
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, initial);
+    } catch {
+      /* ignore */
+    }
     setReady(true);
   }, []);
 
@@ -59,8 +73,9 @@ export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
     setModeState(next);
     document.documentElement.dataset.theme = next;
     document.documentElement.style.colorScheme = next;
+    writeThemeCookie(next);
     try {
-      window.localStorage.setItem(STORAGE_KEY, next);
+      window.localStorage.setItem(THEME_STORAGE_KEY, next);
     } catch {
       /* ignore */
     }

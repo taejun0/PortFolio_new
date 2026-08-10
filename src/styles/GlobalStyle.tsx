@@ -41,8 +41,9 @@ const globalStyles = (theme: Theme) => css`
     font-family: ${theme.fonts.body};
     font-size: ${theme.typography.body.fontSize};
     line-height: ${theme.typography.body.lineHeight};
-    color: ${theme.colors.text};
-    background-color: ${theme.colors.background};
+    /* Emotion SSR 기본(dark)보다 boot 스크립트의 data-theme 변수를 우선한다 */
+    color: var(--canvas-fg, ${theme.colors.text});
+    background-color: var(--canvas-bg, ${theme.colors.background});
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     transition:

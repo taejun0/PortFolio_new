@@ -4,10 +4,12 @@
  * 책임: 모든 페이지를 동일한 문서 구조와 전역 설정 안에서 렌더링한다.
  */
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import type { ReactNode } from "react";
 
 import Providers from "./providers";
 import SiteShell from "@/components/layout/SiteShell";
+import { THEME_STORAGE_KEY } from "@/components/theme/themeBoot";
 import { SITE_CONFIG } from "@/lib/siteConfig";
 import { pretendard } from "@/styles/fonts";
 
@@ -19,43 +21,59 @@ export const metadata: Metadata = {
   description: SITE_CONFIG.description,
 };
 
-const themeBootScript = `
-(function(){
-  try {
-    var m = localStorage.getItem('portfolio-theme-mode');
-    if (m !== 'light' && m !== 'dark') m = 'dark';
-    document.documentElement.dataset.theme = m;
-    document.documentElement.style.colorScheme = m;
-  } catch (e) {
-    document.documentElement.dataset.theme = 'dark';
-    document.documentElement.style.colorScheme = 'dark';
-  }
-})();
-`;
-
-/** React/Emotion hydrate 전에 캔버스 색을 맞춰 라이트 모드 검정 플래시를 막는다. */
+/**
+ * React/Emotion은 SSR에서 dark로 그려질 수 있다.
+ * 스플래시·body는 --canvas-* 만 보고, cookie/boot 스크립트가 맞춘 data-theme을 따른다.
+ */
 const themeBootCss = `
-html{background-color:#000000;color-scheme:dark}
-html[data-theme="light"]{background-color:#f3f3f4;color-scheme:light}
+html{
+  --canvas-bg:#000000;
+  --canvas-fg:#ffffff;
+  background-color:var(--canvas-bg);
+  color-scheme:dark;
+}
+html[data-theme="light"]{
+  --canvas-bg:#f3f3f4;
+  --canvas-fg:#0c0c0c;
+  background-color:var(--canvas-bg);
+  color-scheme:light;
+}
+html[data-theme="dark"]{
+  --canvas-bg:#000000;
+  --canvas-fg:#ffffff;
+  background-color:var(--canvas-bg);
+  color-scheme:dark;
+}
 html,body{min-height:100%}
-body{margin:0;background-color:inherit}
-html[data-theme="dark"] body{background-color:#000000;color:#ffffff}
-html[data-theme="light"] body{background-color:#f3f3f4;color:#0c0c0c}
+body{
+  margin:0;
+  background-color:var(--canvas-bg);
+  color:var(--canvas-fg);
+}
 html:not([data-theme-ready="1"]) body{transition:none!important}
 `;
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const jar = await cookies();
+  const stored = jar.get(THEME_STORAGE_KEY)?.value;
+  const theme = stored === "light" || stored === "dark" ? stored : "dark";
+
   return (
-    <html lang="ko" className={pretendard.variable} suppressHydrationWarning>
+    <html
+      lang="ko"
+      className={pretendard.variable}
+      data-theme={theme}
+      style={{ colorScheme: theme }}
+      suppressHydrationWarning
+    >
       <head>
         <style
           id="theme-boot-css"
           dangerouslySetInnerHTML={{ __html: themeBootCss }}
-        />
-        {/* next/script beforeInteractive는 Next 16에서 client script 경고를 냄 → head 인라인으로 차단 실행 */}
-        <script
-          id="theme-boot"
-          dangerouslySetInnerHTML={{ __html: themeBootScript }}
         />
       </head>
       <body>

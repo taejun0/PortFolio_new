@@ -13,7 +13,8 @@ export const Overlay = styled(motion.div)`
   display: grid;
   place-items: center;
   padding: ${({ theme }) => theme.layout.gutter};
-  background: ${({ theme }) => theme.colors.background};
+  /* SSR Emotion dark 테마와 무관하게 boot data-theme 캔버스를 따른다 */
+  background: var(--canvas-bg, ${({ theme }) => theme.colors.background});
   pointer-events: all;
   overflow: hidden;
 `;
@@ -51,6 +52,6 @@ export const Glyph = styled.span`
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   letter-spacing: ${({ theme }) => theme.typography.heroName.letterSpacing};
   line-height: ${({ theme }) => theme.typography.heroName.lineHeight};
-  color: ${({ theme }) => theme.colors.text};
+  color: var(--canvas-fg, ${({ theme }) => theme.colors.text});
   text-transform: uppercase;
 `;

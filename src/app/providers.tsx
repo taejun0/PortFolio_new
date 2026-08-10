@@ -9,6 +9,7 @@ import { useCallback, useState, type ReactNode } from "react";
 
 import EmotionRegistry from "@/lib/EmotionRegistry";
 import SplashScreen from "@/components/layout/splash/SplashScreen";
+import ThemeBootScript from "@/components/theme/ThemeBootScript";
 import { ThemeModeProvider } from "@/components/theme/ThemeModeProvider";
 import GlobalStyle from "@/styles/GlobalStyle";
 
@@ -18,6 +19,7 @@ export default function Providers({ children }: { children: ReactNode }) {
 
   return (
     <EmotionRegistry>
+      <ThemeBootScript />
       <ThemeModeProvider>
         <GlobalStyle />
         <SplashScreen onReady={onSplashReady} />
