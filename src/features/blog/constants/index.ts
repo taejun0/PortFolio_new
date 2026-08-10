@@ -18,8 +18,8 @@ export const BLOG_PAGE_UI = {
   empty: "작성된 글이 없습니다.",
   backToList: "목록으로",
   commentsHeading: "Comments",
-  discussionLink: "GitHub Discussion에서 보기 →",
-  discussionCommentsHint: "댓글은 GitHub Discussion에서 이어갈 수 있습니다 →",
+  discussionLink: "GitHub Discussion에서 보기",
+  discussionCommentsHint: "댓글은 GitHub Discussion에서 이어갈 수 있습니다",
   discussionsHint:
     "새 글은 GitHub Discussions의 Blog 카테고리에 올리면 이 목록에 자동으로 반영됩니다.",
   giscusNotConfigured:
@@ -30,5 +30,5 @@ export const BLOG_VELOG_NOTICE_UI = {
   cutoffDate: "2026-01-02",
   withCutoff: " 까지의 기술 블로그는 Velog에서 작성되었습니다. ",
   legacy: "이전의 기술 블로그는 Velog에서 작성되었습니다. ",
-  link: "Velog에서 보기 →",
+  link: "Velog에서 보기",
 } as const;

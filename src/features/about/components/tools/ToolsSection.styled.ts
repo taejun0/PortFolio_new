@@ -5,6 +5,8 @@
  */
 import styled from "@emotion/styled";
 
+import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
+
 export const Header = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -23,8 +25,9 @@ export const Aside = styled.span`
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textMuted};
   transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  ${hoverArrowParent}
 
-  a:hover & {
+  &:hover {
     color: ${({ theme }) => theme.colors.text};
   }
 `;

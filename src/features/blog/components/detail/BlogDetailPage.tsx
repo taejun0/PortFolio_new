@@ -7,6 +7,7 @@
 
 import Link from "next/link";
 
+import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import * as S from "./BlogDetailPage.styled";
 import BlogComments from "../comments/BlogComments";
 import { BLOG_PAGE_UI } from "../../constants";
@@ -35,6 +36,7 @@ const BlogDetailPage = ({ post }: BlogDetailPageProps) => (
           rel="noopener noreferrer"
         >
           {BLOG_PAGE_UI.discussionLink}
+          <HoverArrow aria-hidden />
         </S.DiscussionLink>
       ) : null}
       <S.Content dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
@@ -47,6 +49,7 @@ const BlogDetailPage = ({ post }: BlogDetailPageProps) => (
             rel="noopener noreferrer"
           >
             {BLOG_PAGE_UI.discussionCommentsHint}
+            <HoverArrow aria-hidden />
           </S.DiscussionLink>
         ) : (
           <BlogComments />

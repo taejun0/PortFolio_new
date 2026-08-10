@@ -5,6 +5,8 @@
  */
 import styled from "@emotion/styled";
 
+import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
+
 export const Wrapper = styled.article`
   width: 100%;
   padding: ${({ theme }) => theme.layout.sectionPaddingY}
@@ -47,6 +49,7 @@ export const DiscussionLink = styled.a`
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   color: ${({ theme }) => theme.colors.accent};
+  ${hoverArrowParent}
 `;
 
 export const Content = styled.div`

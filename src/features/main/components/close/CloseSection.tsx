@@ -8,6 +8,7 @@
 import * as S from "./CloseSection.styled";
 import { MAIN_CLOSE_UI, MAIN_SECTION_IDS } from "../../constants";
 import { SITE_CONFIG } from "@/lib/siteConfig";
+import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 
 const channelHref = (kind: (typeof MAIN_CLOSE_UI.channels)[number]["hrefKind"]) => {
   if (kind === "mailto") return `mailto:${SITE_CONFIG.email}`;
@@ -34,7 +35,10 @@ const CloseSection = () => (
           <S.StatusDot aria-hidden />
           <S.Status>{MAIN_CLOSE_UI.availability}</S.Status>
         </S.StatusRow>
-        <S.Cta href={`mailto:${SITE_CONFIG.email}`}>{MAIN_CLOSE_UI.cta} →</S.Cta>
+        <S.Cta href={`mailto:${SITE_CONFIG.email}`}>
+          {MAIN_CLOSE_UI.cta}
+          <HoverArrow aria-hidden />
+        </S.Cta>
       </S.Intro>
 
       <S.Channels aria-label="연락 채널">
@@ -52,7 +56,7 @@ const CloseSection = () => (
               <S.ChannelHint>{channel.hint}</S.ChannelHint>
             </S.ChannelTop>
             <S.ChannelValue>{channelValue(channel.valueKey)}</S.ChannelValue>
-            <S.ChannelArrow aria-hidden>→</S.ChannelArrow>
+            <S.ChannelArrow data-hover-arrow aria-hidden />
           </S.Channel>
         ))}
       </S.Channels>

@@ -5,6 +5,11 @@
  */
 import styled from "@emotion/styled";
 
+import {
+  hoverArrowCss,
+  hoverArrowParent,
+} from "@/components/common/hoverArrow/HoverArrow.styled";
+
 export const Header = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -34,6 +39,8 @@ export const PostList = styled.ul`
 `;
 
 export const Arrow = styled.span`
+  ${hoverArrowCss}
+  margin-left: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -45,10 +52,6 @@ export const Arrow = styled.span`
     color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-
-  &::before {
-    content: "→";
-  }
 `;
 
 export const PostTitle = styled.h3`
@@ -72,6 +75,7 @@ export const PostNote = styled.p`
 
 export const PostItem = styled.li`
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  ${hoverArrowParent}
 
   a {
     display: grid;
@@ -93,11 +97,6 @@ export const PostItem = styled.li`
   &:hover ${Arrow} {
     color: ${({ theme }) => theme.colors.text};
     opacity: 1;
-    transform: translate(2px, -2px);
-
-    &::before {
-      content: "↗";
-    }
   }
 `;
 
@@ -111,16 +110,6 @@ export const Empty = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
-export const LinkArrow = styled.span`
-  display: inline-block;
-  margin-left: 0.35em;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-
-  &::before {
-    content: "→";
-  }
-`;
-
 export const CtaWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -130,13 +119,5 @@ export const CtaWrap = styled.div`
 
   a span {
     margin-top: 0;
-  }
-
-  a:hover ${LinkArrow} {
-    transform: translate(2px, -2px);
-
-    &::before {
-      content: "↗";
-    }
   }
 `;

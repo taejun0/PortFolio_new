@@ -8,6 +8,7 @@
 import Link from "next/link";
 
 import PortraitFrame from "@/components/common/portraitFrame/PortraitFrame";
+import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import * as P from "../shared/SectionPrimitives.styled";
 import * as S from "./AboutSection.styled";
 import {
@@ -58,7 +59,10 @@ const AboutSection = () => (
             ))}
           </S.Facts>
           <Link href={ROUTES.ABOUT}>
-            <P.TextLink>{MAIN_ABOUT_UI.cta}</P.TextLink>
+            <P.TextLink>
+              {MAIN_ABOUT_UI.cta}
+              <HoverArrow aria-hidden />
+            </P.TextLink>
           </Link>
         </S.Copy>
       </S.Layout>

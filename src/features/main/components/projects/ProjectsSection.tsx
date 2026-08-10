@@ -8,6 +8,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import * as P from "../shared/SectionPrimitives.styled";
 import * as S from "./ProjectsSection.styled";
 import ProjectShelfItem from "./projectShelfItem/ProjectShelfItem";
@@ -29,7 +30,10 @@ const ProjectsSection = () => {
             <S.Aside>{MAIN_PROJECTS_UI.aside}</S.Aside>
           </S.TitleBlock>
           <Link href={ROUTES.PROJECTS}>
-            <S.ArchiveLink>{MAIN_PROJECTS_UI.cta} →</S.ArchiveLink>
+            <S.ArchiveLink>
+              {MAIN_PROJECTS_UI.cta}
+              <HoverArrow aria-hidden />
+            </S.ArchiveLink>
           </Link>
         </S.Header>
         <S.Shelf>

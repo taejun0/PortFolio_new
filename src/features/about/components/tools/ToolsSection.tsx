@@ -8,6 +8,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import * as P from "../../AboutPage.styled";
 import * as S from "./ToolsSection.styled";
 import { ABOUT_PAGE_UI } from "../../constants";
@@ -24,7 +25,10 @@ const ToolsSection = () => (
           <P.Title>{ui.title}</P.Title>
         </div>
         <Link href={ui.asideHref}>
-          <S.Aside>{ui.aside} →</S.Aside>
+          <S.Aside>
+            {ui.aside}
+            <HoverArrow aria-hidden />
+          </S.Aside>
         </Link>
       </S.Header>
       <S.Grid>

@@ -5,13 +5,15 @@
  */
 import styled from "@emotion/styled";
 
+import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
+
 export const Header = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
   gap: ${({ theme }) => theme.space[4]};
-  margin-bottom: ${({ theme }) => theme.space[6]};
+  margin-bottom: ${({ theme }) => theme.space[5]};
 `;
 
 export const TitleBlock = styled.div`
@@ -34,6 +36,7 @@ export const ArchiveLink = styled.span`
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textMuted};
   transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  ${hoverArrowParent}
 
   &:hover {
     color: ${({ theme }) => theme.colors.text};
@@ -49,6 +52,6 @@ export const Shelf = styled.div`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex-direction: row;
     align-items: stretch;
-    height: clamp(22rem, 56vh, 34rem);
+    height: clamp(22rem, 54vh, 32rem);
   }
 `;

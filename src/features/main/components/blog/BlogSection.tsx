@@ -7,6 +7,9 @@
 
 import Link from "next/link";
 
+import {
+  HoverArrow,
+} from "@/components/common/hoverArrow/HoverArrow.styled";
 import * as P from "../shared/SectionPrimitives.styled";
 import * as S from "./BlogSection.styled";
 import {
@@ -47,7 +50,7 @@ const BlogSection = () => (
                   <S.PostTitle>{post.title}</S.PostTitle>
                   <S.PostNote>{post.meta}</S.PostNote>
                 </S.PostCopy>
-                <S.Arrow aria-hidden />
+                <S.Arrow data-hover-arrow aria-hidden />
               </a>
             </S.PostItem>
           );
@@ -57,7 +60,7 @@ const BlogSection = () => (
         <Link href={ROUTES.BLOG}>
           <P.TextLink>
             {MAIN_BLOG_UI.cta}
-            <S.LinkArrow aria-hidden />
+            <HoverArrow aria-hidden />
           </P.TextLink>
         </Link>
         <a
@@ -67,7 +70,7 @@ const BlogSection = () => (
         >
           <P.TextLink>
             {MAIN_BLOG_UI.velogCta}
-            <S.LinkArrow aria-hidden />
+            <HoverArrow aria-hidden />
           </P.TextLink>
         </a>
       </S.CtaWrap>

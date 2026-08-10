@@ -5,6 +5,7 @@
  */
 "use client";
 
+import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import * as S from "./VelogNotice.styled";
 import { BLOG_VELOG_NOTICE_UI } from "../../constants";
 import { SITE_CONFIG } from "@/lib/siteConfig";
@@ -38,6 +39,7 @@ const VelogNotice = ({
           : BLOG_VELOG_NOTICE_UI.legacy}
         <S.Link href={velogUrl} target="_blank" rel="noopener noreferrer">
           {BLOG_VELOG_NOTICE_UI.link}
+          <HoverArrow aria-hidden />
         </S.Link>
       </S.Text>
     </S.Wrapper>

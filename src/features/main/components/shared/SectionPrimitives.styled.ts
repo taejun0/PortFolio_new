@@ -5,6 +5,8 @@
  */
 import styled from "@emotion/styled";
 
+import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
+
 export const Section = styled.section<{
   $alt?: boolean;
   $alignStart?: boolean;
@@ -90,6 +92,7 @@ export const TextLink = styled.span`
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   color: ${({ theme }) => theme.colors.textMuted};
   transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  ${hoverArrowParent}
 
   &:hover {
     color: ${({ theme }) => theme.colors.text};

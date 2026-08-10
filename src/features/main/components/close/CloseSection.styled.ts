@@ -5,6 +5,11 @@
  */
 import styled from "@emotion/styled";
 
+import {
+  hoverArrowCss,
+  hoverArrowParent,
+} from "@/components/common/hoverArrow/HoverArrow.styled";
+
 export const Section = styled.section`
   position: relative;
   display: flex;
@@ -98,6 +103,7 @@ export const Cta = styled.a`
   transition:
     transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  ${hoverArrowParent}
 
   &:hover {
     transform: translateY(-1px);
@@ -125,6 +131,7 @@ export const Channel = styled.a`
   transition:
     border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  ${hoverArrowParent}
 
   &:hover {
     border-color: color-mix(
@@ -176,9 +183,11 @@ export const ChannelValue = styled.span`
 `;
 
 export const ChannelArrow = styled.span`
+  ${hoverArrowCss}
   position: absolute;
   right: ${({ theme }) => theme.space[5]};
   bottom: ${({ theme }) => theme.space[5]};
+  margin-left: 0;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   color: ${({ theme }) => theme.colors.textMuted};
   opacity: 0.55;
@@ -190,6 +199,5 @@ export const ChannelArrow = styled.span`
   ${Channel}:hover & {
     color: ${({ theme }) => theme.colors.text};
     opacity: 1;
-    transform: translateX(2px);
   }
 `;

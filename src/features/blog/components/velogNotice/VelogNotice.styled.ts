@@ -5,6 +5,8 @@
  */
 import styled from "@emotion/styled";
 
+import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
+
 export const Wrapper = styled.div`
   margin-top: ${({ theme }) => theme.space[6]};
   padding: ${({ theme }) => theme.space[5]} 0 ${({ theme }) => theme.space[4]};
@@ -24,6 +26,7 @@ export const Link = styled.a`
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   color: ${({ theme }) => theme.colors.textMuted};
   transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  ${hoverArrowParent}
 
   &:hover {
     color: ${({ theme }) => theme.colors.text};

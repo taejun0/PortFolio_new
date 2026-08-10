@@ -8,6 +8,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import * as S from "./ProjectDetailPage.styled";
 import { PROJECTS_PAGE_UI } from "../../constants";
 import type { Project } from "../../constants/projects";
@@ -47,12 +48,14 @@ const ProjectDetailPage = ({ project }: ProjectDetailPageProps) => (
                   target="_blank"
                   rel="noreferrer"
                 >
-                  {PROJECTS_PAGE_UI.viewGithub} →
+                  {PROJECTS_PAGE_UI.viewGithub}
+                  <HoverArrow aria-hidden />
                 </S.ExtLink>
               ) : null}
               {project.demo ? (
                 <S.ExtLink href={project.demo} target="_blank" rel="noreferrer">
-                  {PROJECTS_PAGE_UI.viewDemo} →
+                  {PROJECTS_PAGE_UI.viewDemo}
+                  <HoverArrow aria-hidden />
                 </S.ExtLink>
               ) : null}
             </S.Links>

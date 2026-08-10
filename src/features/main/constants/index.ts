@@ -49,7 +49,7 @@ export const MAIN_ABOUT_UI = {
     { label: "생년월일", value: "2001.09.29" },
     { label: "학력", value: "동국대학교 컴퓨터정보통신공학부" },
   ],
-  cta: "자세히 보기 →",
+  cta: "자세히 보기",
 } as const;
 
 export const MAIN_PROJECTS_UI = {
@@ -132,7 +132,6 @@ export const MAIN_CLOSE_UI = {
 } as const;
 
 export const MAIN_FOOTER_UI = {
-  availability: "Available for projects",
   brand: "taejun0",
   nav: [
     { href: "/", label: "Home" },
