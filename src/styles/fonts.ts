@@ -7,13 +7,17 @@ import localFont from "next/font/local";
 
 export const pretendard = localFont({
   src: [
-    { path: "../fonts/Pretendard-Light.woff2", weight: "300", style: "normal" },
-    { path: "../fonts/Pretendard-Regular.woff2", weight: "400", style: "normal" },
-    { path: "../fonts/Pretendard-Medium.woff2", weight: "500", style: "normal" },
-    { path: "../fonts/Pretendard-SemiBold.woff2", weight: "600", style: "normal" },
-    { path: "../fonts/Pretendard-Bold.woff2", weight: "700", style: "normal" },
-    { path: "../fonts/Pretendard-ExtraBold.woff2", weight: "800", style: "normal" },
+    {
+      path: "../fonts/Pretendard-Regular.subset.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Pretendard-Bold.subset.woff2",
+      weight: "700",
+      style: "normal",
+    },
   ],
-  display: "swap",
+  display: "fallback",
   variable: "--font-pretendard",
 });
