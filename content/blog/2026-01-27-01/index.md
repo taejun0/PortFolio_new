@@ -5,12 +5,12 @@ description: "2026년 1월 개봉한 영화 '만약에 우리'를 보고 느낀 
 tags:
   - "생각"
 series: "생각"
-thumbnail: "https://velog.velcdn.com/images/taejun0/post/e2955b51-22ef-4dfe-a836-b27a378bf672/image.png"
+thumbnail: "/images/blog/e2955b51-22ef-4dfe-a836-b27a378bf672.png"
 isVelogPost: false
 ---
 
 # 서론
-![만약에 우리 포스터](https://velog.velcdn.com/images/taejun0/post/e2955b51-22ef-4dfe-a836-b27a378bf672/image.png)
+![만약에 우리 포스터](/images/blog/e2955b51-22ef-4dfe-a836-b27a378bf672.png)
 
 2026년 1월, 만약에 우리 라는 영화가 출시하였다.
 
@@ -28,7 +28,7 @@ isVelogPost: false
 사실, <먼 훗날 우리> 라는 작품으로는 들어본 적이 없어서.. 굉장히 새로웠다.
 
 ### 이름의 변화
-![중국 영화, 먼 훗날 우리 포스터](https://velog.velcdn.com/images/taejun0/post/b2dde4ef-23c8-4d69-9082-6ec11986259e/image.png)
+![중국 영화, 먼 훗날 우리 포스터](/images/blog/b2dde4ef-23c8-4d69-9082-6ec11986259e.png)
 
 아이러니하게도, <먼 훗날 우리> 라는 작품은 리메이크가 이루어 지며 <만약에 우리>라는 이름으로 재탄생하게 된다.
 
@@ -43,7 +43,7 @@ isVelogPost: false
 영화에서 말하고자 하는 것들을 총 3가지에 비유하고 있다고 생각한다.
 
 ### 빛
-![](https://velog.velcdn.com/images/taejun0/post/fd500a76-d390-4836-b678-89543a987fac/image.png)
+![](/images/blog/fd500a76-d390-4836-b678-89543a987fac.png)
 
 영화 속 은호가 만드는 게임의 설정은 이상하리만큼 그들(은호, 정원)의 삶과 닮아있다.
 

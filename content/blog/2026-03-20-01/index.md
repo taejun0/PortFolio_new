@@ -5,13 +5,13 @@ description: "백준 2307 도로검문 - JAVA, Dijkstra 응용 문제"
 tags:
   - "코딩테스트"
 series: "코딩테스트"
-thumbnail: "https://velog.velcdn.com/images/taejun0/post/c3e72141-761a-426e-bc6f-ecb9b6dc4475/image.png"
+thumbnail: "/images/blog/c3e72141-761a-426e-bc6f-ecb9b6dc4475.png"
 isVelogPost: false
 ---
 
 # 서론
 
-![도로 검문 문제 시도](https://velog.velcdn.com/images/taejun0/post/c3e72141-761a-426e-bc6f-ecb9b6dc4475/image.png)
+![도로 검문 문제 시도](/images/blog/c3e72141-761a-426e-bc6f-ecb9b6dc4475.png)
 
 오늘은, 코딩테스트를 준비하며 백준 2307번 '도로검문' 문제에서 겪은 여러 시행착오에 대해 적어보고자 한다.
 
@@ -21,7 +21,7 @@ isVelogPost: false
 
 ## 문제 분석
 
-![문제 사진](https://velog.velcdn.com/images/taejun0/post/641f7b3d-2767-49c4-9a1f-e3edc9c1c9ce/image.png)
+![문제 사진](/images/blog/641f7b3d-2767-49c4-9a1f-e3edc9c1c9ce.png)
 
 문제의 길이 자체는 길지만, 생각보다 아이디어는 굉장히 단순했다.
 가중치가 있는 무향그래프 내에서 최단 거리를 구해야하는데 각 간선을 제한할 경우 과연 최단거리가 어느정도까지 늘어날지를 구해야한다.

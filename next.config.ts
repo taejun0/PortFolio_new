@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
   compiler: {
     emotion: true,
   },
+  outputFileTracingIncludes: {
+    "/blog/**": ["./content/blog/**/*"],
+  },
   images: {
     remotePatterns: [
       {

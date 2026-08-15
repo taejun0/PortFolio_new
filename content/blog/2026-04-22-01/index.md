@@ -7,7 +7,7 @@ tags:
   - "프론트엔드"
   - "회고"
 series: "프론트엔드"
-thumbnail: "https://velog.velcdn.com/images/taejun0/post/c16313da-228b-45a7-8bb9-2359383b91ed/image.png"
+thumbnail: "/images/blog/c16313da-228b-45a7-8bb9-2359383b91ed.png"
 isVelogPost: false
 ---
 

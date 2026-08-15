@@ -1,13 +1,12 @@
 /**
  * 생성 이유: Discussions를 신규 블로그 본문 소스로 쓰기 위함이다.
  * 역할: GitHub Discussions(Blog 카테고리)를 읽어 블로그 글로 변환한다.
- * 책임: GraphQL 조회, 마크다운→HTML, slug(d-{number}) 매핑, 토큰 부재 시 빈 목록 반환.
+ * 책임: 캐시·페이지네이션 GraphQL 조회, 마크다운→HTML, slug(d-{number}) 매핑, 실패 관측.
  */
-import { remark } from "remark";
-import remarkGfm from "remark-gfm";
-import remarkHtml from "remark-html";
+import { unstable_cache } from "next/cache";
 
 import type { BlogPost, BlogPostMeta } from "../types";
+import { markdownToHtml } from "../utils/markdown";
 import { BLOG_DISCUSSIONS_CONFIG } from "@/lib/siteConfig";
 
 type DiscussionNode = {
@@ -19,9 +18,12 @@ type DiscussionNode = {
   category?: { name: string } | null;
 };
 
-const markdownToHtml = async (markdown: string) => {
-  const result = await remark().use(remarkGfm).use(remarkHtml).process(markdown);
-  return String(result);
+type DiscussionPage = {
+  nodes: DiscussionNode[];
+  pageInfo: {
+    hasNextPage: boolean;
+    endCursor: string | null;
+  };
 };
 
 const toDate = (iso: string) => iso.slice(0, 10);
@@ -44,15 +46,26 @@ const parseRepo = () => {
   return { owner, name };
 };
 
-const fetchDiscussionNodes = async (): Promise<DiscussionNode[]> => {
+const fetchDiscussionNodesUncached = async (): Promise<DiscussionNode[]> => {
   const token = process.env.GITHUB_TOKEN ?? process.env.GITHUB_DISCUSSIONS_TOKEN;
   const { owner, name } = parseRepo();
   if (!owner || !name) return [];
 
+  if (!token) {
+    console.warn(
+      "[blog] GitHub Discussions token is missing; discussion posts are skipped."
+    );
+    return [];
+  }
+
   const query = `
-    query ($owner: String!, $name: String!) {
+    query ($owner: String!, $name: String!, $after: String) {
       repository(owner: $owner, name: $name) {
-        discussions(first: 50, orderBy: { field: CREATED_AT, direction: DESC }) {
+        discussions(
+          first: 50
+          after: $after
+          orderBy: { field: CREATED_AT, direction: DESC }
+        ) {
           nodes {
             number
             title
@@ -61,43 +74,66 @@ const fetchDiscussionNodes = async (): Promise<DiscussionNode[]> => {
             url
             category { name }
           }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
         }
       }
     }
   `;
 
   try {
-    const res = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        "User-Agent": "taejun0-portfolio",
-      },
-      body: JSON.stringify({ query, variables: { owner, name } }),
-      next: { revalidate: 60 },
-    });
+    const nodes: DiscussionNode[] = [];
+    let after: string | null = null;
+    let hasNextPage = true;
 
-    if (!res.ok) return [];
+    while (hasNextPage) {
+      const res = await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+          "User-Agent": "taejun0-portfolio",
+        },
+        body: JSON.stringify({ query, variables: { owner, name, after } }),
+      });
 
-    const json = (await res.json()) as {
-      data?: {
-        repository?: { discussions?: { nodes?: DiscussionNode[] } };
+      if (!res.ok) {
+        throw new Error(`GitHub GraphQL HTTP ${res.status}`);
+      }
+
+      const json = (await res.json()) as {
+        data?: { repository?: { discussions?: DiscussionPage } };
+        errors?: unknown[];
       };
-      errors?: unknown[];
-    };
+      if (json.errors?.length) {
+        throw new Error("GitHub GraphQL returned errors");
+      }
 
-    if (json.errors?.length) return [];
+      const page = json.data?.repository?.discussions;
+      if (!page) break;
+      nodes.push(...page.nodes);
+      hasNextPage = page.pageInfo.hasNextPage;
+      after = page.pageInfo.endCursor;
+      if (hasNextPage && !after) break;
+    }
 
-    const nodes = json.data?.repository?.discussions?.nodes ?? [];
     return nodes.filter(
       (node) => node.category?.name === BLOG_DISCUSSIONS_CONFIG.category
     );
-  } catch {
+  } catch (error) {
+    console.error("[blog] Failed to load GitHub Discussions.", error);
     return [];
   }
 };
+
+const fetchDiscussionNodes = unstable_cache(
+  fetchDiscussionNodesUncached,
+  ["blog-discussion-nodes"],
+  { revalidate: 60, tags: ["blog-discussions"] }
+);
 
 const toMeta = (node: DiscussionNode): BlogPostMeta => ({
   slug: discussionSlug(node.number),
@@ -111,7 +147,8 @@ const toMeta = (node: DiscussionNode): BlogPostMeta => ({
 });
 
 export const isDiscussionSlug = (slug: string) =>
-  slug.startsWith(BLOG_DISCUSSIONS_CONFIG.slugPrefix);
+  slug.startsWith(BLOG_DISCUSSIONS_CONFIG.slugPrefix) &&
+  /^[1-9]\d*$/.test(slug.slice(BLOG_DISCUSSIONS_CONFIG.slugPrefix.length));
 
 export const getDiscussionPostsMeta = async (): Promise<BlogPostMeta[]> => {
   const nodes = await fetchDiscussionNodes();
@@ -123,7 +160,7 @@ export const getDiscussionPostBySlug = async (
 ): Promise<BlogPost | null> => {
   if (!isDiscussionSlug(slug)) return null;
   const number = Number(slug.slice(BLOG_DISCUSSIONS_CONFIG.slugPrefix.length));
-  if (!Number.isFinite(number)) return null;
+  if (!Number.isSafeInteger(number)) return null;
 
   const nodes = await fetchDiscussionNodes();
   const node = nodes.find((item) => item.number === number);

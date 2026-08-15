@@ -2,7 +2,7 @@
 title: "기술적 의사결정이 중요한 이유"
 date: "2026-05-10"
 description: "신기술이라고 해서, 그것이 정답은 아니다. 명확하게 '선택'해야만 하는 것이다."
-thumbnail: "https://velog.velcdn.com/images/taejun0/post/ba806cba-ba26-4dd5-abbc-6206880867e0/image.png"
+thumbnail: "/images/blog/ba806cba-ba26-4dd5-abbc-6206880867e0.png"
 tags:
   - "JavaScript"
   - "HTTP"
@@ -33,7 +33,7 @@ React Native 프로젝트에도 비슷했다. “웹에서 잘 썼으니 여기�
 
 ## 1) 트렌드는 빠르게 돌고, 도구들도 같이 움직인다
 
-![다양한 기술들](https://velog.velcdn.com/images/taejun0/post/7f0dc4d8-433f-4d64-ad58-c1dd948b8aa6/image.png)
+![다양한 기술들](/images/blog/7f0dc4d8-433f-4d64-ad58-c1dd948b8aa6.png)
 
 프론트엔드는 특성상 **정말 시시각각 트렌드가 변한다.** 그 말은 곧, 이미 자리 잡은 도구들도 **시대의 흐름을 놓치기 싫어서 꾸준히 변화한다**는 뜻이다. 문법·보일러플레이트·권장 패턴이 갈아엎어지는 속도도 빠르고, 예제와 튜토리얼도 그 속도를 따라간다.
 

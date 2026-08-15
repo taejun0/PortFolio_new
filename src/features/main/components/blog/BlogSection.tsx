@@ -34,24 +34,26 @@ const BlogSection = () => (
           const href = post.external
             ? post.href
             : blogDetailPath(post.slug);
-          const linkProps = post.external
-            ? {
-                href,
-                target: "_blank" as const,
-                rel: "noopener noreferrer",
-              }
-            : { href };
+          const content = (
+            <>
+              <S.PostMeta>{post.date}</S.PostMeta>
+              <S.PostCopy>
+                <S.PostTitle>{post.title}</S.PostTitle>
+                <S.PostNote>{post.meta}</S.PostNote>
+              </S.PostCopy>
+              <S.Arrow data-hover-arrow aria-hidden />
+            </>
+          );
 
           return (
             <S.PostItem key={post.title}>
-              <a {...linkProps}>
-                <S.PostMeta>{post.date}</S.PostMeta>
-                <S.PostCopy>
-                  <S.PostTitle>{post.title}</S.PostTitle>
-                  <S.PostNote>{post.meta}</S.PostNote>
-                </S.PostCopy>
-                <S.Arrow data-hover-arrow aria-hidden />
-              </a>
+              {post.external ? (
+                <a href={href} target="_blank" rel="noopener noreferrer">
+                  {content}
+                </a>
+              ) : (
+                <Link href={href}>{content}</Link>
+              )}
             </S.PostItem>
           );
         })}

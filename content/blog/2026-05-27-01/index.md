@@ -2,7 +2,7 @@
 title: "Why? StoryBook"
 date: "2026-05-27"
 description: "기술적 의사결정 시리즈 1 - Storybook"
-thumbnail: "https://velog.velcdn.com/images/taejun0/post/32ad128f-1940-4949-ba9c-cecce4c106c5/image.png"
+thumbnail: "/images/blog/32ad128f-1940-4949-ba9c-cecce4c106c5.png"
 tags:
   - "Design"
   - "stack"
