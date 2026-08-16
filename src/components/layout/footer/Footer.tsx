@@ -34,7 +34,7 @@ const Footer = () => {
                 href={SITE_CONFIG.github}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="GitHub"
+                aria-label="GitHub (GH)"
               >
                 GH
               </S.Social>
@@ -42,7 +42,7 @@ const Footer = () => {
                 href={SITE_CONFIG.velog}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Velog"
+                aria-label="Velog (VL)"
               >
                 VL
               </S.Social>

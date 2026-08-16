@@ -10,7 +10,8 @@
  */
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import * as S from "./ExpandableName.styled";
 import { SPLASH_DISMISS_EVENT } from "@/components/layout/splash/constants";
@@ -42,7 +43,7 @@ type ExpandableNameProps = {
 };
 
 const ExpandableName = ({ text }: ExpandableNameProps) => {
-  const letters = Array.from(text);
+  const letters = useMemo(() => Array.from(text), [text]);
   const rootRef = useRef<HTMLSpanElement>(null);
   const slotRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const glyphRefs = useRef<Array<HTMLSpanElement | null>>([]);
@@ -52,21 +53,9 @@ const ExpandableName = ({ text }: ExpandableNameProps) => {
     inside: false,
   });
   const rafRef = useRef<number | null>(null);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const reducedMotion = Boolean(useReducedMotion());
   const [phase, setPhase] = useState<Phase>("waiting");
   const interactive = phase === "ready";
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => {
-      const preferReduce = media.matches;
-      setReducedMotion(preferReduce);
-      if (preferReduce) setPhase("ready");
-    };
-    sync();
-    media.addEventListener("change", sync);
-    return () => media.removeEventListener("change", sync);
-  }, []);
 
   useEffect(() => {
     if (reducedMotion) return;
@@ -277,7 +266,7 @@ const ExpandableName = ({ text }: ExpandableNameProps) => {
   let visualIndex = 0;
 
   return (
-    <S.Name ref={rootRef} aria-label={text} data-phase={phase}>
+    <S.Name ref={rootRef} role="img" aria-label={text} data-phase={phase}>
       {letters.map((char, index) => {
         if (char === " ") {
           return <S.Space key={`space-${index}`} aria-hidden />;

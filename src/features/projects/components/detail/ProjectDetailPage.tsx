@@ -69,7 +69,7 @@ const ProjectDetailPage = ({ project }: ProjectDetailPageProps) => (
             fill
             sizes="(max-width: 768px) 92vw, 60vw"
             style={{ objectFit: "cover" }}
-            priority
+            preload
           />
         </S.Cover>
       </S.Hero>

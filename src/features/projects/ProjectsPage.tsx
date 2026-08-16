@@ -48,7 +48,7 @@ const ProjectsPage = () => (
                       fill
                       sizes="(max-width: 768px) 92vw, 58vw"
                       style={{ objectFit: "cover" }}
-                      priority={index < 2}
+                      preload={index === 0}
                     />
                     <S.Badges>
                       <S.Badge>{badge}</S.Badge>

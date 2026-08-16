@@ -40,7 +40,6 @@ const AboutSection = () => (
             src={MAIN_ABOUT_UI.photo}
             alt={MAIN_ABOUT_UI.photoAlt}
             sizes="(max-width: 768px) 55vw, 296px"
-            priority
             aspectRatio="3 / 4"
           />
         </S.Portrait>

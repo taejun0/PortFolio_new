@@ -13,7 +13,6 @@ type PortraitFrameProps = {
   src: string;
   alt: string;
   sizes: string;
-  priority?: boolean;
   aspectRatio?: string;
   mirror?: boolean;
 };
@@ -22,7 +21,6 @@ const PortraitFrame = ({
   src,
   alt,
   sizes,
-  priority = false,
   aspectRatio = "3 / 4",
   mirror = false,
 }: PortraitFrameProps) => (
@@ -34,7 +32,6 @@ const PortraitFrame = ({
         alt={alt}
         fill
         sizes={sizes}
-        priority={priority}
         style={{ objectFit: "cover", objectPosition: "center 14%" }}
       />
     </S.ImageWrap>

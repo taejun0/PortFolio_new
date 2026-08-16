@@ -29,7 +29,7 @@ export const Tab = styled.button<{ $active: boolean }>`
   cursor: pointer;
   color: ${({ theme, $active }) =>
     $active ? theme.colors.text : theme.colors.textMuted};
-  opacity: ${({ $active }) => ($active ? 1 : 0.45)};
+  opacity: ${({ $active }) => ($active ? 1 : 0.75)};
   transition:
     color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);

@@ -69,9 +69,12 @@ const TrajectorySection = () => {
   });
 
   useEffect(() => {
-    syncDots();
+    const frame = window.requestAnimationFrame(syncDots);
     window.addEventListener("resize", syncDots);
-    return () => window.removeEventListener("resize", syncDots);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("resize", syncDots);
+    };
   }, [syncDots]);
 
   return (

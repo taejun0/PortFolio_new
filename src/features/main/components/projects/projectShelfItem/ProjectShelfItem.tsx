@@ -44,12 +44,8 @@ const ProjectShelfItem = ({
       onKeyDown={onKeyDown}
       role={expanded ? undefined : "button"}
       tabIndex={expanded ? undefined : 0}
-      aria-expanded={expanded}
-      aria-label={
-        expanded
-          ? undefined
-          : `${project.title} 펼치기`
-      }
+      aria-expanded={expanded ? undefined : false}
+      title={expanded ? undefined : `${project.title} 펼치기`}
     >
       {expanded ? (
         <S.PanelLink href={projectDetailPath(project.slug)}>
@@ -59,7 +55,6 @@ const ProjectShelfItem = ({
               alt={`${project.title} 대표 이미지`}
               fill
               sizes="(max-width: 768px) 92vw, 55vw"
-              priority={index === 0}
             />
           </S.Media>
           <S.PanelCopy>

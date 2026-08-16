@@ -25,7 +25,10 @@ const IntroSection = () => (
       </S.DisplayWrap>
       <S.Title>{MAIN_HERO_UI.title}</S.Title>
     </S.Inner>
-    <S.ScrollHint href={MAIN_HERO_UI.scrollHref} aria-label="아래로 스크롤">
+    <S.ScrollHint
+      href={MAIN_HERO_UI.scrollHref}
+      aria-label={`${MAIN_HERO_UI.scroll} — 아래로 스크롤`}
+    >
       <S.ScrollMouse aria-hidden />
       <span>{MAIN_HERO_UI.scroll}</span>
     </S.ScrollHint>

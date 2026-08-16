@@ -5,7 +5,7 @@
  */
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
@@ -113,7 +113,11 @@ const Header = () => {
           {HEADER_NAV_ITEMS.map((item) => {
             const active = isActive(item);
             return (
-              <Link key={item.href + item.label} href={item.href}>
+              <Link
+                key={item.href + item.label}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+              >
                 <S.NavItem
                   ref={(node) => {
                     if (node) itemRefs.current[item.href] = node;
