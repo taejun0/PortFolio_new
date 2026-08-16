@@ -49,14 +49,14 @@ export const MAIN_ABOUT_UI = {
     { label: "생년월일", value: "2001.09.29" },
     { label: "학력", value: "동국대학교 컴퓨터정보통신공학부" },
   ],
-  cta: "자세히 보기",
+  cta: "About 자세히 보기",
 } as const;
 
 export const MAIN_PROJECTS_UI = {
   label: "Projects",
   title: "Featured projects",
   aside: "프로젝트를 누르면 상세 정보를 볼 수 있습니다.",
-  cta: "전체 보기",
+  cta: "프로젝트 전체 보기",
   detailCta: "자세히 보기",
   demoCta: "웹 뷰",
   githubCta: "Github",
@@ -106,8 +106,15 @@ export const MAIN_BLOG_FEATURED = [
 export const MAIN_CLOSE_UI = {
   label: "Contact",
   title: "Contact me.",
-  body: "프로젝트·협업·커피챗 모두 환영합니다. 편하게 메일이나 GitHub로 연락 주세요.",
+  body: "프로젝트·협업·커피챗 모두 환영합니다.",
+  quoteLines: ["프로젝트·협업·커피챗", "모두 환영합니다"],
+  note: "편하게 메일이나 GitHub로 연락 주세요.",
   availability: "Available for projects",
+  photo: "/images/myimage/2.jpg",
+  photoAlt: "오태준 명함 사진",
+  worksLabel: "WORKS",
+  worksTitle: "Frontend",
+  works: ["D-Order", "포트폴리오 페이지", "동아리랑"],
   channels: [
     {
       label: "Email",
