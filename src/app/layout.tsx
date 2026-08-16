@@ -4,12 +4,10 @@
  * 책임: 모든 페이지를 동일한 문서 구조와 전역 설정 안에서 렌더링한다.
  */
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import type { ReactNode } from "react";
 
 import Providers from "./providers";
 import SiteShell from "@/components/layout/SiteShell";
-import { THEME_STORAGE_KEY } from "@/components/theme/themeBoot";
 import { SITE_CONFIG } from "@/lib/siteConfig";
 import { pretendard } from "@/styles/fonts";
 
@@ -53,21 +51,17 @@ body{
 html:not([data-theme-ready="1"]) body{transition:none!important}
 `;
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: ReactNode;
 }) {
-  const jar = await cookies();
-  const stored = jar.get(THEME_STORAGE_KEY)?.value;
-  const theme = stored === "light" || stored === "dark" ? stored : "dark";
-
   return (
     <html
       lang="ko"
       className={pretendard.variable}
-      data-theme={theme}
-      style={{ colorScheme: theme }}
+      data-theme="dark"
+      style={{ colorScheme: "dark" }}
       suppressHydrationWarning
     >
       <head>

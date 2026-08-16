@@ -8,8 +8,8 @@ export const SPLASH_DISMISS_EVENT = "portfolio:splash-dismiss";
 export const SPLASH_UI = {
   name: "OHTAEJUN",
   /** 글자가 모인 뒤 바로 폭파될 수 있게 */
-  minMs: 1100,
-  failSafeMs: 4200,
+  minMs: 650,
+  failSafeMs: 1800,
   enterStagger: 0.03,
   enterDuration: 0.42,
   shatterMs: 420,

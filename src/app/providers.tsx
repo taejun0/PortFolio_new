@@ -27,7 +27,6 @@ export default function Providers({ children }: { children: ReactNode }) {
           aria-hidden={appReady ? undefined : true}
           {...(!appReady ? { inert: true } : {})}
           style={{
-            visibility: appReady ? "visible" : "hidden",
             minHeight: "100%",
           }}
         >

@@ -6,7 +6,7 @@
 "use client";
 
 import { AnimatePresence, useReducedMotion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import * as S from "./SplashScreen.styled";
 import {
@@ -28,22 +28,6 @@ const waitDoubleFrame = () =>
     });
   });
 
-const waitWindowLoad = () =>
-  new Promise<void>((resolve) => {
-    if (document.readyState === "complete") {
-      resolve();
-      return;
-    }
-    window.addEventListener("load", () => resolve(), { once: true });
-  });
-
-const waitFonts = () => {
-  if (typeof document === "undefined" || !document.fonts?.ready) {
-    return Promise.resolve();
-  }
-  return document.fonts.ready.then(() => undefined);
-};
-
 const SplashScreen = ({ onReady }: SplashScreenProps) => {
   const [visible, setVisible] = useState(true);
   const [phase, setPhase] = useState<Phase>("enter");
@@ -52,20 +36,17 @@ const SplashScreen = ({ onReady }: SplashScreenProps) => {
   const reduceMotion = useReducedMotion();
   const letters = Array.from(SPLASH_UI.name);
 
-  const dismiss = () => {
+  const dismiss = useCallback(() => {
     if (finishedRef.current) return;
     finishedRef.current = true;
     document.documentElement.dataset.splashDone = "1";
     window.dispatchEvent(new Event(SPLASH_DISMISS_EVENT));
     onReady?.();
     setVisible(false);
-  };
+  }, [onReady]);
 
   useEffect(() => {
-    if (reduceMotion) {
-      setPhase("hold");
-      return;
-    }
+    if (reduceMotion) return;
     const enterMs =
       (Math.max(letters.length - 1, 0) * SPLASH_UI.enterStagger +
         SPLASH_UI.enterDuration) *
@@ -86,8 +67,6 @@ const SplashScreen = ({ onReady }: SplashScreenProps) => {
     };
 
     const run = async () => {
-      await Promise.all([waitWindowLoad(), waitFonts()]);
-      if (cancelled) return;
       await waitDoubleFrame();
       if (cancelled) return;
 
@@ -108,23 +87,24 @@ const SplashScreen = ({ onReady }: SplashScreenProps) => {
   }, []);
 
   useEffect(() => {
-    if (!gateOpen || phase === "enter") return;
+    if (!gateOpen) return;
 
     if (reduceMotion) {
       dismiss();
       return;
     }
 
+    if (phase === "enter") return;
+
     if (phase === "hold") {
-      setPhase("shatter");
-      return;
+      const frame = window.requestAnimationFrame(() => setPhase("shatter"));
+      return () => window.cancelAnimationFrame(frame);
     }
 
     if (phase !== "shatter") return;
     const timer = window.setTimeout(dismiss, SPLASH_UI.shatterMs);
     return () => window.clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gateOpen, phase, reduceMotion]);
+  }, [dismiss, gateOpen, phase, reduceMotion]);
 
   return (
     <AnimatePresence>
