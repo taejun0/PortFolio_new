@@ -13,7 +13,6 @@ import { markdownToHtml } from "../utils/markdown";
 import {
   getDiscussionPostBySlug,
   getDiscussionPostsMeta,
-  getDiscussionSlugs,
   isDiscussionSlug,
 } from "./discussions";
 
@@ -172,9 +171,7 @@ export const getBlogPostBySlug = cache(async (slug: string): Promise<BlogPost | 
 });
 
 export const getAllBlogSlugs = async () => {
-  const [markdownSlugs, discussionSlugs] = await Promise.all([
-    listMarkdownSlugs(),
-    getDiscussionSlugs(),
-  ]);
-  return [...markdownSlugs, ...discussionSlugs];
+  // Local posts are deterministic build inputs. Discussion posts are rendered
+  // on demand so a transient GitHub API failure cannot bake a 404 into the build.
+  return listMarkdownSlugs();
 };

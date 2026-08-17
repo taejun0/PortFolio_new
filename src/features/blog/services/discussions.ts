@@ -135,6 +135,66 @@ const fetchDiscussionNodes = unstable_cache(
   { revalidate: 60, tags: ["blog-discussions"] }
 );
 
+const fetchDiscussionNodeByNumberUncached = async (
+  number: number
+): Promise<DiscussionNode | null> => {
+  const token = process.env.GITHUB_TOKEN ?? process.env.GITHUB_DISCUSSIONS_TOKEN;
+  const { owner, name } = parseRepo();
+  if (!owner || !name || !token) return null;
+
+  const query = `
+    query ($owner: String!, $name: String!, $number: Int!) {
+      repository(owner: $owner, name: $name) {
+        discussion(number: $number) {
+          number
+          title
+          body
+          createdAt
+          url
+          category { name }
+        }
+      }
+    }
+  `;
+
+  try {
+    const res = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "User-Agent": "taejun0-portfolio",
+      },
+      body: JSON.stringify({
+        query,
+        variables: { owner, name, number },
+      }),
+    });
+
+    if (!res.ok) throw new Error(`GitHub GraphQL HTTP ${res.status}`);
+
+    const json = (await res.json()) as {
+      data?: { repository?: { discussion?: DiscussionNode | null } };
+      errors?: unknown[];
+    };
+    if (json.errors?.length) {
+      throw new Error("GitHub GraphQL returned errors");
+    }
+
+    return json.data?.repository?.discussion ?? null;
+  } catch (error) {
+    console.error(`[blog] Failed to load GitHub Discussion #${number}.`, error);
+    return null;
+  }
+};
+
+const fetchDiscussionNodeByNumber = unstable_cache(
+  fetchDiscussionNodeByNumberUncached,
+  ["blog-discussion-node"],
+  { revalidate: 60, tags: ["blog-discussions"] }
+);
+
 const toMeta = (node: DiscussionNode): BlogPostMeta => ({
   slug: discussionSlug(node.number),
   title: node.title,
@@ -162,17 +222,13 @@ export const getDiscussionPostBySlug = async (
   const number = Number(slug.slice(BLOG_DISCUSSIONS_CONFIG.slugPrefix.length));
   if (!Number.isSafeInteger(number)) return null;
 
-  const nodes = await fetchDiscussionNodes();
-  const node = nodes.find((item) => item.number === number);
-  if (!node) return null;
+  const node = await fetchDiscussionNodeByNumber(number);
+  if (!node || node.category?.name !== BLOG_DISCUSSIONS_CONFIG.category) {
+    return null;
+  }
 
   return {
     ...toMeta(node),
     contentHtml: await markdownToHtml(node.body || ""),
   };
-};
-
-export const getDiscussionSlugs = async () => {
-  const metas = await getDiscussionPostsMeta();
-  return metas.map((post) => post.slug);
 };

@@ -17,6 +17,7 @@ type PageProps = {
 };
 
 export const revalidate = 60;
+export const dynamicParams = true;
 
 export const generateStaticParams = async () => {
   const slugs = await getAllBlogSlugs();
