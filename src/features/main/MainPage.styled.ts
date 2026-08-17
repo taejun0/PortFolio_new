@@ -9,4 +9,9 @@ export const Wrapper = styled.div`
   width: 100%;
   background: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
+
+  > section:not(:first-of-type) {
+    content-visibility: auto;
+    contain-intrinsic-block-size: auto 100vh;
+  }
 `;

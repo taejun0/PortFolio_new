@@ -4,7 +4,6 @@
  * 책임: 낙하 래퍼와 scale·리프트·약한 액센트 틴트 시각만 소유한다.
  */
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
 
 export const Name = styled.span`
   display: flex;
@@ -26,7 +25,7 @@ export const Slot = styled.span`
   overflow: visible;
 `;
 
-export const Fall = styled(motion.span)`
+export const Fall = styled.span`
   display: inline-flex;
   align-items: flex-end;
   justify-content: center;
@@ -35,6 +34,10 @@ export const Fall = styled(motion.span)`
 `;
 
 export const Glyph = styled.span<{ $interactive?: boolean }>`
+  --sx: 0.2;
+  --sy: 0.94;
+  --ty: 0px;
+  --tint: 0;
   display: inline-block;
   font-size: ${({ theme }) => theme.typography.heroName.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
@@ -57,6 +60,10 @@ export const Glyph = styled.span<{ $interactive?: boolean }>`
          text-shadow 0.18s ease`
       : "none"};
   will-change: transform, color, text-shadow;
+
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+  }
 `;
 
 export const Space = styled.span`

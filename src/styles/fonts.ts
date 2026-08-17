@@ -19,7 +19,7 @@ export const pretendard = localFont({
       style: "normal",
     },
   ],
-  display: "fallback",
+  display: "swap",
   variable: "--font-pretendard",
 });
 
@@ -27,5 +27,6 @@ export const nanumPen = Nanum_Pen_Script({
   weight: "400",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
   variable: "--font-nanum-pen",
 });
