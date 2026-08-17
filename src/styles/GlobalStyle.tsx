@@ -9,6 +9,41 @@
 import { Global, css, type Theme } from "@emotion/react";
 
 const globalStyles = (theme: Theme) => css`
+  @keyframes theme-reveal {
+    from {
+      clip-path: circle(
+        0 at var(--theme-transition-x) var(--theme-transition-y)
+      );
+    }
+    to {
+      clip-path: circle(
+        var(--theme-transition-radius) at var(--theme-transition-x)
+          var(--theme-transition-y)
+      );
+    }
+  }
+
+  html[data-theme-transition="active"] *,
+  html[data-theme-transition="active"] *::before,
+  html[data-theme-transition="active"] *::after {
+    transition: none !important;
+  }
+
+  html[data-theme-transition="active"]::view-transition-old(root),
+  html[data-theme-transition="active"]::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  html[data-theme-transition="active"]::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  html[data-theme-transition="active"]::view-transition-new(root) {
+    z-index: 2;
+    animation: theme-reveal 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
   *,
   *::before,
   *::after {

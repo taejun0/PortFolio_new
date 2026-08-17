@@ -13,6 +13,7 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from "react";
+import { flushSync } from "react-dom";
 import { ThemeProvider } from "@emotion/react";
 
 import { themes, type ThemeMode, type AppTheme } from "@/styles/theme";
@@ -20,8 +21,19 @@ import { THEME_STORAGE_KEY } from "./themeBoot";
 
 type ThemeModeContextValue = {
   mode: ThemeMode;
-  toggleMode: () => void;
+  toggleMode: (origin?: ThemeTransitionOrigin) => void;
   setMode: (mode: ThemeMode) => void;
+};
+
+type ThemeTransitionOrigin = {
+  x: number;
+  y: number;
+};
+
+type ViewTransitionDocument = Document & {
+  startViewTransition?: (update: () => void) => {
+    finished: Promise<void>;
+  };
 };
 
 const ThemeModeContext = createContext<ThemeModeContextValue | null>(null);
@@ -79,8 +91,43 @@ export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
     persistMode(next);
   }, []);
 
-  const toggleMode = useCallback(() => {
-    setMode(mode === "dark" ? "light" : "dark");
+  const toggleMode = useCallback((origin?: ThemeTransitionOrigin) => {
+    const nextMode = mode === "dark" ? "light" : "dark";
+    const transitionDocument = document as ViewTransitionDocument;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (
+      !origin ||
+      !transitionDocument.startViewTransition ||
+      prefersReducedMotion
+    ) {
+      setMode(nextMode);
+      return;
+    }
+
+    const root = document.documentElement;
+    const radius = Math.hypot(
+      Math.max(origin.x, window.innerWidth - origin.x),
+      Math.max(origin.y, window.innerHeight - origin.y)
+    );
+
+    root.style.setProperty("--theme-transition-x", `${origin.x}px`);
+    root.style.setProperty("--theme-transition-y", `${origin.y}px`);
+    root.style.setProperty("--theme-transition-radius", `${radius}px`);
+    root.dataset.themeTransition = "active";
+
+    const transition = transitionDocument.startViewTransition(() => {
+      flushSync(() => setMode(nextMode));
+    });
+
+    void transition.finished.finally(() => {
+      delete root.dataset.themeTransition;
+      root.style.removeProperty("--theme-transition-x");
+      root.style.removeProperty("--theme-transition-y");
+      root.style.removeProperty("--theme-transition-radius");
+    });
   }, [mode, setMode]);
 
   const value = useMemo(

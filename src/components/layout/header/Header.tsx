@@ -5,7 +5,6 @@
  */
 "use client";
 
-import { useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
@@ -14,7 +13,6 @@ import * as S from "./Header.styled";
 import { HEADER_NAV_ITEMS, HEADER_UI } from "./constants";
 import { useThemeMode } from "@/components/theme/ThemeModeProvider";
 import { ROUTES } from "@/constants/routes";
-import { useTheme } from "@emotion/react";
 
 type PillRect = {
   left: number;
@@ -46,8 +44,6 @@ const MoonIcon = () => (
 
 const Header = () => {
   const pathname = usePathname();
-  const theme = useTheme();
-  const reduceMotion = useReducedMotion();
   const { mode, toggleMode } = useThemeMode();
   const navRef = useRef<HTMLElement>(null);
   const itemRefs = useRef<Partial<Record<string, HTMLSpanElement>>>({});
@@ -93,21 +89,10 @@ const Header = () => {
           {pill.width > 0 ? (
             <S.ActivePill
               aria-hidden
-              animate={{
+              style={{
                 left: pill.left,
                 width: pill.width,
               }}
-              initial={false}
-              transition={
-                reduceMotion
-                  ? { duration: 0 }
-                  : {
-                      type: "spring",
-                      stiffness: 420,
-                      damping: 36,
-                      mass: 0.75,
-                    }
-              }
             />
           ) : null}
           {HEADER_NAV_ITEMS.map((item) => {
@@ -133,7 +118,13 @@ const Header = () => {
         <S.Actions>
           <S.ThemeToggle
             type="button"
-            onClick={toggleMode}
+            onClick={(event) => {
+              const rect = event.currentTarget.getBoundingClientRect();
+              toggleMode({
+                x: event.clientX || rect.left + rect.width / 2,
+                y: event.clientY || rect.top + rect.height / 2,
+              });
+            }}
             aria-label={
               mode === "dark"
                 ? HEADER_UI.themeToggle.toLight
@@ -147,14 +138,6 @@ const Header = () => {
           >
             <S.ThemeIcon
               key={mode}
-              initial={
-                reduceMotion ? false : { opacity: 0, rotate: -20, scale: 0.85 }
-              }
-              animate={{ opacity: 1, rotate: 0, scale: 1 }}
-              transition={{
-                duration: theme.motion.duration.ui,
-                ease: theme.motion.ease.out,
-              }}
             >
               {mode === "dark" ? <SunIcon /> : <MoonIcon />}
             </S.ThemeIcon>

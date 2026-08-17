@@ -4,7 +4,12 @@
  * 책임: 위치·캡슐·ref 기반 활성 pill·테마 토글 시각만 소유한다.
  */
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
+import { keyframes } from "@emotion/react";
+
+const revealIcon = keyframes`
+  from { opacity: 0; transform: rotate(-20deg) scale(0.85); }
+  to { opacity: 1; transform: rotate(0) scale(1); }
+`;
 
 export const Wrapper = styled.header`
   position: fixed;
@@ -63,7 +68,7 @@ export const Nav = styled.nav`
   pointer-events: auto;
 `;
 
-export const ActivePill = styled(motion.span)`
+export const ActivePill = styled.span`
   position: absolute;
   top: 0.25rem;
   bottom: 0.25rem;
@@ -72,6 +77,9 @@ export const ActivePill = styled(motion.span)`
   border-radius: 999px;
   background: ${({ theme }) => theme.colors.text};
   pointer-events: none;
+  transition:
+    left 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    width 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 `;
 
 export const NavItem = styled.span<{ $active: boolean }>`
@@ -156,8 +164,9 @@ export const ThemeToggle = styled.button`
   }
 `;
 
-export const ThemeIcon = styled(motion.span)`
+export const ThemeIcon = styled.span`
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  animation: ${revealIcon} 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 `;
