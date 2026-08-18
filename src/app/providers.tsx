@@ -5,20 +5,33 @@
  */
 "use client";
 
-import type { ReactNode } from "react";
+import { useCallback, useState, type ReactNode } from "react";
 
 import EmotionRegistry from "@/lib/EmotionRegistry";
+import SplashScreen from "@/components/layout/splash/SplashScreen";
 import ThemeBootScript from "@/components/theme/ThemeBootScript";
 import { ThemeModeProvider } from "@/components/theme/ThemeModeProvider";
 import GlobalStyle from "@/styles/GlobalStyle";
 
 export default function Providers({ children }: { children: ReactNode }) {
+  const [appReady, setAppReady] = useState(false);
+  const onSplashReady = useCallback(() => setAppReady(true), []);
+
   return (
     <EmotionRegistry>
       <ThemeBootScript />
       <ThemeModeProvider>
         <GlobalStyle />
-        {children}
+        <SplashScreen onReady={onSplashReady} />
+        <div
+          aria-hidden={appReady ? undefined : true}
+          {...(!appReady ? { inert: true } : {})}
+          style={{
+            minHeight: "100%",
+          }}
+        >
+          {children}
+        </div>
       </ThemeModeProvider>
     </EmotionRegistry>
   );
