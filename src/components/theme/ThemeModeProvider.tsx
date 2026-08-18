@@ -108,14 +108,27 @@ export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const root = document.documentElement;
-    const radius = Math.hypot(
-      Math.max(origin.x, window.innerWidth - origin.x),
-      Math.max(origin.y, window.innerHeight - origin.y)
+    const viewport = window.visualViewport;
+    const width = Math.max(
+      window.innerWidth,
+      root.clientWidth,
+      viewport?.width ?? 0
+    );
+    const height = Math.max(
+      window.innerHeight,
+      root.clientHeight,
+      viewport?.height ?? 0
     );
 
     root.style.setProperty("--theme-transition-x", `${origin.x}px`);
     root.style.setProperty("--theme-transition-y", `${origin.y}px`);
-    root.style.setProperty("--theme-transition-radius", `${radius}px`);
+    root.style.setProperty(
+      "--theme-transition-radius",
+      `${Math.hypot(
+        Math.max(origin.x, width - origin.x),
+        Math.max(origin.y, height - origin.y)
+      )}px`
+    );
     root.dataset.themeTransition = "active";
 
     const transition = transitionDocument.startViewTransition(() => {

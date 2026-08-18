@@ -12,7 +12,7 @@ const globalStyles = (theme: Theme) => css`
   @keyframes theme-reveal {
     from {
       clip-path: circle(
-        0 at var(--theme-transition-x) var(--theme-transition-y)
+        0px at var(--theme-transition-x) var(--theme-transition-y)
       );
     }
     to {
@@ -29,10 +29,17 @@ const globalStyles = (theme: Theme) => css`
     transition: none !important;
   }
 
+  html[data-theme-transition="active"]::view-transition-group(root) {
+    animation-duration: 0.72s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   html[data-theme-transition="active"]::view-transition-old(root),
   html[data-theme-transition="active"]::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;
+    width: 100%;
+    height: 100%;
   }
 
   html[data-theme-transition="active"]::view-transition-old(root) {
