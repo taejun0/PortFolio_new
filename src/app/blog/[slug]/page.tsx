@@ -4,13 +4,14 @@
  * 책임: 마크다운·Discussions slug로 글을 읽고 없으면 404를 낸다.
  */
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import BlogDetailPage from "@/features/blog/components/detail/BlogDetailPage";
 import {
   getAllBlogSlugs,
   getBlogPostBySlug,
 } from "@/features/blog/services/blog";
+import { BLOG_DISCUSSIONS_CONFIG } from "@/lib/siteConfig";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -38,6 +39,14 @@ export async function generateMetadata({
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   const post = await getBlogPostBySlug(slug);
-  if (!post) notFound();
+  if (!post) {
+    const discussionMatch = slug.match(/^d-([1-9]\d*)$/);
+    if (discussionMatch) {
+      redirect(
+        `https://github.com/${BLOG_DISCUSSIONS_CONFIG.repo}/discussions/${discussionMatch[1]}`
+      );
+    }
+    notFound();
+  }
   return <BlogDetailPage post={post} />;
 }

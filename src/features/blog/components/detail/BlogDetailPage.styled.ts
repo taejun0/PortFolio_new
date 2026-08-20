@@ -57,6 +57,11 @@ export const Content = styled.div`
   line-height: 1.8;
   color: ${({ theme }) => theme.colors.text};
 
+  > * {
+    content-visibility: auto;
+    contain-intrinsic-block-size: auto 8rem;
+  }
+
   h1,
   h2,
   h3 {

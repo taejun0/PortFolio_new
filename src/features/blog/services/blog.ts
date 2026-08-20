@@ -171,7 +171,8 @@ export const getBlogPostBySlug = cache(async (slug: string): Promise<BlogPost | 
 });
 
 export const getAllBlogSlugs = async () => {
-  // Local posts are deterministic build inputs. Discussion posts are rendered
-  // on demand so a transient GitHub API failure cannot bake a 404 into the build.
-  return listMarkdownSlugs();
+  // 목록에 노출되는 Discussions 글도 빌드 시 상세 페이지로 생성한다.
+  // 목록은 보이지만 최초 상세 요청에서 API가 실패해 404가 되는 상황을 막는다.
+  const posts = await getAllBlogPosts();
+  return posts.map((post) => post.slug);
 };

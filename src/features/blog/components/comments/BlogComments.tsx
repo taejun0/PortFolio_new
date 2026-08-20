@@ -5,11 +5,13 @@
  */
 "use client";
 
-import Giscus from "@giscus/react";
+import dynamic from "next/dynamic";
 
 import { useThemeMode } from "@/components/theme/ThemeModeProvider";
 import { GISCUS_CONFIG } from "@/lib/siteConfig";
 import { BLOG_PAGE_UI } from "../../constants";
+
+const Giscus = dynamic(() => import("@giscus/react"), { ssr: false });
 
 const BlogComments = () => {
   const { mode } = useThemeMode();
