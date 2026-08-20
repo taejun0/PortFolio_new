@@ -42,3 +42,6 @@ next-env.d.ts
 
 # local design compare captures (screenshots / scripts)
 .tmp-compare/
+
+# local performance audits and temporary browser profiles
+/tmp/
