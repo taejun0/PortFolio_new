@@ -5,7 +5,6 @@
  */
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 
 import * as P from "../../AboutPage.styled";
@@ -16,7 +15,6 @@ const ui = ABOUT_PAGE_UI.approach;
 
 const ApproachSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const reduceMotion = useReducedMotion();
   const active = ui.cards[activeIndex];
 
   return (
@@ -46,26 +44,15 @@ const ApproachSection = () => {
             })}
           </S.Tabs>
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active.title}
-              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
-              transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              <S.Panel role="tabpanel">
-
-                <S.Body>
-                  {active.paragraphs.map((paragraph) => (
-                    <S.Paragraph key={paragraph.slice(0, 32)}>
-                      {paragraph}
-                    </S.Paragraph>
-                  ))}
-                </S.Body>
-              </S.Panel>
-            </motion.div>
-          </AnimatePresence>
+          <S.Panel key={active.title} role="tabpanel">
+            <S.Body>
+              {active.paragraphs.map((paragraph) => (
+                <S.Paragraph key={paragraph.slice(0, 32)}>
+                  {paragraph}
+                </S.Paragraph>
+              ))}
+            </S.Body>
+          </S.Panel>
         </S.Stage>
       </P.Inner>
     </P.Chapter>
