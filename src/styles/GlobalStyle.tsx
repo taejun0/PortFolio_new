@@ -87,7 +87,7 @@ const globalStyles = (theme: Theme) => css`
     color: var(--canvas-fg, ${theme.colors.text});
     background-color: var(--canvas-bg, ${theme.colors.background});
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    text-rendering: auto;
     transition:
       background-color ${theme.motion.duration.ui}s ease,
       color ${theme.motion.duration.ui}s ease;

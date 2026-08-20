@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
 import Providers from "./providers";
 import SiteShell from "@/components/layout/SiteShell";
 import { SITE_CONFIG } from "@/lib/siteConfig";
-import { pretendard, nanumPen } from "@/styles/fonts";
+import { pretendard } from "@/styles/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -59,7 +59,7 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={`${pretendard.variable} ${nanumPen.variable}`}
+      className={pretendard.variable}
       data-theme="dark"
       style={{ colorScheme: "dark" }}
       suppressHydrationWarning

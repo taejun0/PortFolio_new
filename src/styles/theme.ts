@@ -13,7 +13,7 @@ const fonts = {
   display: "var(--font-pretendard), 'Pretendard', -apple-system, sans-serif",
   body: "var(--font-pretendard), 'Pretendard', -apple-system, sans-serif",
   mono: "var(--font-pretendard), 'Pretendard', -apple-system, sans-serif",
-  script: "var(--font-nanum-pen), 'Nanum Pen Script', cursive",
+  script: "var(--font-pretendard), 'Pretendard', -apple-system, sans-serif",
   weights: {
     light: 300,
     regular: 400,
