@@ -59,14 +59,23 @@ export const Deck = styled.div`
 `;
 
 export const Card = styled.article`
+  position: relative;
   width: min(18.5rem, calc(100vw - 2.5rem));
   aspect-ratio: 50 / 90;
   border-radius: 0;
-  background: linear-gradient(210deg, ${paperLit} 0%, ${paper} 72%, #eeeeee 100%);
+  background: linear-gradient(
+    135deg,
+    ${paperLit} 0%,
+    ${paper} 58%,
+    #ececec 100%
+  );
   box-shadow:
-    inset -1px 1px 0 rgb(255 255 255 / 80%),
-    inset 1px -1px 0 rgb(0 0 0 / 5%),
-    -2px 3px 0 #d0d0d2,
+    inset 1px 1px 0 rgb(255 255 255 / 78%),
+    inset -1px -1px 0 rgb(0 0 0 / 7%),
+    -1px 1px 0 #d8d8da,
+    -2px 2px 0 #d4d4d6,
+    -3px 3px 0 #d0d0d2,
+    -4px 4px 0 #cbcbcd,
     -10px 14px 22px rgb(0 0 0 / 40%),
     -20px 26px 38px rgb(0 0 0 / 26%);
 `;
@@ -113,12 +122,12 @@ export const Quote = styled.p`
   gap: 0.08rem;
   width: 100%;
   margin-top: 1.35rem;
-  font-family: ${({ theme }) => theme.fonts.script};
-  font-size: 1.42rem;
-  font-weight: 400;
+  font-family: ${({ theme }) => theme.fonts.body};
+  font-size: 0.92rem;
+  font-weight: ${({ theme }) => theme.fonts.weights.medium};
   font-style: normal;
-  line-height: 1.35;
-  letter-spacing: 0.01em;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
   text-align: center;
   color: ${ink};
 

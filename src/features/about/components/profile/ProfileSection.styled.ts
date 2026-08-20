@@ -21,6 +21,8 @@ export const Inner = styled.div`
   width: 100%;
   max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
+  border: none;
+  box-shadow: none;
 `;
 
 export const Eyebrow = styled.p`
@@ -57,7 +59,8 @@ export const Tagline = styled.p`
 
 export const MarqueeSlot = styled.div`
   width: 100%;
-  margin-top: auto;
+  margin-top: ${({ theme }) => theme.space[8]};
+  border: none;
 `;
 
 export const Emphasis = styled.strong`

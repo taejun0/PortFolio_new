@@ -8,6 +8,11 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.div`
   width: 100%;
   background: ${({ theme }) => theme.colors.background};
+
+  > section:not(:first-of-type):not([data-scroll-track]) {
+    content-visibility: auto;
+    contain-intrinsic-block-size: auto 48rem;
+  }
 `;
 
 export const Chapter = styled.section<{

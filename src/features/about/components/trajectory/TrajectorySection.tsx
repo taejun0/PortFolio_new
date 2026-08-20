@@ -2,6 +2,9 @@
  * 생성 이유: About 상세에 경험·학력 타임라인을 둔다.
  * 역할: AboutPage Trajectory 챕터다.
  * 책임: Journey 원문 렌더와 스크롤 레일·도트 활성 연출을 관리한다.
+ *
+ * 정적 완성형으로 바꾸지 말 것. 라인은 스크롤에 따라 위에서 자라고,
+ * 도트는 라인 끝이 닿을 때 켜져야 한다.
  */
 "use client";
 
@@ -25,16 +28,14 @@ const TrajectorySection = () => {
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
   const reduceMotion = useReducedMotion();
   const [reached, setReached] = useState<boolean[]>(() =>
-    ui.items.map(() => Boolean(reduceMotion)),
+    ui.items.map(() => Boolean(reduceMotion))
   );
 
   const { scrollYProgress } = useScroll({
     target: listRef,
-    // 리스트가 뷰에 들어온 뒤, 끝 항목이 화면 중하단을 지날 때까지 채움
     offset: ["start 0.72", "end 0.28"],
   });
 
-  // 같은 스크롤에서도 라인이 조금 더 아래까지 앞서가게
   const scaleY = useTransform(scrollYProgress, [0, 0.82], [0, 1]);
 
   const syncDots = useCallback(() => {
@@ -60,7 +61,7 @@ const TrajectorySection = () => {
     setReached((prev) =>
       prev.length === next.length && prev.every((value, i) => value === next[i])
         ? prev
-        : next,
+        : next
     );
   }, [reduceMotion]);
 
@@ -69,16 +70,13 @@ const TrajectorySection = () => {
   });
 
   useEffect(() => {
-    const frame = window.requestAnimationFrame(syncDots);
+    syncDots();
     window.addEventListener("resize", syncDots);
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", syncDots);
-    };
+    return () => window.removeEventListener("resize", syncDots);
   }, [syncDots]);
 
   return (
-    <P.Chapter $alt $cozy>
+    <S.Chapter $alt $cozy data-scroll-track>
       <P.Inner>
         <P.Label>{ui.label}</P.Label>
         <S.Title>{ui.title}</S.Title>
@@ -123,7 +121,7 @@ const TrajectorySection = () => {
           ))}
         </S.List>
       </P.Inner>
-    </P.Chapter>
+    </S.Chapter>
   );
 };
 

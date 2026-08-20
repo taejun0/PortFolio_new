@@ -1,10 +1,16 @@
 /**
  * 생성 이유: Trajectory 타임라인 시각을 로직과 분리한다.
  * 역할: TrajectorySection 스타일이다.
- * 책임: 스크롤 연동 세로 레일·기간·포인트·키워드 배치만 소유한다.
+ * 책임: 스크롤 연동 세로 레일·기간·포인트·키워드 배치와 챕터 배경을 소유한다.
  */
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+
+import * as P from "../../AboutPage.styled";
+
+export const Chapter = styled(P.Chapter)`
+  background: var(--canvas-bg, ${({ theme }) => theme.colors.background});
+`;
 
 export const Title = styled.h2`
   margin-bottom: ${({ theme }) => theme.space[4]};

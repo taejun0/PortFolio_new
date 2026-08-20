@@ -22,7 +22,6 @@ export const TitleBlock = styled.div`
 
 export const Aside = styled.p`
   margin-top: ${({ theme }) => theme.space[2]};
-  max-width: 32ch;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   line-height: 1.5;
   color: ${({ theme }) => theme.colors.textMuted};

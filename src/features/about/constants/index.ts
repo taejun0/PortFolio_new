@@ -7,8 +7,8 @@ export const ABOUT_PAGE_UI = {
   profile: {
     eyebrow: "About",
     nameLines: ["Oh", "Taejun"],
-    taglineBefore: "Frontend Developer · 웹으로 표현하고 소통하는 ",
-    taglineEmphasis: "개발자.",
+    taglineBefore: "Frontend oriented Developer · ",
+    taglineEmphasis: "웹으로 표현하고 소통하는 개발자",
     profileLabel: "Profile",
     profileTitle: "집단의 IQ는, 공유되는 정보에서 만든다.",
     paragraphs: [

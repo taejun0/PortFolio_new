@@ -18,9 +18,7 @@ export const Section = styled.section<{ $embedded?: boolean }>`
       : `${theme.space[8]} 0`};
   background: ${({ theme, $embedded }) =>
     $embedded ? "transparent" : theme.colors.background};
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
-  border-bottom: ${({ theme, $embedded }) =>
-    $embedded ? "none" : `1px solid ${theme.colors.border}`};
+  border: none;
   overflow: hidden;
 `;
 

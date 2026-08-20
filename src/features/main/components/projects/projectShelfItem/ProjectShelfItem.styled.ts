@@ -148,14 +148,14 @@ export const Media = styled.div`
       theme.mode === "light"
         ? `linear-gradient(
             to top,
-            color-mix(in srgb, ${theme.colors.surface} 88%, transparent) 0%,
-            color-mix(in srgb, ${theme.colors.surface} 48%, transparent) 38%,
+            color-mix(in srgb, ${theme.colors.surface} 22%, transparent) 0%,
+            color-mix(in srgb, ${theme.colors.surface} 8%, transparent) 38%,
             transparent 62%
           )`
         : `linear-gradient(
             to top,
-            color-mix(in srgb, ${theme.colors.background} 78%, transparent) 0%,
-            color-mix(in srgb, ${theme.colors.background} 32%, transparent) 38%,
+            color-mix(in srgb, ${theme.colors.background} 24%, transparent) 0%,
+            color-mix(in srgb, ${theme.colors.background} 8%, transparent) 38%,
             transparent 62%
           )`};
   }
