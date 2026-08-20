@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 export const Overlay = styled(motion.div)`
   position: fixed;
   inset: 0;
-  z-index: 4000;
+  z-index: 5001;
   display: grid;
   place-items: center;
   padding: ${({ theme }) => theme.layout.gutter};

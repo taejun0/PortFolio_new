@@ -114,6 +114,12 @@ const SplashScreen = ({ onReady }: SplashScreenProps) => {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 5001,
+            background: "var(--canvas-bg)",
+          }}
           aria-busy="true"
           aria-live="polite"
           aria-label={SPLASH_UI.name}

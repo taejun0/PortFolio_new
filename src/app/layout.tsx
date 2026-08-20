@@ -49,6 +49,28 @@ body{
   color:var(--canvas-fg);
 }
 html:not([data-theme-ready="1"]) body{transition:none!important}
+html:not([data-splash-done="1"]) body{overflow:hidden}
+#boot-splash{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:grid;
+  place-items:center;
+  background:var(--canvas-bg);
+  color:var(--canvas-fg);
+  pointer-events:all;
+}
+#boot-splash span{
+  font-weight:700;
+  letter-spacing:-0.05em;
+  line-height:0.84;
+  text-transform:uppercase;
+  font-size:clamp(2.6rem,0.55rem + 9.2vw,7.25rem);
+}
+html[data-splash-done="1"] #boot-splash,
+#boot-splash[data-hidden="1"]{
+  display:none!important;
+}
 `;
 
 export default function RootLayout({
@@ -71,6 +93,9 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <div id="boot-splash" aria-hidden="true">
+          <span>OHTAEJUN</span>
+        </div>
         <Providers>
           <SiteShell>{children}</SiteShell>
         </Providers>
