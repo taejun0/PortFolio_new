@@ -57,6 +57,11 @@ export const Empty = styled.p`
 export const List = styled.ul`
   display: grid;
   gap: ${({ theme }) => theme.space[5]};
+
+  > li:not(:first-of-type) {
+    content-visibility: auto;
+    contain-intrinsic-block-size: auto 24rem;
+  }
 `;
 
 export const Item = styled.li`

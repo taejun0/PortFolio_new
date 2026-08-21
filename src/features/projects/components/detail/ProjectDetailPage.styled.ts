@@ -122,6 +122,8 @@ export const Block = styled.section`
   margin-bottom: ${({ theme }) => theme.space[8]};
   padding-top: ${({ theme }) => theme.space[7]};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto 32rem;
 `;
 
 export const BlockTitle = styled.h2`
