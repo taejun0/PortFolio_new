@@ -44,6 +44,8 @@ export const Arrow = styled.span`
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  width: 1em;
   min-width: 1em;
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   color: ${({ theme }) => theme.colors.textMuted};
@@ -71,6 +73,13 @@ export const PostNote = styled.p`
   font-size: ${({ theme }) => theme.typography.small.fontSize};
   letter-spacing: 0.04em;
   color: ${({ theme }) => theme.colors.textMuted};
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+`;
+
+export const PostMeta = styled.p`
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  color: ${({ theme }) => theme.colors.textMuted};
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 `;
 
 export const PostItem = styled.li`
@@ -78,31 +87,93 @@ export const PostItem = styled.li`
   ${hoverArrowParent}
 
   a {
+    position: relative;
+    isolation: isolate;
     display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "meta arrow"
+      "copy copy";
+    align-items: start;
     gap: ${({ theme }) => theme.space[2]};
-    padding: ${({ theme }) => theme.space[5]} 0;
+    padding: ${({ theme }) => theme.space[5]}
+      clamp(0.75rem, 0.55rem + 0.75vw, 1.25rem);
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: color-mix(
+        in srgb,
+        ${({ theme }) => theme.colors.accent}
+          ${({ theme }) => (theme.mode === "dark" ? "7%" : "5%")},
+        transparent
+      );
+      transform: scaleX(0);
+      transform-origin: right center;
+      transition: transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       grid-template-columns: clamp(5.5rem, 12vw, 7.5rem) 1fr auto;
+      grid-template-areas: "meta copy arrow";
       align-items: baseline;
       gap: ${({ theme }) => theme.space[5]};
     }
   }
 
-  &:hover ${PostTitle} {
+  ${PostMeta} {
+    grid-area: meta;
+  }
+
+  ${PostCopy} {
+    grid-area: copy;
+  }
+
+  ${Arrow} {
+    grid-area: arrow;
+    justify-self: end;
+    align-self: start;
+  }
+
+  &:hover a::before,
+  &:focus-within a::before {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+
+  &:hover ${PostTitle},
+  &:focus-within ${PostTitle} {
+    color: ${({ theme }) => theme.colors.accent};
+    opacity: 1;
+  }
+
+  &:hover ${PostMeta},
+  &:focus-within ${PostMeta},
+  &:hover ${PostNote},
+  &:focus-within ${PostNote} {
     color: ${({ theme }) => theme.colors.text};
     opacity: 1;
   }
 
-  &:hover ${Arrow} {
-    color: ${({ theme }) => theme.colors.text};
+  &:hover ${Arrow},
+  &:focus-within ${Arrow} {
+    color: ${({ theme }) => theme.colors.accent};
     opacity: 1;
   }
-`;
 
-export const PostMeta = styled.p`
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  color: ${({ theme }) => theme.colors.textMuted};
+  a:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.accent};
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    a::before {
+      transition: none;
+    }
+  }
 `;
 
 export const Empty = styled.p`
