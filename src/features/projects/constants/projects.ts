@@ -1,18 +1,35 @@
 /**
  * 생성 이유: 프로젝트 목록·상세·메인 Featured가 같은 데이터를 공유해야 한다.
  * 역할: 포트폴리오 프로젝트 엔트리의 타입과 정적 데이터 소스다.
- * 책임: PortfolioPage `projectData` 원문을 기준으로 slug 조회·featured·상세 메타를 관리한다.
+ * 책임: PortfolioPage `projectData` 원문을 기준으로 slug 조회·featured·상세/카드 메타를 관리한다.
+ *       값(PROJECTS·조회 함수)은 서버 컴포넌트(라우트)에서 읽고 화면에 필요한 필드만 props로 넘긴다 —
+ *       클라이언트 컴포넌트는 타입만 가져와야 전체 원문이 브라우저 번들에 실리지 않는다.
  */
+
+/** 프로젝트 진행 형태. 표시 문구는 PROJECTS_PAGE_UI.kindLabel이 소유한다. */
+export type ProjectKind = "team" | "solo" | "hackathon";
+
 export type Project = {
   slug: string;
   title: string;
   summary: string;
   period: string;
+  /** 카드용 짧은 기간 표기(예: "2025.03 — Now"). 없으면 period에서 연도만 뽑는다. */
+  periodShort?: string;
   role: string;
   team: string;
+  /** 팀·솔로·해커톤 구분. team 원문과 별개로 카드 메타에 쓴다. */
+  kind?: ProjectKind;
   tags: string[];
   featured: boolean;
   image: string;
+  /** 이미지 원본 픽셀 크기 — 상세 커버가 로드 전부터 같은 비율로 자리를 잡는다(커버가 늦게 와도 본문이 밀리지 않는다). */
+  imageSize: { width: number; height: number };
+  /**
+   * 16:9보다 넓은 썸네일을 자르지 않고 contain으로 둘 때 위아래 여백을 채울 색.
+   * 썸네일 가장자리 색과 같아야 이음새가 보이지 않는다. 없으면 16:9 박스에 cover한다.
+   */
+  imageMatte?: string;
   overview: string;
   decisions: string[];
   roles: string[];
@@ -29,11 +46,14 @@ export const PROJECTS: Project[] = [
       "축제 부스 현장의 주문·결제·서빙·정산을 디지털로 해결하는 운영지원 서비스 (Customer/Admin/Server).",
     period:
       "1차 2025.03~05 · 2차 05~07 · 3차 07~09 · 4차 2026.02~ (고도화)",
+    periodShort: "2025.03 — Now",
     role: "Frontend Lead",
     team: "FE 3 / BE 4 / PM 1 / Designer 1",
+    kind: "team",
     tags: ["Team", "React", "TypeScript", "WebSocket", "Redis"],
     featured: true,
     image: "/images/projectsImage/D-order.webp",
+    imageSize: { width: 1440, height: 756 },
     github: "https://github.com/D-Order/2026-d-order-fe-admin-v3",
     demo: "http://customer.dorder-api.shop",
     overview:
@@ -87,11 +107,16 @@ export const PROJECTS: Project[] = [
     summary:
       "회색 명도차 철학을 담은 Next.js·Emotion 개인 포트폴리오. 프로젝트·스킬·블로그를 한곳에 아카이빙.",
     period: "2025.05 — 현재 (개선 지속)",
-    role: "기획 · 디자인 · 개발",
+    periodShort: "2025.05 — Now",
+    role: "Planning · Design · Frontend",
     team: "Solo",
+    kind: "solo",
     tags: ["Solo", "React", "TypeScript", "Next.js", "Emotion"],
     featured: true,
     image: "/images/projectsImage/PortFolio.webp",
+    imageSize: { width: 1440, height: 751 },
+    // 1.92:1 스크린숏 — 좌우 내비 문구가 잘리지 않게 가장자리 회색으로 레터박스한다.
+    imageMatte: "#f2f2f2",
     github: "https://github.com/taejun0/PortFolio_new",
     demo: "https://www.taejun0-portfolio.com",
     overview:
@@ -133,11 +158,14 @@ export const PROJECTS: Project[] = [
     summary:
       "동국대 2025 동아리 박람회 통합 안내 웹. 지도 UI·공연 일정·부스 검색으로 현장 탐색을 단순화.",
     period: "2025.02 — 2025.03 (2개월)",
+    periodShort: "2025.02 — 03",
     role: "Frontend Developer",
     team: "Team project",
+    kind: "team",
     tags: ["Team", "React", "JavaScript", "Framer Motion"],
     featured: true,
     image: "/images/projectsImage/DongBak.webp",
+    imageSize: { width: 1440, height: 810 },
     github: "https://github.com/taejun0/2025_DongBak_Frontend",
     demo: "https://2025-dgu-dongbak.netlify.app/",
     overview:
@@ -180,11 +208,14 @@ export const PROJECTS: Project[] = [
     summary:
       "2025 동국대 캡스톤. MediaPipe AI 자세 분석으로 병사 체력 훈련 피드백을 제공하는 웹 서비스.",
     period: "2025.05 — 현재 추가 개발 중",
-    role: "기획 · 개발",
+    periodShort: "2025.05 — Now",
+    role: "Planning · Frontend",
     team: "Solo",
+    kind: "solo",
     tags: ["Solo", "React", "JavaScript", "AI", "MediaPipe"],
     featured: false,
     image: "/images/projectsImage/SMART.webp",
+    imageSize: { width: 1440, height: 754 },
     github: "https://github.com/taejun0/SMART_FE",
     demo: "https://smart-dgu.vercel.app/",
     overview:
@@ -218,11 +249,14 @@ export const PROJECTS: Project[] = [
     summary:
       "가족 건강·정서 연결 웹. 캘린더·챌린지·병원 예약·약 복용·음성 챗봇을 묶은 해커톤 프로덕트.",
     period: "2025.07 (해커톤)",
+    periodShort: "2025.07",
     role: "Frontend Developer",
     team: "Team",
+    kind: "hackathon",
     tags: ["Team", "React", "JavaScript", "Django"],
     featured: false,
     image: "/images/projectsImage/Mohae.webp",
+    imageSize: { width: 1440, height: 810 },
     github:
       "https://github.com/LikeLion-at-DGU/2024-hackathon-2-mohae-frontend",
     overview:
@@ -263,11 +297,14 @@ export const PROJECTS: Project[] = [
     summary:
       "Kakao Maps 기반 지역 생태 커뮤니티. 위치 제보·생태 정보·검색·마커 UX를 담당.",
     period: "2025.03 — 2025.04 (약 1.5개월)",
+    periodShort: "2025.03 — 04",
     role: "Frontend Developer",
     team: "Team",
+    kind: "team",
     tags: ["Team", "React", "JavaScript", "Kakao Maps"],
     featured: false,
     image: "/images/projectsImage/Udongchin.webp",
+    imageSize: { width: 1440, height: 810 },
     github: "https://github.com/taejun0/2024_udongchin_front",
     demo: "https://2024-udongchin-front.vercel.app/",
     overview:
