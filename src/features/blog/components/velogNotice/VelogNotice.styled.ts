@@ -6,6 +6,7 @@
 import styled from "@emotion/styled";
 
 import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
+import { motionTransition } from "@/components/common/motion";
 
 export const Wrapper = styled.div`
   margin-top: ${({ theme }) => theme.space[6]};
@@ -25,10 +26,11 @@ export const Link = styled.a`
   margin-left: ${({ theme }) => theme.space[1]};
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   color: ${({ theme }) => theme.colors.textMuted};
-  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: ${motionTransition("color")};
   ${hoverArrowParent}
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     color: ${({ theme }) => theme.colors.text};
   }
 `;
