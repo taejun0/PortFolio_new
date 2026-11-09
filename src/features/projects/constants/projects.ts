@@ -40,6 +40,54 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    slug: "behavior-rpa",
+    title: "사용자 행동 분석 기반 RPA",
+    summary:
+      "반복되는 화면 조작을 기록·분석하고 자동화 초안을 제안하는 데스크톱 시스템. 신한펀드파트너스 IT 인턴십 프로젝트.",
+    period: "2026 · 신한펀드파트너스 IT 인턴십",
+    periodShort: "2026",
+    role: "IT Intern · 기획·설계·개발",
+    team: "신한펀드파트너스 IT 인턴십",
+    tags: ["Electron", "React", "TypeScript", "Node.js", "AI Agent"],
+    featured: true,
+    image: "/images/projectsImage/behavior-rpa.svg",
+    imageSize: { width: 1440, height: 900 },
+    overview:
+      "금융 업무에서 되풀이되는 화면 조작을 기록하고, 반복 패턴을 분석해 자동화 초안을 제안하는 데스크톱 RPA 시스템입니다. 웹과 운영체제의 UI 요소를 공통 객체로 다루며, 녹화 → 반복 작업 발견 → 자동화 후보 추천 → 초안 편집 → 실행으로 이어지는 흐름을 구현했습니다. 신한펀드파트너스 IT 인턴십에서 진행한 업무 자동화 과제입니다.",
+    decisions: [
+      "좌표만 저장하는 대신 DOM·Accessibility·UI Automation 기반 객체를 공통 모델로 다뤄 화면 변화에 대응",
+      "반복 패턴 계산은 코드가 수행하고, 해석과 설명이 필요한 부분에 AI를 사용하는 역할 분리",
+      "Electron 셸·React 작업실·Local Agent·네이티브 도우미를 분리해 UI와 실행 엔진의 책임 구분",
+      "자동화 초안과 활성 버전을 분리해 편집 중인 작업이 바로 실행되지 않도록 설계",
+      "실행 직전 대상을 다시 찾고 실행 후 결과를 검증하며, 모호한 대상은 실행하지 않는 흐름 구성",
+    ],
+    roles: [
+      "사용자 행동 기록부터 반복 작업 분석·자동화 추천·초안 생성·실행까지 제품 흐름 기획 및 개발",
+      "React 기반 자동화 작업실과 객체 선택·작업 편집·실행 이력 UI 구현",
+      "브라우저 확장과 운영체제 어댑터를 연결하는 객체 인식·재탐색 구조 설계",
+      "결정적 분석 로직과 AI 해석을 분리하고 모델 호출량을 제어하는 분석 흐름 구성",
+      "계약 스키마·Vitest 테스트와 macOS·웹 실행 확인을 통해 동작 검증",
+    ],
+    challenges: [
+      {
+        problem:
+          "화면 좌표만으로 대상을 기억하면 창 위치나 화면 구성이 바뀔 때 다른 요소를 조작할 수 있었습니다.",
+        solution:
+          "객체의 구조·의미 정보를 저장하고 실행 전에 다시 탐색하도록 설계했습니다. 후보의 점수와 모호함을 판단하고, 실행 후 실제 상태 변화를 확인하도록 구성했습니다.",
+        learnings:
+          "업무 자동화에서는 명령을 보냈다는 사실보다 올바른 대상을 찾고 결과를 검증하는 과정이 중요합니다.",
+      },
+      {
+        problem:
+          "전체 행동 기록을 AI에 전달하는 방식은 호출 비용이 커지고 분석 결과를 검증하기도 어려웠습니다.",
+        solution:
+          "반복 패턴과 통계는 코드로 계산하고, 요약된 분석 결과만 AI에 전달하도록 역할을 나눴습니다. 판단 난도에 따라 모델을 선택하고 호출량에 상한을 두었습니다.",
+        learnings:
+          "AI를 모든 계산의 주체로 두기보다, 코드로 검증할 수 있는 처리와 판단이 필요한 영역을 구분해야 비용과 신뢰성을 함께 관리할 수 있습니다.",
+      },
+    ],
+  },
+  {
     slug: "d-order",
     title: "D-Order",
     summary:
@@ -163,8 +211,8 @@ export const PROJECTS: Project[] = [
     team: "Team project",
     kind: "team",
     tags: ["Team", "React", "JavaScript", "Framer Motion"],
-    featured: true,
     image: "/images/projectsImage/DongBak.webp",
+    featured: false,
     imageSize: { width: 1440, height: 810 },
     github: "https://github.com/taejun0/2025_DongBak_Frontend",
     demo: "https://2025-dgu-dongbak.netlify.app/",

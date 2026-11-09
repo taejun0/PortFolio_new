@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" fill="none">
+  <rect width="1440" height="900" fill="#EEEFE8"/>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" stroke="#172313" stroke-opacity=".045"/>
+    </pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="m1 1 4 3-4 3" stroke="#526147" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="900" fill="url(#grid)"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="78" y="66" width="60" height="32" rx="8" fill="#1B2617"/>
+    <text x="108" y="88" text-anchor="middle" font-size="18" font-weight="700" fill="#B6ED74">GEI</text>
+    <text x="158" y="88" font-size="16" letter-spacing="3" fill="#53634B">USER ACTION INTELLIGENCE</text>
+    <text x="76" y="196" font-size="76" font-weight="700" letter-spacing="-4" fill="#1B2617">From actions</text>
+    <text x="76" y="278" font-size="76" font-weight="700" letter-spacing="-4" fill="#1B2617">to automation.</text>
+    <text x="1164" y="116" font-size="100" font-weight="700" letter-spacing="-8" fill="#1B2617" opacity=".06">RPA</text>
+    <g stroke="#526147" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M364 458H421"/>
+      <path d="M708 458H765"/>
+      <path d="M1052 458H1109"/>
+    </g>
+    <g>
+      <rect x="78" y="360" width="282" height="224" rx="24" fill="#FCFCF8" stroke="#D8DED0"/>
+      <text x="104" y="400" font-size="14" letter-spacing="2" fill="#67765E">01 / TRACK</text>
+      <rect x="104" y="424" width="230" height="12" rx="6" fill="#E9EDE3"/>
+      <rect x="104" y="450" width="157" height="12" rx="6" fill="#E9EDE3"/>
+      <rect x="104" y="479" width="124" height="40" rx="9" fill="#E6F4D5" stroke="#80A15E"/>
+      <path d="m213 496 29 14-13 4-3 13z" fill="#1B2617" stroke="#FCFCF8" stroke-width="3" stroke-linejoin="round"/>
+      <text x="104" y="555" font-size="18" font-weight="700" fill="#273420">Record actions</text>
+    </g>
+    <g>
+      <rect x="426" y="360" width="278" height="224" rx="24" fill="#FCFCF8" stroke="#D8DED0"/>
+      <text x="452" y="400" font-size="14" letter-spacing="2" fill="#67765E">02 / MINE</text>
+      <g fill="#E6F4D5" stroke="#80A15E">
+        <rect x="452" y="431" width="50" height="27" rx="7"/>
+        <rect x="520" y="431" width="50" height="27" rx="7"/>
+        <rect x="588" y="431" width="50" height="27" rx="7"/>
+        <rect x="452" y="477" width="50" height="27" rx="7"/>
+        <rect x="520" y="477" width="50" height="27" rx="7"/>
+        <rect x="588" y="477" width="50" height="27" rx="7"/>
+      </g>
+      <path d="M503 445h16m52 0h16m-84 46h16m52 0h16" stroke="#80A15E" stroke-width="2"/>
+      <text x="452" y="555" font-size="18" font-weight="700" fill="#273420">Discover patterns</text>
+    </g>
+    <g>
+      <rect x="770" y="360" width="278" height="224" rx="24" fill="#FCFCF8" stroke="#D8DED0"/>
+      <text x="796" y="400" font-size="14" letter-spacing="2" fill="#67765E">03 / DRAFT</text>
+      <rect x="796" y="424" width="224" height="38" rx="9" fill="#E9EDE3"/>
+      <rect x="796" y="476" width="224" height="38" rx="9" fill="#E6F4D5" stroke="#80A15E"/>
+      <text x="812" y="449" font-size="15" fill="#53634B">Read selected object</text>
+      <text x="812" y="501" font-size="15" fill="#354C27">Build workflow</text>
+      <text x="796" y="555" font-size="18" font-weight="700" fill="#273420">Review the draft</text>
+    </g>
+    <g>
+      <rect x="1114" y="360" width="248" height="224" rx="24" fill="#1B2617"/>
+      <text x="1140" y="400" font-size="14" letter-spacing="2" fill="#AFC89A">04 / RUN</text>
+      <circle cx="1238" cy="469" r="39" fill="#B6ED74"/>
+      <path d="m1226 469 8 8 16-18" stroke="#1B2617" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="1140" y="555" font-size="18" font-weight="700" fill="#F5F8F0">Verify the result</text>
+    </g>
+  </g>
+</svg>

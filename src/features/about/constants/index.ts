@@ -142,7 +142,7 @@ export const ABOUT_PAGE_UI = {
         keywords: ["Algorithm", "CS", "Collaboration"],
       },
       {
-        period: "2026",
+        period: "2026.01 — 2026.09",
         title: "Samsung SW Academy For Youth (SSAFY)",
         points: [
           "알고리즘 학습을 루틴으로 만들고 문제 해결 역량 강화",
@@ -150,16 +150,26 @@ export const ABOUT_PAGE_UI = {
           "AI 분야까지 학습 범위를 넓혀 실전 적용 준비",
         ],
         keywords: ["Algorithm", "Backend", "AI"],
-        badge: "진행 중",
       },
       {
-        period: "2026.07 — 2026.10",
+        // Open UP 공식 모집 공고의 활동 기간: https://www.oss.kr/pages/10/4511
+        period: "2026.07.11 — 2026.10.24",
         title: "OSSCA 2026",
         points: [
           "실제 전문가와 함께하는 오픈소스 컨트리뷰션 경험",
         ],
         keywords: ["Open Source", "Contribution", "Collaboration"],
-        badge: "진행 중",
+      },
+      {
+        period: "2026",
+        title: "신한펀드파트너스 IT 인턴십",
+        points: [
+          "펀드회계 업무와 금융 IT 시스템의 데이터 흐름 학습",
+          "사용자 행동 분석 기반 RPA 시스템 기획·설계·개발",
+          "반복 업무를 기록·분석해 자동화 후보와 실행 초안으로 연결",
+          "코드 기반 분석과 AI 해석을 분리하며 업무 자동화 과제 수행",
+        ],
+        keywords: ["Financial IT", "RPA", "AI Agent"],
       },
     ],
   },
