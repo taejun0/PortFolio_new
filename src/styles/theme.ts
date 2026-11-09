@@ -261,9 +261,7 @@ const colorVars = Object.fromEntries(
   colorKeys.map((key) => [key, `var(${colorVarName(key)})`])
 ) as ThemeColors;
 
-export const darkTheme = {
-  mode: "dark" as const satisfies ThemeMode,
-  colors: darkColors,
+const tokens = {
   fonts,
   typography,
   space,
@@ -271,48 +269,22 @@ export const darkTheme = {
   motion,
   breakpoints,
 };
-
-export const lightTheme = {
-  mode: "light" as const satisfies ThemeMode,
-  colors: lightColors,
-  fonts,
-  typography,
-  space,
-  layout,
-  motion,
-  breakpoints,
-};
-
-export const themes = {
-  dark: darkTheme,
-  light: lightTheme,
-} as const;
-
-/** 기본 다크 — ThemeModeProvider가 모드별 테마를 주입한다. */
-export const theme = darkTheme;
 
 export type AppTheme = {
-  mode: ThemeMode;
-  colors: {
-    background: string;
-    surface: string;
-    surfaceAlt: string;
-    text: string;
-    textMuted: string;
-    border: string;
-    borderStrong: string;
-    accent: string;
-    accentSecondary: string;
-    accentGradient: string;
-    accentContrast: string;
-    wash: string;
-    gridLine: string;
-    splashWash: string;
-  };
+  colors: ThemeColors;
   fonts: typeof fonts;
   typography: typeof typography;
   space: typeof space;
   layout: typeof layout;
   motion: typeof motion;
   breakpoints: typeof breakpoints;
+};
+
+/**
+ * ThemeProvider가 주입하는 단 하나의 테마. 모드와 무관한 상수라 서버·클라이언트가 같은 클래스를 만들고,
+ * 테마 전환 때도 바뀌지 않는다(모드별 값은 CSS 변수와 LIGHT_MODE 선택자가 맡는다).
+ */
+export const theme: AppTheme = {
+  colors: colorVars,
+  ...tokens,
 };

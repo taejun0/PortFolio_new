@@ -21,7 +21,7 @@ import {
 import { flushSync } from "react-dom";
 import { ThemeProvider } from "@emotion/react";
 
-import { THEME_ATTR, themes, type ThemeMode } from "@/styles/theme";
+import { THEME_ATTR, theme, type ThemeMode } from "@/styles/theme";
 import { THEME_STORAGE_KEY } from "./themeBoot";
 import {
   ThemeModeContext,
@@ -174,7 +174,7 @@ export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <ThemeModeContext.Provider value={value}>
-      <ThemeProvider theme={themes[mode]}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeModeContext.Provider>
   );
 };

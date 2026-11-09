@@ -1,13 +1,19 @@
 /**
  * 생성 이유: 애플리케이션 전체에 공통 HTML 구조와 전역 환경을 제공한다.
- * 역할: App Router의 최상위 레이아웃으로 메타데이터, 폰트, Provider, 사이트 셸을 연결한다.
+ * 역할: App Router의 최상위 레이아웃으로 메타데이터, 폰트, Provider, 사이트 셸, 부트 스플래시를 연결한다.
  * 책임: 모든 페이지를 동일한 문서 구조와 전역 설정 안에서 렌더링한다.
+ *       서버 HTML은 테마 모드와 무관하다 — 색은 html[data-theme]별 팔레트 변수(THEME_BOOT_CSS)가 정하고,
+ *       data-theme은 head의 테마 부트 스크립트가 첫 페인트 전에 저장된 모드로 맞춘다.
+ *       첫 페인트 전에 필요한 부트 태그(팔레트·스플래시 CSS, 스플래시 재생/스킵·테마 스크립트)는 여기서 렌더하지 않고
+ *       ThemeBootScript가 SSR 스트림 head에 한 번만 끼워 넣는다 — 서버 레이아웃이 렌더하면 같은 문자열이
+ *       RSC 페이로드(self.__next_f)에 한 벌 더 실린다.
  */
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import Providers from "./providers";
 import SiteShell from "@/components/layout/SiteShell";
+import BootSplash from "@/components/layout/splash/BootSplash";
 import { SITE_CONFIG } from "@/lib/siteConfig";
 import { pretendard } from "@/styles/fonts";
 
@@ -18,60 +24,6 @@ export const metadata: Metadata = {
   },
   description: SITE_CONFIG.description,
 };
-
-/**
- * React/Emotion은 SSR에서 dark로 그려질 수 있다.
- * 스플래시·body는 --canvas-* 만 보고, cookie/boot 스크립트가 맞춘 data-theme을 따른다.
- */
-const themeBootCss = `
-html{
-  --canvas-bg:#000000;
-  --canvas-fg:#ffffff;
-  background-color:var(--canvas-bg);
-  color-scheme:dark;
-}
-html[data-theme="light"]{
-  --canvas-bg:#f3f3f4;
-  --canvas-fg:#0c0c0c;
-  background-color:var(--canvas-bg);
-  color-scheme:light;
-}
-html[data-theme="dark"]{
-  --canvas-bg:#000000;
-  --canvas-fg:#ffffff;
-  background-color:var(--canvas-bg);
-  color-scheme:dark;
-}
-html,body{min-height:100%}
-body{
-  margin:0;
-  background-color:var(--canvas-bg);
-  color:var(--canvas-fg);
-}
-html:not([data-theme-ready="1"]) body{transition:none!important}
-html:not([data-splash-done="1"]) body{overflow:hidden}
-#boot-splash{
-  position:fixed;
-  inset:0;
-  z-index:5000;
-  display:grid;
-  place-items:center;
-  background:var(--canvas-bg);
-  color:var(--canvas-fg);
-  pointer-events:all;
-}
-#boot-splash span{
-  font-weight:700;
-  letter-spacing:-0.05em;
-  line-height:0.84;
-  text-transform:uppercase;
-  font-size:clamp(2.6rem,0.55rem + 9.2vw,7.25rem);
-}
-html[data-splash-done="1"] #boot-splash,
-#boot-splash[data-hidden="1"]{
-  display:none!important;
-}
-`;
 
 export default function RootLayout({
   children,
@@ -86,16 +38,8 @@ export default function RootLayout({
       style={{ colorScheme: "dark" }}
       suppressHydrationWarning
     >
-      <head>
-        <style
-          id="theme-boot-css"
-          dangerouslySetInnerHTML={{ __html: themeBootCss }}
-        />
-      </head>
       <body>
-        <div id="boot-splash" aria-hidden="true">
-          <span>OHTAEJUN</span>
-        </div>
+        <BootSplash />
         <Providers>
           <SiteShell>{children}</SiteShell>
         </Providers>
