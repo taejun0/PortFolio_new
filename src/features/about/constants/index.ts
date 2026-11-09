@@ -82,6 +82,9 @@ export const ABOUT_PAGE_UI = {
     label: "Trajectory",
     title: "경험과 배움",
     subtitle: "저를 만들어 온 경험을 간단히 정리했습니다.",
+    id: "trajectory",
+    /** 항목별 키워드 칩 목록의 스크린리더 이름 */
+    keywordsLabel: "키워드",
     items: [
       {
         period: "2020",
@@ -163,7 +166,8 @@ export const ABOUT_PAGE_UI = {
   tools: {
     label: "Stack",
     title: "주요 기술 스택",
-    asideHref: "/#stack",
+    /** 같은 쇼케이스인 홈 #stack 대신, 이 기술을 쓴 프로젝트 목록으로 잇는다. */
+    asideHref: "/projects",
     aside: "실제 프로젝트에서 사용해온 기술들입니다.",
   }
 } as const;

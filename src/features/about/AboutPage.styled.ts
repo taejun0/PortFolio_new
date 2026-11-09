@@ -2,17 +2,20 @@
  * 생성 이유: About 페이지 셸 스타일을 분리한다.
  * 역할: AboutPage 최상위 래퍼·챕터 공통 스타일이다.
  * 책임: 여유 있는 섹션 패딩과 라벨·타이틀 리듬만 소유한다.
+ *       고정 헤더만큼의 앵커 여백은 전역 html scroll-padding-top이 맡는다(챕터마다 scroll-margin을 두지 않는다).
+ *
+ * 챕터에 content-visibility를 두지 않는다(실측, 같은 트리에서 이 블록만 다른 빌드와 비교):
+ * - 두면 클라이언트 뒤로 가기로 다시 마운트된 /about이 화면 밖 챕터를 자리 높이(48rem)로 시작해,
+ *   되돌린 scrollY가 떠날 때와 다른 내용에 멈췄다(1280px에서 1600 → 1361, 239px 모자람). 빼면 복원이 정확하다.
+ * - 빼도 비용이 없다 — 4x CPU 모바일 LCP 중앙값 556 → 528ms, 하이드레이션 긴 작업 148 → 114ms,
+ *   로드 Layout 합계 약 +4ms(45~51 → 46~57ms). 첫 레이아웃이 한 작업에 몰리지만(약 100ms, 4x) FCP·LCP보다 앞이다.
+ *   Trajectory 레일도 실제 레이아웃을 그대로 따라간다.
  */
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   width: 100%;
   background: ${({ theme }) => theme.colors.background};
-
-  > section:not(:first-of-type):not([data-scroll-track]) {
-    content-visibility: auto;
-    contain-intrinsic-block-size: auto 48rem;
-  }
 `;
 
 export const Chapter = styled.section<{
@@ -32,7 +35,6 @@ export const Chapter = styled.section<{
     ${({ theme }) => theme.layout.gutter};
   background: ${({ theme, $alt }) =>
     $alt ? theme.colors.surface : theme.colors.background};
-  scroll-margin-top: ${({ theme }) => theme.layout.headerHeight};
 `;
 
 export const Inner = styled.div`
@@ -41,6 +43,7 @@ export const Inner = styled.div`
   margin: 0 auto;
 `;
 
+/** 챕터 라벨 */
 export const Label = styled.p`
   margin-bottom: ${({ theme }) => theme.space[4]};
   font-size: ${({ theme }) => theme.typography.label.fontSize};
