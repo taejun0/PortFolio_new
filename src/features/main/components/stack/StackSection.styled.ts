@@ -5,12 +5,14 @@
  */
 import styled from "@emotion/styled";
 
+/** 타이틀과 보조 문구를 같은 기준선에 둔다 — About Tools 헤더와 같은 구성이다. */
 export const Header = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: baseline;
   justify-content: space-between;
-  gap: ${({ theme }) => theme.space[4]};
+  column-gap: ${({ theme }) => theme.space[5]};
+  row-gap: ${({ theme }) => theme.space[3]};
   margin-bottom: ${({ theme }) => theme.space[6]};
 `;
 
