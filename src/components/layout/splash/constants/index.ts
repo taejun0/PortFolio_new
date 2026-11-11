@@ -9,7 +9,7 @@ export { SPLASH_DISMISS_EVENT } from "../events";
 
 export const SPLASH_UI = {
   name: "OHTAEJUN",
-  status: "화면을 준비하고 있습니다",
+  loadingLabel: "페이지 로딩 중",
 } as const;
 
 /**
@@ -30,7 +30,6 @@ export const SPLASH_DOM = {
   rootId: "boot-splash",
   markClass: "boot-splash__mark",
   wordClass: "boot-splash__word",
-  statusClass: "boot-splash__status",
   enterAnimation: "boot-splash-enter",
   exitAnimation: "boot-splash-exit",
 } as const;

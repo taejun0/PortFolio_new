@@ -11,7 +11,7 @@ import { SPLASH_DISMISS_EVENT, SPLASH_DOM, SPLASH_TIMING } from "./constants";
 
 const { colors, fonts, motion, typography } = theme;
 const EASE = `cubic-bezier(${motion.ease.out.join(",")})`;
-const { rootId, markClass, wordClass, statusClass, enterAnimation, exitAnimation } = SPLASH_DOM;
+const { rootId, markClass, wordClass, enterAnimation, exitAnimation } = SPLASH_DOM;
 const { enterMs, minVisibleMs, exitMs, failSafeMs } = SPLASH_TIMING;
 const compact = (source: string) => source.replace(/\n\s*/g, "");
 
@@ -25,17 +25,13 @@ html[data-splash="exiting"] #${rootId}{display:grid}
 html[data-splash="exiting"] #${rootId}{
   will-change:transform;animation:${exitAnimation} ${exitMs}ms ${EASE} forwards;
 }
-#${rootId} .${markClass}{display:grid;justify-items:center;gap:1.5rem}
+#${rootId} .${markClass}{display:block}
 #${rootId} .${wordClass}{
   position:relative;display:block;font-family:${fonts.display};
   font-size:${typography.heroName.fontSize};font-weight:${fonts.weights.bold};
   line-height:${typography.heroName.lineHeight};letter-spacing:${typography.heroName.letterSpacing};
   text-transform:uppercase;white-space:nowrap;-webkit-user-select:none;user-select:none;
   animation:${enterAnimation} ${enterMs}ms ${EASE} both;
-}
-#${rootId} .${statusClass}{
-  font-family:${fonts.body};font-size:${typography.bodySm.fontSize};line-height:1.5;
-  color:${colors.textMuted};
 }
 #${rootId} .${wordClass}::before,
 #${rootId} .${wordClass}::after{

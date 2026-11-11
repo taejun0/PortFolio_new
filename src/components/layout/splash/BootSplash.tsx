@@ -8,13 +8,12 @@ import { SPLASH_DOM, SPLASH_UI } from "./constants";
 
 /**
  * 워드마크는 글자별로 쪼개지 않는다 — 한 블록의 텍스트여야 LCP 후보가 첫 페인트에 통째로 잡힌다.
- * 워드마크는 장식으로 숨기고, 준비 상태 문구만 보조기기에 전달한다.
+ * 워드마크는 장식으로 숨기고, 로딩 상태는 접근 가능한 이름으로만 전달한다.
  */
 const BootSplash = () => (
-  <div id={SPLASH_DOM.rootId} role="status" aria-live="polite" aria-atomic="true">
+  <div id={SPLASH_DOM.rootId} role="status" aria-label={SPLASH_UI.loadingLabel} aria-live="polite" aria-atomic="true">
     <span className={SPLASH_DOM.markClass}>
       <span className={SPLASH_DOM.wordClass} aria-hidden="true">{SPLASH_UI.name}</span>
-      <span className={SPLASH_DOM.statusClass}>{SPLASH_UI.status}</span>
     </span>
   </div>
 );
