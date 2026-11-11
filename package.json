@@ -7,6 +7,7 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
+    "test:splash": "node --test src/components/layout/splash/tests/*.test.mjs",
     "lint": "eslint"
   },
   "dependencies": {

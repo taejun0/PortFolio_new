@@ -1,30 +1,37 @@
 /**
- * 생성 이유: CSS로만 도는 부트 스플래시와 React 트리(히어로 인트로 등)를 잇기 위함이다.
- * 역할: 스플래시 dismiss 시그널을 React 쪽에 보장하는 브리지다. 아무것도 렌더링하지 않는다.
- * 책임: 스킵 경로(세션 재방문·동작 줄이기)와 hydration보다 커튼이 먼저 걷힌 경우에
- *       SPLASH_DISMISS_EVENT를 즉시 발행한다. 재생 중이면 head 스크립트가 퇴장 시작 순간에 발행한다.
- *       시각·타이밍·스크롤 잠금은 splashBoot(CSS·head 스크립트)가 소유하므로 framer-motion을 쓰지 않는다.
+ * 역할: 첫 화면의 준비를 확인해 부트 스플래시에 알린다. 아무것도 렌더링하지 않는다.
+ * 책임: React 커밋 뒤 DOM·폰트·첫 화면 이미지와 렌더 프레임을 기다린다.
+ *       최소 표시 시간과 퇴장은 splashBoot가 소유하고, 페이지 준비와 재생 완료 신호를 구분한다.
+ *       각 페이지의 클라이언트 루트 안에 둔다. 전역 Provider만 먼저 준비돼도 종료되는 것을 방지한다.
  *       이벤트 이름은 splash/events에서 가져온다 — 스플래시 상수(문구·타이밍·DOM 훅)는 클라이언트 번들에 싣지 않는다.
  */
 "use client";
 
 import { useEffect } from "react";
 
-import { SPLASH_DISMISS_EVENT } from "./events";
+import { SPLASH_DISMISS_EVENT, SPLASH_READY_EVENT } from "./events";
+import { waitForInitialView } from "./readiness";
 
 const SplashScreen = () => {
   useEffect(() => {
     const root = document.documentElement;
     const { splash, splashDone } = root.dataset;
 
-    // 재생 중 — head 스크립트가 커튼이 걷히기 시작하는 순간 직접 발행하고 스크롤 잠금을 푼다.
-    if (splash === "play" && splashDone !== "1") return;
+    if (splash === "play" && splashDone !== "1") {
+      const controller = new AbortController();
+      void waitForInitialView(controller.signal).then((ready) => {
+        if (ready && root.dataset.splash === "play") {
+          window.dispatchEvent(new Event(SPLASH_READY_EVENT));
+        }
+      });
+      return () => controller.abort();
+    }
 
-    // 스킵 경로, hydration 전에 이미 걷힘, head 스크립트가 돌지 못함(차단·오류):
-    // 늦게 마운트된 구독자도 같은 계약(data-splash-done + 이벤트 1회)을 보게 한다.
-    // head 스크립트가 없으면 잠금도 걸리지 않았고 CSS 연출은 스스로 끝난다.
-    root.dataset.splashDone = "1";
-    window.dispatchEvent(new Event(SPLASH_DISMISS_EVENT));
+    // 별도 인트로 경로, 이미 끝난 스플래시, 부트 스크립트 오류에서도 본문 효과를 해제한다.
+    if (splashDone !== "1") {
+      root.dataset.splashDone = "1";
+      window.dispatchEvent(new Event(SPLASH_DISMISS_EVENT));
+    }
   }, []);
 
   return null;
