@@ -8,6 +8,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import { Reveal, RollText, SweepText } from "@/components/common/motion";
@@ -42,115 +43,146 @@ const channelValue = (key: Channel["valueKey"]) => {
 /** 작업 목록을 사이트 공통 번호(01·02…)로 표기한다. */
 const toIndex = (index: number) => String(index + 1).padStart(2, "0");
 
-const CloseSection = () => (
-  <S.Section
-    id={MAIN_SECTION_IDS.close}
-    data-close-layout="business-card"
-    $fit
-  >
-    <P.SectionInner>
-      <SweepText as={P.Label}>{MAIN_CLOSE_UI.label}</SweepText>
-      <S.Header>
-        <SweepText as={P.Title} $flush>
-          {MAIN_CLOSE_UI.title}
-        </SweepText>
-        <SweepText as={S.Aside}>{MAIN_CLOSE_UI.note}</SweepText>
-      </S.Header>
+const CloseSection = () => {
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
+  const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const copyPending = useRef(false);
 
-      {/* 두 장이 함께 들어오면 컨트롤러가 문서 순서(앞면 → 뒷면)로 잇는다 — 지연을 직접 주지 않는다 */}
-      <S.Deck data-close-deck>
-        <Reveal
-          as={S.Card}
-          variant="group"
-          aria-label={MAIN_CLOSE_UI.frontLabel}
-        >
-          <S.Front>
-            <S.Arch>
-              <Image
-                src={MAIN_CLOSE_UI.photo}
-                alt={MAIN_CLOSE_UI.photoAlt}
-                fill
-                sizes="(max-width: 480px) 45vw, 220px"
-              />
-            </S.Arch>
-            <S.Quote>
-              {MAIN_CLOSE_UI.quoteLines.map((line) => (
-                <span key={line}>{line}</span>
-              ))}
-            </S.Quote>
-          </S.Front>
-        </Reveal>
+  useEffect(() => () => {
+    if (resetTimer.current) clearTimeout(resetTimer.current);
+  }, []);
 
-        <Reveal
-          as={S.Card}
-          variant="group"
-          aria-label={MAIN_CLOSE_UI.backLabel}
-        >
-          <S.Back>
-            <S.Identity>
-              <S.Badge>
-                <S.BadgeDot aria-hidden />
-                {MAIN_CLOSE_UI.availability}
-              </S.Badge>
-              <S.Name>{SITE_CONFIG.author}</S.Name>
-              <S.Role>{MAIN_HERO_UI.roles[0]}</S.Role>
-            </S.Identity>
+  const copyEmail = async () => {
+    if (copyPending.current) return;
+    copyPending.current = true;
+    if (resetTimer.current) clearTimeout(resetTimer.current);
+    try {
+      await navigator.clipboard.writeText(SITE_CONFIG.email);
+      setCopyState("copied");
+      resetTimer.current = setTimeout(() => setCopyState("idle"), 4000);
+    } catch {
+      setCopyState("error");
+    } finally {
+      copyPending.current = false;
+    }
+  };
 
-            <S.Group>
-              <S.GroupHead>
-                {MAIN_CLOSE_UI.worksLabel}{" "}
-                <S.GroupSep aria-hidden>_</S.GroupSep>{" "}
-                {MAIN_CLOSE_UI.worksTitle}
-              </S.GroupHead>
-              <S.WorksList>
-                {MAIN_CLOSE_UI.works.map((item, index) => (
-                  <S.WorksItem key={item}>
-                    <S.WorksIndex aria-hidden>{toIndex(index)}</S.WorksIndex>
-                    {item}
-                  </S.WorksItem>
+  return (
+    <S.Section
+      id={MAIN_SECTION_IDS.close}
+      data-close-layout="business-card"
+      $fit
+    >
+      <P.SectionInner>
+        <SweepText as={P.Label}>{MAIN_CLOSE_UI.label}</SweepText>
+        <S.Header>
+          <SweepText as={P.Title} $flush>
+            {MAIN_CLOSE_UI.title}
+          </SweepText>
+          <SweepText as={S.Aside}>{MAIN_CLOSE_UI.note}</SweepText>
+        </S.Header>
+
+        {/* 두 장이 함께 들어오면 컨트롤러가 문서 순서(앞면 → 뒷면)로 잇는다 — 지연을 직접 주지 않는다 */}
+        <S.Deck data-close-deck>
+          <Reveal
+            as={S.Card}
+            variant="group"
+            aria-label={MAIN_CLOSE_UI.frontLabel}
+          >
+            <S.Front>
+              <S.Arch>
+                <Image
+                  src={MAIN_CLOSE_UI.photo}
+                  alt={MAIN_CLOSE_UI.photoAlt}
+                  fill
+                  sizes="(max-width: 480px) 45vw, 220px"
+                />
+              </S.Arch>
+              <S.Quote>
+                {MAIN_CLOSE_UI.quoteLines.map((line) => (
+                  <span key={line}>{line}</span>
                 ))}
-              </S.WorksList>
-            </S.Group>
+              </S.Quote>
+            </S.Front>
+          </Reveal>
 
-            <S.Group>
-              <S.Contacts aria-label={MAIN_CLOSE_UI.channelsLabel}>
-                {MAIN_CLOSE_UI.channels.map((channel) => {
-                  const external = channel.hrefKind !== "mailto";
+          <Reveal
+            as={S.Card}
+            variant="group"
+            aria-label={MAIN_CLOSE_UI.backLabel}
+          >
+            <S.Back>
+              <S.Identity>
+                <S.Badge>
+                  <S.BadgeDot aria-hidden />
+                  {MAIN_CLOSE_UI.availability}
+                </S.Badge>
+                <S.Name>{SITE_CONFIG.author}</S.Name>
+                <S.Role>{MAIN_HERO_UI.roles[0]}</S.Role>
+              </S.Identity>
 
-                  return (
-                    <li key={channel.label}>
-                      <S.Row
-                        href={channelHref(channel.hrefKind)}
-                        target={external ? "_blank" : undefined}
-                        rel={external ? "noopener noreferrer" : undefined}
-                        title={channel.hint}
-                      >
-                        {/* 공백은 그리드에서 렌더링되지 않고, 링크 이름만 "Email 주소"처럼 띄어 읽히게 한다 */}
-                        <S.RowLabel>{channel.label}</S.RowLabel>{" "}
-                        <S.RowValue>{channelValue(channel.valueKey)}</S.RowValue>
-                        {external && (
-                          <>
-                            {" "}
-                            <S.SrOnly>{MAIN_CLOSE_UI.newTab}</S.SrOnly>
-                          </>
-                        )}
-                        <S.RowArrow data-hover-arrow aria-hidden />
-                      </S.Row>
-                    </li>
-                  );
-                })}
-              </S.Contacts>
+              <S.Group>
+                <S.GroupHead>
+                  {MAIN_CLOSE_UI.worksLabel}{" "}
+                  <S.GroupSep aria-hidden>_</S.GroupSep>{" "}
+                  {MAIN_CLOSE_UI.worksTitle}
+                </S.GroupHead>
+                <S.WorksList>
+                  {MAIN_CLOSE_UI.works.map((item, index) => (
+                    <S.WorksItem key={item}>
+                      <S.WorksIndex aria-hidden>{toIndex(index)}</S.WorksIndex>
+                      {item}
+                    </S.WorksItem>
+                  ))}
+                </S.WorksList>
+              </S.Group>
 
-              <S.Cta href={MAILTO_HREF}>
-                <RollText>{MAIN_CLOSE_UI.cta}</RollText>
-                <HoverArrow aria-hidden />
-              </S.Cta>
-            </S.Group>
-          </S.Back>
-        </Reveal>
-      </S.Deck>
-    </P.SectionInner>
-  </S.Section>
-);
+              <S.Group>
+                <S.Contacts aria-label={MAIN_CLOSE_UI.channelsLabel}>
+                  {MAIN_CLOSE_UI.channels.map((channel) => {
+                    const external = channel.hrefKind !== "mailto";
+
+                    return (
+                      <li key={channel.label}>
+                        <S.Row
+                          href={channelHref(channel.hrefKind)}
+                          target={external ? "_blank" : undefined}
+                          rel={external ? "noopener noreferrer" : undefined}
+                          title={channel.hint}
+                        >
+                          {/* 공백은 그리드에서 렌더링되지 않고, 링크 이름만 "Email 주소"처럼 띄어 읽히게 한다 */}
+                          <S.RowLabel>{channel.label}</S.RowLabel>{" "}
+                          <S.RowValue>{channelValue(channel.valueKey)}</S.RowValue>
+                          {external && (
+                            <>
+                              {" "}
+                              <S.SrOnly>{MAIN_CLOSE_UI.newTab}</S.SrOnly>
+                            </>
+                          )}
+                          <S.RowArrow data-hover-arrow aria-hidden />
+                        </S.Row>
+                      </li>
+                    );
+                  })}
+                </S.Contacts>
+
+                <S.Cta href={MAILTO_HREF}>
+                  <RollText>{MAIN_CLOSE_UI.cta}</RollText>
+                  <HoverArrow aria-hidden />
+                </S.Cta>
+                <S.CopyButton type="button" onClick={copyEmail}>
+                  {copyState === "copied" ? MAIN_CLOSE_UI.copiedEmail : MAIN_CLOSE_UI.copyEmail}
+                </S.CopyButton>
+                <S.CopyStatus role="status" aria-live="polite" aria-atomic="true">
+                  {copyState === "copied" ? MAIN_CLOSE_UI.copyEmailSuccess : copyState === "error" ? MAIN_CLOSE_UI.copyEmailError : ""}
+                </S.CopyStatus>
+              </S.Group>
+            </S.Back>
+          </Reveal>
+        </S.Deck>
+      </P.SectionInner>
+    </S.Section>
+  );
+};
 
 export default CloseSection;

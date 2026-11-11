@@ -465,8 +465,9 @@ export const Row = styled.a`
   position: relative;
   display: grid;
   grid-template-columns: 4.4rem minmax(0, 1fr) auto;
-  align-items: baseline;
+  align-items: center;
   column-gap: 0.6rem;
+  min-height: 44px;
   border-radius: 0.2rem;
   ${hoverArrowParent}
 
@@ -492,6 +493,7 @@ export const Cta = styled.a`
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+  min-height: 44px;
   margin-top: 0.3rem;
   padding: 0.72rem 1.05rem 0.72rem 1.15rem;
   border-radius: 999px;
@@ -516,6 +518,35 @@ export const Cta = styled.a`
     outline: 2px solid ${({ theme }) => theme.colors.accent};
     outline-offset: 3px;
   }
+`;
+
+export const CopyButton = styled.button`
+  width: 100%;
+  min-height: 44px;
+  margin-top: 0.4rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.borderStrong};
+  border-radius: 999px;
+  font: inherit;
+  font-size: ${cardType.value};
+  color: ${({ theme }) => theme.colors.text};
+  background: transparent;
+  cursor: pointer;
+  transition: ${motionTransition(["color", "border-color"])};
+
+  &:hover { color: ${({ theme }) => theme.colors.accent}; }
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.accent};
+    outline-offset: 3px;
+  }
+`;
+
+export const CopyStatus = styled.p`
+  min-height: 2.8em;
+  margin-top: 0.4rem;
+  font-size: ${cardType.text};
+  line-height: 1.4;
+  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 /** 화면에는 숨기고 스크린리더에만 읽히는 보조 문구. */
