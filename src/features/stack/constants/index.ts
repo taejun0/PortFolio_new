@@ -19,6 +19,7 @@ export type StackGroup = {
   title: string;
   description: string;
   items: StackItem[];
+  project: { slug: string; title: string };
 };
 
 export const STACK_SHOWCASE_UI = {
@@ -26,8 +27,9 @@ export const STACK_SHOWCASE_UI = {
   paginationLabel: "기술 카테고리 선택",
   /** "{카테고리} 기술" — 아이콘 목록 이름 */
   toolsLabelSuffix: "기술",
-  /** 자동 전환 정지 토글의 숨은 이름 — 눌림(aria-pressed)이 곧 "정지됨"이다 */
-  autoplayToggle: "기술 슬라이드 자동 넘김 일시정지",
+  autoplayStart: "자동 전환 켜기",
+  autoplayStop: "자동 전환 멈추기",
+  projectLabel: "관련 프로젝트",
   /** 자동 전환 주기 — 활성 탭 진행 바도 같은 값으로 채운다 */
   autoplayMs: 4600,
 } as const;
@@ -38,6 +40,7 @@ export const STACK_GROUPS: StackGroup[] = [
   {
     index: "01",
     title: "Language",
+    project: { slug: "behavior-rpa", title: "사용자 행동 분석 기반 RPA" },
     description: "구조를 세우고 의도를 명확하게 전달하는 언어들입니다.",
     items: [
       { name: "JavaScript", image: image("javascript.webp") },
@@ -48,6 +51,7 @@ export const STACK_GROUPS: StackGroup[] = [
   {
     index: "02",
     title: "Frontend",
+    project: { slug: "d-order", title: "D-Order" },
     description: "사용자가 직접 만나는 흐름과 상태를 설계하는 중심 도구입니다.",
     items: [
       { name: "HTML & CSS", image: image("htmlcss.webp") },
@@ -62,6 +66,7 @@ export const STACK_GROUPS: StackGroup[] = [
   {
     index: "03",
     title: "Backend",
+    project: { slug: "d-order", title: "D-Order" },
     description: "화면 뒤의 API와 실시간 데이터 흐름을 이해하고 연결합니다.",
     items: [
       { name: "Spring Boot", image: image("springboot.webp") },
@@ -72,6 +77,7 @@ export const STACK_GROUPS: StackGroup[] = [
   {
     index: "04",
     title: "Testing",
+    project: { slug: "behavior-rpa", title: "사용자 행동 분석 기반 RPA" },
     description: "기능이 계속 신뢰받을 수 있도록 검증하고 기록합니다.",
     items: [
       { name: "Playwright", image: image("playwright.webp") },
@@ -84,6 +90,7 @@ export const STACK_GROUPS: StackGroup[] = [
   {
     index: "05",
     title: "Workflow",
+    project: { slug: "portfolio", title: "포트폴리오 페이지" },
     description: "디자인부터 협업과 배포까지 제품이 전달되는 환경입니다.",
     items: [
       { name: "Figma", image: image("figma.webp") },

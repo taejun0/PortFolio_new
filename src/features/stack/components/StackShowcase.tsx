@@ -1,12 +1,12 @@
 /**
  * 생성 이유: 메인·About에서 기술 그룹을 한 장씩 집중해서 보여주기 위함이다.
- * 역할: 드래그·스와이프·탭·키보드로 이동하고, 화면에 보일 때 스스로 넘어가는 기술 쇼케이스다.
+ * 역할: 드래그·스와이프·탭·키보드로 이동하며, 사용자가 켜면 자동 전환하는 기술 쇼케이스다.
  * 책임: 현재·직전 카테고리와 전환 방향, 포인터 드래그, 자동 전환(정지 토글, 호버·포커스·동작 줄이기 일시정지,
  *       화면 진입 감지), 탭 호버 의도, 탭 인디케이터 위치를 관리한다. 시각과 전환 모션은 StackShowcase.styled가 소유한다.
  *       슬라이드는 한 칸에 겹쳐 두고 바뀐 카테고리만 가로 스윕으로 들어온다 — 높이가 가장 긴 슬라이드로
  *       고정돼 전환이 아래 레이아웃을 흔들지 않고, 숨은 슬라이드 아이콘도 미리 받아진다.
  *
- * - 자동 전환은 정지 토글(aria-pressed)로 멈추고, 탭 클릭·화살표 키·스와이프로 직접 넘기면 멈춘 채 둔다(WCAG 2.2.2).
+ * - 자동 전환은 기본으로 꺼져 있다. 재생·정지 버튼으로 켜고, 탭 클릭·화살표 키·스와이프로 직접 넘기면 멈춘 채 둔다.
  *   다시 켜려면 토글을 한 번 더 누른다. 마우스 호버·키보드 포커스 동안의 일시정지는 따로 돈다(떠나면 이어 간다).
  * - 마우스가 탭 위에 잠깐(HOVER_INTENT_MS) 머물러야 미리보기로 바뀐다 — 탭 줄을 가로질러도 슬라이드가 연달아 바뀌지 않는다.
  *   클릭·포커스·키보드·스와이프는 바로 바뀐다.
@@ -31,6 +31,8 @@ import {
 } from "react";
 
 import { Reveal, SweepText } from "@/components/common/motion";
+import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
+import { projectDetailPath } from "@/constants/routes";
 import { VisuallyHidden } from "@/components/common/visuallyHidden/VisuallyHidden.styled";
 import { STACK_GROUPS, STACK_SHOWCASE_UI } from "../constants";
 import * as S from "./StackShowcase.styled";
@@ -95,7 +97,7 @@ const StackShowcase = () => {
   const [hasFocusWithin, setHasFocusWithin] = useState(false);
   const [isInView, setIsInView] = useState(false);
   /** 정지 토글·직접 이동으로 멈춘 자동 전환 — 토글을 다시 누르기 전까지 유지된다 */
-  const [isStopped, setIsStopped] = useState(false);
+  const [isStopped, setIsStopped] = useState(true);
   const showcaseRef = useRef<HTMLDivElement>(null);
   const paginationRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLSpanElement>(null);
@@ -459,10 +461,10 @@ const StackShowcase = () => {
           variant="fade"
           ref={toggleRef}
           type="button"
-          aria-pressed={isStopped}
+          title={isStopped ? ui.autoplayStart : ui.autoplayStop}
           onClick={() => setIsStopped((stopped) => !stopped)}
         >
-          <VisuallyHidden>{ui.autoplayToggle}</VisuallyHidden>
+          <VisuallyHidden>{isStopped ? ui.autoplayStart : ui.autoplayStop}</VisuallyHidden>
           <S.AutoplayIcon viewBox="0 0 16 16" aria-hidden focusable="false">
             {isStopped ? (
               <path d="M5 2.75v10.5L13.25 8z" />
@@ -547,6 +549,11 @@ const StackShowcase = () => {
           );
         })}
       </Reveal>
+      <S.ProjectLink href={projectDetailPath(STACK_GROUPS[active].project.slug)}>
+        <span>{ui.projectLabel}</span>
+        {STACK_GROUPS[active].project.title}
+        <HoverArrow aria-hidden />
+      </S.ProjectLink>
     </Reveal>
   );
 };

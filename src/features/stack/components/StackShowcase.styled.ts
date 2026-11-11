@@ -18,6 +18,8 @@
  */
 import { css, keyframes, type Theme } from "@emotion/react";
 import styled from "@emotion/styled";
+import Link from "next/link";
+import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
 
 import { motionTransition, staggerChildren } from "@/components/common/motion";
 import { motionTokens } from "@/styles/theme";
@@ -34,6 +36,28 @@ const NO_JS = 'html:not([data-theme-ready="1"])';
 export const INDICATOR_BASE_PX = 100;
 
 const { duration, curve, stagger, distance } = motionTokens;
+
+export const ProjectLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: ${({ theme }) => theme.space[2]};
+  min-height: 44px;
+  margin-top: ${({ theme }) => theme.space[3]};
+  padding: ${({ theme }) => theme.space[2]} 0;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  color: ${({ theme }) => theme.colors.text};
+  ${hoverArrowParent}
+
+  > span:first-of-type { color: ${({ theme }) => theme.colors.textMuted}; }
+  &:hover { color: ${({ theme }) => theme.colors.accent}; }
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.accent};
+    outline-offset: 3px;
+    border-radius: ${({ theme }) => theme.layout.radius.sm};
+  }
+`;
 
 /** 초 단위 CSS 값 — 소수 계산 오차(0.035999…)를 셋째 자리에서 정리한다 */
 const sec = (seconds: number) => `${Number(seconds.toFixed(3))}s`;
