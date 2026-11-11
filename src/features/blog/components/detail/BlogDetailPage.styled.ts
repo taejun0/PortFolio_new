@@ -159,7 +159,7 @@ export const Content = styled.div`
   :not(pre) > code {
     padding: 0.15em 0.4em;
     border-radius: ${({ theme }) => theme.layout.radius.sm};
-    border: 1px solid ${({ theme }) => theme.colors.border};
+    border: 0;
     background: ${({ theme }) => theme.colors.surfaceAlt};
     font-family: ${({ theme }) => theme.fonts.mono};
     font-size: 0.86em;
@@ -171,7 +171,7 @@ export const Content = styled.div`
     margin: 0 0 ${({ theme }) => theme.space[5]};
     padding: ${({ theme }) => theme.space[4]};
     border-radius: ${({ theme }) => theme.layout.radius.sm};
-    border: 1px solid ${({ theme }) => theme.colors.border};
+    border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
     background: ${({ theme }) => theme.colors.surface};
     color: ${({ theme }) => theme.colors.text};
   }

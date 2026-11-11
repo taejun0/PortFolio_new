@@ -309,8 +309,8 @@ export const Badge = styled.span`
   gap: 0.45rem;
   width: fit-content;
   padding: 0.22rem 0.65rem 0.22rem 0.55rem;
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.borderStrong};
+  border-radius: ${({ theme }) => theme.layout.radius.sm};
+  border: 0;
   background: color-mix(
     in srgb,
     ${({ theme }) => theme.colors.accent} 8%,
@@ -422,8 +422,9 @@ export const Keywords = styled.ul`
 
 export const Keyword = styled.li`
   padding: 0.24rem 0.65rem;
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.layout.radius.sm};
+  border: 0;
+  background: ${({ theme }) => theme.colors.surfaceAlt};
   font-size: ${({ theme }) => theme.typography.small.fontSize};
   line-height: 1.4;
   letter-spacing: 0.02em;

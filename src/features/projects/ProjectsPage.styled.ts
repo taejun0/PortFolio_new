@@ -105,7 +105,7 @@ export const Item = styled.li`
  * 면 색은 지역 변수로 바꾼다 — 모드는 Card의 LIGHT_MODE 규칙이 변수 값으로 가른다(라이트는 활성도 흰 서피스).
  */
 const cardActive = (theme: Theme) => `
-  border-color: ${ink(theme, 18)};
+  border-color: ${theme.colors.borderStrong};
   background: var(--card-face-active);
 `;
 
@@ -114,7 +114,7 @@ const cardActive = (theme: Theme) => `
  * 호버·안쪽 링크의 키보드 포커스(:has)에 테두리·면·화살표·CTA 롤이 같이 반응한다.
  */
 export const Card = styled.div`
-  --card-pad: clamp(0.5rem, 0.35rem + 0.45vw, 0.85rem);
+  --card-pad: 0.5rem;
   --card-radius: ${({ theme }) => theme.layout.radius.lg};
   /* 면: 다크는 캔버스보다 살짝 밝은 wash, 켜지면 잉크 5%를 섞는다 / 라이트는 늘 흰 서피스 */
   --card-face: ${({ theme }) => theme.colors.wash};
@@ -130,7 +130,7 @@ export const Card = styled.div`
   width: 100%;
   padding: var(--card-pad);
   border-radius: var(--card-radius);
-  border: 1px solid ${({ theme }) => ink(theme, 8)};
+  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
   background: var(--card-face);
   transition: ${motionTransition(["border-color", "background-color"])};
   ${hoverArrowParent}
@@ -196,8 +196,8 @@ export const Media = styled.div<{ $matte?: string }>`
   aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: max(
-    ${({ theme }) => theme.layout.radius.sm},
-    calc(var(--card-radius) - var(--card-pad))
+    0px,
+    calc(var(--card-radius) - var(--card-pad) - ${({ theme }) => theme.layout.borderWidth.card})
   );
   background: ${({ theme, $matte }) => $matte ?? theme.colors.surfaceAlt};
 
@@ -205,16 +205,6 @@ export const Media = styled.div<{ $matte?: string }>`
   img {
     transform-origin: left center;
     transition: ${motionTransition("transform", "reveal")};
-  }
-
-  /* 밝은 썸네일도 카드 바탕과 경계가 보이도록 안쪽 헤어라인을 얹는다. */
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    box-shadow: inset 0 0 0 1px ${({ theme }) => ink(theme, 8)};
-    pointer-events: none;
   }
 
   /* 텍스트 열이 더 길어지면 이미지는 메타 줄과 윗선을 맞춘다. */
@@ -289,8 +279,9 @@ export const Fact = styled.span`
   display: inline-flex;
   align-items: center;
   padding: 0.3rem 0.7rem;
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => ink(theme, 12)};
+  border-radius: ${({ theme }) => theme.layout.radius.sm};
+  border: 0;
+  background: ${({ theme }) => theme.colors.surfaceAlt};
   font-size: ${({ theme }) => theme.typography.small.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   line-height: ${({ theme }) => theme.typography.small.lineHeight};

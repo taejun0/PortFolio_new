@@ -12,7 +12,7 @@ export const Footer = styled.footer`
   padding: ${({ theme }) => theme.space[6]} ${({ theme }) => theme.layout.gutter}
     ${({ theme }) => theme.space[6]};
   background: ${({ theme }) => theme.colors.background};
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  border-top: ${({ theme }) => theme.layout.borderWidth.divider} solid ${({ theme }) => theme.colors.border};
 `;
 
 export const Inner = styled.div`
@@ -102,7 +102,7 @@ export const Social = styled.a`
   width: clamp(2rem, 1.7rem + 0.6vw, 2.35rem);
   height: clamp(2rem, 1.7rem + 0.6vw, 2.35rem);
   border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.border};
   color: ${({ theme }) => theme.colors.textMuted};
   transition: ${motionTransition(["color", "border-color", "background"])};
 

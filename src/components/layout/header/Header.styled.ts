@@ -84,7 +84,7 @@ export const SkipLink = styled.a`
   left: ${({ theme }) => theme.layout.gutter};
   z-index: 201;
   padding: ${({ theme }) => theme.space[2]} ${({ theme }) => theme.space[3]};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.border};
   border-radius: 999px;
   background: ${({ theme }) => theme.colors.surfaceAlt};
   color: ${({ theme }) => theme.colors.text};
@@ -229,7 +229,7 @@ export const Nav = styled.nav`
   grid-column: 2;
   position: relative;
   border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.border};
   background: color-mix(
     in srgb,
     ${({ theme }) => theme.colors.surfaceAlt} 82%,
@@ -356,7 +356,7 @@ export const ThemeToggle = styled.button`
   width: clamp(2rem, 1.7rem + 0.6vw, 2.35rem);
   height: clamp(2rem, 1.7rem + 0.6vw, 2.35rem);
   border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.border};
   background: color-mix(
     in srgb,
     ${({ theme }) => theme.colors.surfaceAlt} 88%,

@@ -498,7 +498,7 @@ export const Tool = styled.li`
   gap: ${({ theme }) => theme.space[3]};
   min-width: 0;
   padding: ${({ theme }) => theme.space[4]} ${({ theme }) => theme.space[2]};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.layout.radius.md};
   background: ${({ theme }) => theme.colors.surface};
 

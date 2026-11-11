@@ -87,7 +87,7 @@ export const CtaButton = styled.span`
   margin-top: ${({ theme }) => theme.space[5]};
   padding: clamp(0.8rem, 0.65rem + 0.5vw, 1rem)
     clamp(1.35rem, 1rem + 1.2vw, 1.9rem);
-  border-radius: 999px;
+  border-radius: ${({ theme }) => theme.layout.radius.md};
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   color: ${({ theme }) => theme.colors.accentContrast};

@@ -155,8 +155,8 @@ export const PrimaryAction = styled.a`
   gap: 0.75rem;
   min-height: 44px;
   padding: 0.8rem 1.25rem;
-  border: 1px solid transparent;
-  border-radius: 999px;
+  border: ${({ theme }) => theme.layout.borderWidth.control} solid transparent;
+  border-radius: ${({ theme }) => theme.layout.radius.md};
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   color: ${({ theme }) => theme.colors.accentContrast};

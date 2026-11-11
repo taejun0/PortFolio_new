@@ -57,16 +57,16 @@ export const Aside = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
-/** 분량 시그널 — 프로젝트 목록 Fact pill과 같은 모양에 수치만 액센트로 둔다. */
+/** 분량 시그널 — 정보칩 배경 위에서 수치만 액센트로 둔다. */
 export const Stat = styled.p`
   ${rowText}
   display: inline-flex;
   align-items: baseline;
   gap: 0.4em;
   padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid
-    color-mix(in srgb, ${({ theme }) => theme.colors.text} 16%, transparent);
+  border-radius: ${({ theme }) => theme.layout.radius.sm};
+  border: 0;
+  background: ${({ theme }) => theme.colors.surfaceAlt};
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   line-height: ${({ theme }) => theme.typography.small.lineHeight};
   letter-spacing: 0.04em;
@@ -82,7 +82,7 @@ export const StatValue = styled.strong`
 
 export const PostList = styled.ul`
   display: grid;
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  border-top: ${({ theme }) => theme.layout.borderWidth.divider} solid ${({ theme }) => theme.colors.border};
 `;
 
 /** 큐레이션 순번 — 사이트 공통 번호 표기(굵은 액센트·고정폭 숫자) */
@@ -169,7 +169,7 @@ const rowActive = (theme: Theme) => css`
 
 /** 행 — Reveal(sweep) 호스트라 아래 규칙선도 행과 함께 왼쪽부터 그어지며 들어온다. */
 export const PostItem = styled.li`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  border-bottom: ${({ theme }) => theme.layout.borderWidth.divider} solid ${({ theme }) => theme.colors.border};
 
   a {
     /* 행 아래 규칙선(li border) 위에 겹쳐 그어지는 1px 액센트 선 — 공용 underlineSweep의 전폭 변형 */

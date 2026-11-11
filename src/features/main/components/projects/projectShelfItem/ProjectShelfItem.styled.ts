@@ -228,7 +228,7 @@ export const Item = styled.li`
   }
 `;
 
-/** 접힘/펼침 내내 유지되는 상세 링크 — 포커스가 상태 전환에 끊기지 않는다. 배경이 1px 테두리가 된다. */
+/** 접힘/펼침 내내 유지되는 상세 링크 — 포커스가 상태 전환에 끊기지 않는다. 배경이 2px 테두리가 된다. */
 export const Card = styled(Link)`
   position: absolute;
   inset: 0;
@@ -236,7 +236,7 @@ export const Card = styled(Link)`
   display: block;
   background: color-mix(
     in srgb,
-    ${({ theme }) => theme.colors.text} 8%,
+    ${({ theme }) => theme.colors.text} 22%,
     ${({ theme }) => theme.colors.surfaceAlt}
   );
   color: inherit;
@@ -248,12 +248,12 @@ export const Card = styled(Link)`
   ${hoverArrowParent}
 `;
 
-/** 테두리 1px 안쪽 창 — 사진·카피·책등이 이 창 안에서 보인다. */
+/** 테두리 2px 안쪽 창 — 사진·카피·책등이 이 창 안에서 보인다. */
 export const Window = styled.div`
   position: absolute;
   inset: 0;
   background: ${({ theme }) => theme.colors.surfaceAlt};
-  ${({ theme }) => windowClip(theme, "-1px")}
+  ${({ theme }) => windowClip(theme, `-${theme.layout.borderWidth.card}`)}
 `;
 
 export const Media = styled.div`
@@ -351,7 +351,6 @@ export const Media = styled.div`
 
 /** 사진 위 번호 pill */
 const onMediaPill = css`
-  border-color: color-mix(in srgb, ${onMedia.text} 28%, transparent);
   color: ${onMedia.text};
   background: ${ink(40)};
 `;
@@ -372,8 +371,7 @@ export const IndexPill = styled.span<{ $onMedia?: boolean }>`
   height: 2.1rem;
   padding: 0 0.55rem;
   border-radius: ${({ theme }) => theme.layout.radius.sm};
-  border: 1px solid
-    color-mix(in srgb, ${({ theme }) => theme.colors.text} 14%, transparent);
+  border: 0;
   font-size: ${({ theme }) => theme.typography.small.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   font-variant-numeric: tabular-nums;
@@ -582,16 +580,6 @@ export const Thumb = styled.span`
 
   img {
     object-fit: cover;
-  }
-
-  /* 밝은 표지도 행과 구분되게 헤어라인 */
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    box-shadow: inset 0 0 0 1px
-      color-mix(in srgb, ${({ theme }) => theme.colors.text} 12%, transparent);
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {

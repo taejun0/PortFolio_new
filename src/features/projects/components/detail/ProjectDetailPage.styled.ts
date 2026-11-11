@@ -134,10 +134,10 @@ export const ExtLink = styled.a<{ $primary?: boolean }>`
   align-items: center;
   padding: clamp(0.6rem, 0.5rem + 0.3vw, 0.75rem)
     clamp(1.1rem, 0.9rem + 0.6vw, 1.4rem);
-  border-radius: 999px;
-  border: 1px solid
+  border-radius: ${({ theme }) => theme.layout.radius.md};
+  border: ${({ theme }) => theme.layout.borderWidth.control} solid
     ${({ theme, $primary }) =>
-      $primary ? theme.colors.accent : inkLine(theme, 22)};
+      $primary ? theme.colors.accent : theme.colors.borderStrong};
   background: ${({ theme, $primary }) =>
     $primary ? theme.colors.accent : "transparent"};
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
@@ -180,7 +180,7 @@ export const Cover = styled.div`
   width: 100%;
   overflow: hidden;
   border-radius: ${({ theme }) => theme.layout.radius.lg};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
   background: ${({ theme }) => theme.colors.surfaceAlt};
 `;
 
@@ -263,8 +263,9 @@ export const Tags = styled.ul`
 
 export const Tag = styled.li`
   padding: 0.3rem 0.7rem;
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.layout.radius.sm};
+  border: 0;
+  background: ${({ theme }) => theme.colors.surfaceAlt};
   font-size: ${({ theme }) => theme.typography.label.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   line-height: 1.3;
@@ -369,8 +370,8 @@ export const TocLink = styled.a<{ $active: boolean }>`
   align-items: baseline;
   gap: 0.55em;
   padding: 0.5rem 0.9rem;
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.layout.radius.md};
+  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.border};
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   line-height: 1.35;
@@ -542,7 +543,7 @@ export const ChallengeList = styled.ol`
 export const ChallengeCard = styled.li`
   padding: ${({ theme }) => theme.space[6]};
   border-radius: ${({ theme }) => theme.layout.radius.lg};
-  border: 1px solid ${({ theme }) => inkLine(theme, 9)};
+  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
   ${({ theme }) => cardSurface(theme)}
 `;
 
@@ -604,12 +605,10 @@ export const RowLabel = styled.dt<{ $takeaway?: boolean }>`
   justify-self: start;
   align-self: start;
   padding: 0.2rem 0.7rem;
-  border-radius: 999px;
-  border: 1px solid
-    ${({ theme, $takeaway }) =>
-      $takeaway ? theme.colors.accent : inkLine(theme, 20)};
+  border-radius: ${({ theme }) => theme.layout.radius.sm};
+  border: 0;
   background: ${({ theme, $takeaway }) =>
-    $takeaway ? theme.colors.accent : "transparent"};
+    $takeaway ? theme.colors.accent : theme.colors.surfaceAlt};
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   line-height: 1.45;
@@ -645,7 +644,7 @@ export const NextCard = styled(Link)`
   display: grid;
   overflow: hidden;
   border-radius: ${({ theme }) => theme.layout.radius.lg};
-  border: 1px solid ${({ theme }) => inkLine(theme, 9)};
+  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
   ${({ theme }) => cardSurface(theme)}
   color: inherit;
   text-decoration: none;
@@ -770,8 +769,8 @@ export const ListLink = styled(Link)`
   align-items: center;
   gap: 0.5em;
   padding: 0.6rem 1.15rem;
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.layout.radius.md};
+  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.border};
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   line-height: 1.2;

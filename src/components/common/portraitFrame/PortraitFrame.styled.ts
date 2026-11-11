@@ -44,8 +44,8 @@ export const Frame = styled.div<{ $aspectRatio: string }>`
   width: 100%;
   aspect-ratio: ${({ $aspectRatio }) => $aspectRatio};
   overflow: hidden;
-  border-radius: clamp(1rem, 0.75rem + 0.8vw, 1.35rem);
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.layout.radius.lg};
+  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
   background: ${({ theme }) => theme.colors.surface};
   isolation: isolate;
 `;

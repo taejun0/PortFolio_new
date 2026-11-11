@@ -66,8 +66,8 @@ export const Cta = styled(Link)`
   margin-top: ${({ theme }) => theme.space[6]};
   padding: clamp(0.6rem, 0.5rem + 0.3vw, 0.75rem)
     clamp(1.1rem, 0.9rem + 0.6vw, 1.4rem);
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.accent};
+  border-radius: ${({ theme }) => theme.layout.radius.md};
+  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.accent};
   background: ${({ theme }) => theme.colors.accent};
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};

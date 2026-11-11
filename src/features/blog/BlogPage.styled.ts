@@ -55,7 +55,7 @@ export const Empty = styled.p`
 
 export const List = styled.ul`
   display: grid;
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  border-top: ${({ theme }) => theme.layout.borderWidth.divider} solid ${({ theme }) => theme.colors.border};
 `;
 
 export const Row = styled.div<{ $hasThumbnail: boolean }>`
@@ -135,7 +135,7 @@ export const Thumb = styled.div`
   width: 100%;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 0;
   border-radius: ${({ theme }) => theme.layout.radius.sm};
   background: ${({ theme }) => theme.colors.surfaceAlt};
 
@@ -167,7 +167,7 @@ const rowActive = (theme: Theme) => css`
 
 export const Item = styled.li`
   min-width: 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  border-bottom: ${({ theme }) => theme.layout.borderWidth.divider} solid ${({ theme }) => theme.colors.border};
 
   > a {
     ${({ theme }) => underlineSweep({ inset: "auto 0 -1px 0", color: theme.colors.accent })}
