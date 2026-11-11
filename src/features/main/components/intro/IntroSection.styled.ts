@@ -59,14 +59,15 @@ const drip = keyframes`
 
 export const Section = styled.section`
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 78vh;
-  min-height: 78svh;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  row-gap: clamp(1rem, 3svh, 2rem);
+  min-height: 100vh;
+  min-height: 100svh;
   overflow: visible;
-  padding: ${({ theme }) => theme.space[8]} ${({ theme }) => theme.layout.gutter}
-    ${({ theme }) => theme.space[9]};
+  padding: calc(${({ theme }) => theme.layout.headerHeight} + clamp(1.25rem, 4svh, 3rem))
+    ${({ theme }) => theme.layout.gutter}
+    max(1rem, env(safe-area-inset-bottom));
   background: ${({ theme }) => theme.colors.background};
   /*
    * 라벨·소개 문장 커튼 색을 이 섹션이 실제로 칠하는 배경과 같은 선언으로 묶는다
@@ -74,6 +75,17 @@ export const Section = styled.section`
    */
   --reveal-curtain: ${({ theme }) => theme.colors.background};
   /* 앵커 오프셋은 전역 html scroll-padding-top이 준다(섹션마다 scroll-margin을 더하지 않는다) */
+
+  @supports (min-height: 100dvh) {
+    min-height: 100dvh;
+  }
+
+  /* 낮은 화면에서도 내용이 잘리지 않도록 고정 높이 대신 최소 높이만 둔다. */
+  @media (max-height: 32rem) {
+    grid-template-rows: minmax(0, 1fr);
+    row-gap: 0;
+    padding-top: calc(${({ theme }) => theme.layout.headerHeight} + 1rem);
+  }
 
   &::after {
     content: "";
@@ -96,6 +108,8 @@ export const Inner = styled.div`
   position: relative;
   z-index: 1;
   width: 100%;
+  min-width: 0;
+  align-self: center;
   max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
 `;
@@ -103,7 +117,7 @@ export const Inner = styled.div`
 /** 역할 라인 — 한 줄 SweepText(커튼)의 루트라 블록으로 둔다 */
 export const Roles = styled.p`
   /* 렌즈로 커진 글자가 위로 솟을 자리까지 포함한 간격 */
-  margin-bottom: ${({ theme }) => theme.space[6]};
+  margin-bottom: clamp(0.75rem, 2.5svh, 2rem);
   font-size: ${({ theme }) => theme.typography.label.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   line-height: ${({ theme }) => theme.typography.label.lineHeight};
@@ -113,7 +127,7 @@ export const Roles = styled.p`
 `;
 
 export const DisplayWrap = styled.h1`
-  margin-bottom: ${({ theme }) => theme.space[6]};
+  margin-bottom: clamp(1rem, 3svh, 2rem);
   overflow: visible;
 `;
 
@@ -131,7 +145,7 @@ export const Actions = styled.nav`
   flex-wrap: wrap;
   align-items: center;
   gap: ${({ theme }) => theme.space[3]};
-  margin-top: ${({ theme }) => theme.space[5]};
+  margin-top: clamp(1rem, 2.5svh, 1.65rem);
 `;
 
 export const PrimaryAction = styled.a`
@@ -171,14 +185,9 @@ export const SecondaryAction = styled(PrimaryAction)`
 `;
 
 export const ScrollHint = styled.a`
-  position: absolute;
+  position: relative;
   z-index: 1;
-  left: 0;
-  right: 0;
-  /* 안쪽 여백만큼 내려 시각 위치는 유지하고, 포커스 링은 둥근 영역을 감싼다 */
-  bottom: calc(
-    ${({ theme }) => theme.space[5]} - ${({ theme }) => theme.space[2]}
-  );
+  /* 콘텐츠와 같은 흐름에 둬 버튼·소개 문장과 겹치지 않는다. */
   margin-inline: auto;
   width: fit-content;
   display: flex;

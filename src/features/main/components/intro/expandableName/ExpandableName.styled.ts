@@ -84,7 +84,8 @@ export const Track = styled.span<TrackProps>`
       ${({ theme }) => theme.typography.heroName.fontSize} *
         ${TOKEN_FONT_RATIO}
     ),
-    calc(100cqi / ${({ $slots }) => $slots} * ${SLOT_FONT_RATIO})
+    calc(100cqi / ${({ $slots }) => $slots} * ${SLOT_FONT_RATIO}),
+    clamp(2.6rem, 18svh, 10.875rem)
   );
   line-height: ${({ theme }) => theme.typography.heroName.lineHeight};
   overflow: visible;
