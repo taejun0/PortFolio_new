@@ -7,6 +7,8 @@
  */
 "use client";
 
+import SplashScreen from "@/components/layout/splash/SplashScreen";
+
 import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import { Reveal, RollText, SweepText } from "@/components/common/motion";
 import { motionTokens } from "@/styles/theme";
@@ -16,6 +18,7 @@ import { ROUTES } from "@/constants/routes";
 
 const NotFoundPage = () => (
   <S.Wrapper>
+    <SplashScreen />
     <S.Inner>
       <SweepText as={S.Label}>{NOT_FOUND_UI.label}</SweepText>
       <SweepText

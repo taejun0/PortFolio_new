@@ -5,6 +5,8 @@
  */
 "use client";
 
+import SplashScreen from "@/components/layout/splash/SplashScreen";
+
 import * as S from "./AboutPage.styled";
 import ApproachSection from "./components/approach/ApproachSection";
 import ProfileSection from "./components/profile/ProfileSection";
@@ -13,6 +15,7 @@ import TrajectorySection from "./components/trajectory/TrajectorySection";
 
 const AboutPage = () => (
   <S.Wrapper>
+    <SplashScreen />
     <ProfileSection />
     <ApproachSection />
     <TrajectorySection />

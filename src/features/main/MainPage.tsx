@@ -6,6 +6,8 @@
  */
 "use client";
 
+import SplashScreen from "@/components/layout/splash/SplashScreen";
+
 import * as S from "./MainPage.styled";
 import IntroSection from "./components/intro/IntroSection";
 import AboutSection from "./components/about/AboutSection";
@@ -22,6 +24,7 @@ type MainPageProps = {
 
 const MainPage = ({ projects }: MainPageProps) => (
   <S.Wrapper>
+    <SplashScreen />
     <IntroSection />
     <ProjectsSection projects={projects} />
     <AboutSection />

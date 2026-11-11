@@ -6,6 +6,8 @@
  */
 "use client";
 
+import SplashScreen from "@/components/layout/splash/SplashScreen";
+
 import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import { SweepText } from "@/components/common/motion";
 import * as S from "./BlogDetailPage.styled";
@@ -20,6 +22,7 @@ type BlogDetailPageProps = {
 
 const BlogDetailPage = ({ post }: BlogDetailPageProps) => (
   <S.Wrapper>
+    <SplashScreen />
     <S.Inner>
       <S.BackLink href={ROUTES.BLOG}>{BLOG_PAGE_UI.backToList}</S.BackLink>
       {/* 긴 제목도 1.4s 안에 끝나도록 어절 길이는 기본(text) 그대로 둔다. */}

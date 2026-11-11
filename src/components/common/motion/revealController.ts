@@ -336,7 +336,10 @@ const boot = () => {
   ready = document.documentElement.dataset.splashDone === "1";
   if (!ready) {
     window.addEventListener(SPLASH_DISMISS_EVENT, markReady);
-    readyTimer = window.setTimeout(markReady, READY_FAILSAFE_MS);
+    readyTimer = window.setTimeout(() => {
+      // 실제 화면 준비를 기다리는 스플래시는 자체 안전 제한이 관리한다.
+      if (document.documentElement.dataset.splash !== "play") markReady();
+    }, READY_FAILSAFE_MS);
   }
 
   reducedMotion.addEventListener("change", onReducedMotionChange);
@@ -384,6 +387,7 @@ const flush = () => {
   const splashDone = document.documentElement.dataset.splashDone === "1";
   // CSS 안전장치가 이미 커튼을 걷었을 시간이면 다시 덮지 않는다.
   const curtainFailSafePassed =
+    document.documentElement.dataset.splash !== "play" &&
     performance.now() / 1000 >= CURTAIN_FAILSAFE_S - 0.15;
   // 첫 로드만 잰다(새 마운트는 아무것도 읽지 않는다). 잴 수 있는지(스타일)를 먼저 보고 위치를 모아 읽어
   // 레이아웃 계산이 이 프레임에 한 번이다. 잴 수 없는 요소는 렌더된 조상 상자로 위·아래만 가린다(proxy).

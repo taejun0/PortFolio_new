@@ -9,6 +9,8 @@
  */
 "use client";
 
+import SplashScreen from "@/components/layout/splash/SplashScreen";
+
 import Image from "next/image";
 
 import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
@@ -48,6 +50,7 @@ const CARD_IMAGE_SIZES =
 
 const ProjectsPage = ({ projects }: ProjectsPageProps) => (
   <S.Wrapper>
+    <SplashScreen />
     <S.Inner>
       <S.Intro>
         <SweepText as={S.Label}>{PROJECTS_PAGE_UI.label}</SweepText>

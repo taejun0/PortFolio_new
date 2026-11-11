@@ -200,7 +200,7 @@ export const motionGlobalStyles = css`
       pointer-events: none;
     }
 
-    ${ANY}:not([data-splash-done="1"])
+    ${ANY}:not([data-splash="play"]):not([data-splash-done="1"])
       [data-reveal="curtain"]:not([data-reveal-state])::after {
       animation: motion-curtain ${curtainLength} var(--motion-ease)
         ${CURTAIN_FAILSAFE_S}s both;
@@ -224,7 +224,7 @@ export const motionGlobalStyles = css`
       pointer-events: none;
     }
 
-    ${ANY}:not([data-splash-done="1"])
+    ${ANY}:not([data-splash="play"]):not([data-splash-done="1"])
       [data-reveal="text-curtain"]:not([data-reveal-state])
       [data-sweep-word]::after {
       animation: motion-uncover ${curtainTextLength} var(--motion-ease)

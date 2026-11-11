@@ -72,7 +72,7 @@ export type CurtainTone = keyof typeof CURTAIN_TONES;
 
 /**
  * 커튼이 걷히기 시작하는 기본 지연(s).
- * html[data-splash-done="1"](스플래시 퇴장 시작, 재방문이면 첫 페인트 전)이 붙으면 CSS가 hydration을 기다리지 않고
+ * html[data-splash-done="1"](스플래시 퇴장 시작, 생략 경로는 첫 페인트 전)이 붙으면 CSS가 hydration을 기다리지 않고
  * 이 지연 뒤 커튼을 걷기 시작하고, 컨트롤러는 같은 값으로 그 애니메이션을 이어받는다(다시 시작하지 않는다).
  */
 export const CURTAIN_START_S = 0.1;

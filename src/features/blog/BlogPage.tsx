@@ -7,6 +7,8 @@
  */
 "use client";
 
+import SplashScreen from "@/components/layout/splash/SplashScreen";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,6 +30,7 @@ type BlogPageProps = {
 
 const BlogPage = ({ posts }: BlogPageProps) => (
   <S.Wrapper>
+    <SplashScreen />
     <S.Inner>
       <SweepText as={S.Label}>{BLOG_PAGE_UI.label}</SweepText>
       <SweepText

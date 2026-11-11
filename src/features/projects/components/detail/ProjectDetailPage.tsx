@@ -12,6 +12,8 @@
  */
 "use client";
 
+import SplashScreen from "@/components/layout/splash/SplashScreen";
+
 import Image from "next/image";
 import {
   useCallback,
@@ -390,6 +392,7 @@ const ProjectDetailPage = ({
 
   return (
     <S.Wrapper>
+      <SplashScreen />
       <S.Inner>
         <Reveal as={S.BackLink} href={ROUTES.PROJECTS}>
           {PROJECTS_PAGE_UI.backToList}
