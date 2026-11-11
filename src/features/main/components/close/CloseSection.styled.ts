@@ -29,7 +29,7 @@ const paperShade = "#ececec";
 
 /**
  * 명함 등장 — 공용 sweep과 같은 문법(왼쪽부터 열리는 마스크 + 짧은 가로 미끄러짐)이지만,
- * 마스크 상자를 카드 밖으로 넓혀(-SHADOW_ROOM) 바닥 그림자까지 함께 열린다.
+ * 마스크 상자를 카드 밖으로 넓혀(-SHADOW_ROOM) 두께 단차·바닥 그림자까지 함께 열린다.
  * 공용 sweep(inset 0)을 쓰면 그림자가 끝날 때 한 번에 튀어나온다.
  * 시작 상태는 오른쪽 inset을 폭 + 여유만큼 줘 왼쪽 그림자 띠도 남지 않게 완전히 닫는다.
  */
@@ -76,7 +76,7 @@ const cardType = {
   value: "max(0.8rem, 12px)",
 } as const;
 
-/** 다크는 서피스, 라이트는 용지 톤을 쓰고 경계는 카드의 단일 프레임으로 그린다. */
+/** 다크: 서피스 톤 면 + 윗변 하이라이트·헤어라인 / 라이트: 기존 용지 면. 두께(좌하단 단차)는 공통이다. */
 const cardFace = (theme: Theme) => css`
   background:
     radial-gradient(
@@ -90,7 +90,14 @@ const cardFace = (theme: Theme) => css`
       ${theme.colors.surface} 58%,
       #0d0d0d 100%
     );
-  box-shadow: 0 12px 28px rgb(0 0 0 / 28%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 9%),
+    inset 0 0 0 1px rgb(255 255 255 / 6%),
+    -1px 1px 0 #2b2b2b,
+    -2px 2px 0 #262626,
+    -3px 3px 0 #212121,
+    -4px 4px 0 #1c1c1c,
+    -16px 22px 40px rgb(0 0 0 / 65%);
 
   ${LIGHT_MODE} & {
     background: linear-gradient(
@@ -99,7 +106,15 @@ const cardFace = (theme: Theme) => css`
       ${paper} 58%,
       ${paperShade} 100%
     );
-    box-shadow: 0 10px 24px rgb(0 0 0 / 12%);
+    box-shadow:
+      inset 1px 1px 0 rgb(255 255 255 / 78%),
+      inset -1px -1px 0 rgb(0 0 0 / 7%),
+      -1px 1px 0 #d8d8da,
+      -2px 2px 0 #d4d4d6,
+      -3px 3px 0 #d0d0d2,
+      -4px 4px 0 #cbcbcd,
+      -10px 14px 22px rgb(0 0 0 / 40%),
+      -20px 26px 38px rgb(0 0 0 / 26%);
   }
 `;
 
@@ -154,8 +169,6 @@ export const Card = styled.article`
   width: min(18.5rem, 100%);
   aspect-ratio: 50 / 90;
   padding: ${cardSpace.pad};
-  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.layout.radius.lg};
   color: ${({ theme }) => theme.colors.text};
   ${({ theme }) => cardFace(theme)}
 
