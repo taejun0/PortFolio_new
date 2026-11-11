@@ -19,8 +19,8 @@ import { BLOG_PAGE_UI, formatBlogPostNumber } from "./constants";
 import type { BlogPostMeta } from "./types";
 import { blogDetailPath } from "@/constants/routes";
 
-/** 썸네일 표시 폭 — 태블릿 이상에서만 보이고 160~218px 사이다(폰에서는 숨겨져 받지 않는다). */
-const THUMB_SIZES = "220px";
+/** 태블릿 이상에서 본문 오른쪽에 놓이는 고정 비율 썸네일. */
+const THUMB_SIZES = "180px";
 
 type BlogPageProps = {
   posts: BlogPostMeta[];
@@ -44,21 +44,18 @@ const BlogPage = ({ posts }: BlogPageProps) => (
         <S.List>
           {posts.map((post, index) => (
             <Reveal as={S.Item} key={post.slug}>
-              <Link href={blogDetailPath(post.slug)}>
-                <S.Row>
+              <Link href={blogDetailPath(post.slug)} aria-labelledby={`blog-post-${post.slug}`}>
+                <S.Row $hasThumbnail={Boolean(post.thumbnail)}>
                   <S.Copy>
-                    <S.Index aria-hidden>
-                      {formatBlogPostNumber(index, posts.length)}
-                    </S.Index>
-                    <S.ItemTitle>
-                      {post.title}
-                      <HoverArrow aria-hidden />
-                    </S.ItemTitle>
-                    <S.ItemDescription>{post.description}</S.ItemDescription>
                     <S.Meta>
-                      {post.date}
-                      {post.tags.length > 0 ? ` · ${post.tags.join(", ")}` : ""}
+                      <S.Index aria-hidden>
+                        {formatBlogPostNumber(index, posts.length)}
+                      </S.Index>
+                      <time dateTime={post.date}>{post.date}</time>
+                      {post.tags.length > 0 && <S.Tags>{post.tags.join(" · ")}</S.Tags>}
                     </S.Meta>
+                    <S.ItemTitle id={`blog-post-${post.slug}`}>{post.title}</S.ItemTitle>
+                    <S.ItemDescription>{post.description}</S.ItemDescription>
                   </S.Copy>
                   {post.thumbnail ? (
                     <S.ThumbWrap>
@@ -67,13 +64,13 @@ const BlogPage = ({ posts }: BlogPageProps) => (
                         <Image
                           src={post.thumbnail}
                           alt=""
-                          width={280}
-                          height={180}
+                          fill
                           sizes={THUMB_SIZES}
                         />
                       </S.Thumb>
                     </S.ThumbWrap>
                   ) : null}
+                  <S.Arrow aria-hidden><HoverArrow /></S.Arrow>
                 </S.Row>
               </Link>
             </Reveal>
