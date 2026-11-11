@@ -28,7 +28,7 @@ export const Wrapper = styled.article`
 
 export const Inner = styled.div`
   width: 100%;
-  max-width: min(40rem, 100%);
+  max-width: 64rem;
   margin: 0 auto;
 `;
 
