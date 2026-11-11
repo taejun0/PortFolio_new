@@ -11,7 +11,7 @@ import { getFeaturedProjects } from "@/features/projects/constants/projects";
 
 export default function Page() {
   const projects: ShelfProject[] = getFeaturedProjects().map(
-    ({ slug, title, summary, image, role, featuredStory }) => ({ slug, title, summary, image, role, featuredStory })
+    ({ slug, title, summary, image }) => ({ slug, title, summary, image })
   );
 
   return <MainPage projects={projects} />;

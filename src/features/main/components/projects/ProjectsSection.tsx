@@ -30,7 +30,6 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
   const [active, setActive] = useState(0);
   /** 마우스가 책장에 들어왔는지 — 이후로는 접힌 책등도 펼침 크기 표지를 받아 펼치는 순간 선명하다. */
   const [warm, setWarm] = useState(false);
-  const selected = projects[active];
 
   const edgeOf = (index: number): ShelfEdge =>
     index === active ? "open" : index < active ? "before" : "after";
@@ -40,7 +39,7 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
   };
 
   return (
-    <P.Section id={MAIN_SECTION_IDS.projects} $fit $alignStart>
+    <P.Section id={MAIN_SECTION_IDS.projects} $fit>
       <P.SectionInner>
         <SweepText as={P.Label}>{MAIN_PROJECTS_UI.label}</SweepText>
         <S.Header>
@@ -57,30 +56,22 @@ const ProjectsSection = ({ projects }: ProjectsSectionProps) => {
             </S.ArchiveLink>
           </Reveal>
         </S.Header>
-        <S.Stage>
-          <S.ShelfWrap>
-            <S.Shelf $count={projects.length} onPointerEnter={warm ? undefined : warmUp}>
-              {projects.map((project, index) => (
-                <ProjectShelfItem key={project.slug} project={project} index={index} edge={edgeOf(index)} warm={warm} onActivate={() => setActive(index)}/>
-              ))}
-            </S.Shelf>
-          </S.ShelfWrap>
-          {selected && (
-            <S.Story id="featured-project-story" role="region" aria-label={MAIN_PROJECTS_UI.previewRegion}>
-              <S.StoryIntro>
-                <S.Category>{selected.featuredStory?.category}</S.Category>
-                <S.Role>{selected.role}</S.Role>
-              </S.StoryIntro>
-              {selected.featuredStory?.steps.map((step, index) => (
-                <Reveal as={S.Step} variant="fade" key={`${selected.slug}-${index}`}>
-                  <S.StepLabel>{String(index + 1).padStart(2, "0")} · {MAIN_PROJECTS_UI.storyLabels[index]}</S.StepLabel>
-                  <S.StepTitle>{step.title}</S.StepTitle>
-                  <S.StepBody>{step.description}</S.StepBody>
-                </Reveal>
-              ))}
-            </S.Story>
-          )}
-        </S.Stage>
+        <Reveal
+          as={S.Shelf}
+          $count={projects.length}
+          onPointerEnter={warm ? undefined : warmUp}
+        >
+          {projects.map((project, index) => (
+            <ProjectShelfItem
+              key={project.slug}
+              project={project}
+              index={index}
+              edge={edgeOf(index)}
+              warm={warm}
+              onActivate={() => setActive(index)}
+            />
+          ))}
+        </Reveal>
       </P.SectionInner>
     </P.Section>
   );

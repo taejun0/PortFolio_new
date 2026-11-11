@@ -53,7 +53,7 @@ export const ArchiveLink = styled.span`
 `;
 
 /**
- * 책장 트랙 — 모바일은 모두 펼친 카드 목록, 태블릿 이상은 가로 책장.
+ * 책장 트랙 — 모바일은 세로(행), 태블릿 이상은 가로(책등) 아코디언.
  * --shelf-spine: 접힌 칸 두께, --shelf-gap: 칸 사이, --shelf-panel: 펼친 칸 길이,
  * --shelf-cut: 접힌 칸에서 잘라 내는 길이. 칸 i는 i × (두께 + 간격)에 고정된다.
  */
@@ -64,14 +64,15 @@ export const Shelf = styled.ul<{ $count: number }>`
   --shelf-cut: calc(var(--shelf-panel) - var(--shelf-spine));
   --shelf-radius: ${({ theme }) => theme.layout.radius.lg};
 
-  display: grid;
-  gap: ${({ theme }) => theme.space[5]};
   position: relative;
   width: 100%;
+  height: calc(
+    var(--shelf-panel) + ${({ $count }) => $count - 1} *
+      (var(--shelf-spine) + var(--shelf-gap))
+  );
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: block;
-    --shelf-spine: clamp(3.25rem, 4.5vw, 4.5rem);
+    --shelf-spine: clamp(4.75rem, 7vw, 6.25rem);
     /* 펼친 칸 = 트랙 너비 - 나머지 책등과 간격(컨테이너 단위라 칸 안쪽에서도 같은 길이) */
     --shelf-panel: calc(
       100cqw - ${({ $count }) => $count - 1} *
@@ -79,91 +80,6 @@ export const Shelf = styled.ul<{ $count: number }>`
     );
 
     container-type: inline-size;
-    height: clamp(25rem, 56vh, 32rem);
+    height: clamp(22rem, 54vh, 32rem);
   }
-  html:not([data-theme-ready="1"]) & { display: grid; height: auto; container-type: normal; }
-  @media print { display: grid; height: auto; container-type: normal; }
-`;
-
-export const Stage = styled.div`
-  display: grid;
-  align-items: start;
-  gap: ${({ theme }) => theme.space[7]};
-  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    grid-template-columns: minmax(0, 1.65fr) minmax(17rem, 1fr);
-  }
-`;
-
-export const ShelfWrap = styled.div`
-  min-width: 0;
-  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    position: sticky;
-    top: calc(${({ theme }) => theme.layout.headerHeight} + ${({ theme }) => theme.space[4]});
-  }
-  html:not([data-theme-ready="1"]) & { position: static; }
-  @media print { position: static; }
-`;
-
-export const Story = styled.div`
-  display: none;
-  min-width: 0;
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: grid;
-    gap: ${({ theme }) => theme.space[5]};
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    grid-template-columns: minmax(0, 1fr);
-    gap: ${({ theme }) => theme.space[3]};
-  }
-  html:not([data-theme-ready="1"]) & { display: none; }
-  @media print { display: none; }
-`;
-
-export const StoryIntro = styled.div`
-  grid-column: 1 / -1;
-  display: grid;
-  gap: ${({ theme }) => theme.space[2]};
-`;
-
-export const Category = styled.p`
-  font-size: ${({ theme }) => theme.typography.label.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  color: ${({ theme }) => theme.colors.accent};
-`;
-
-export const Role = styled.p`
-  font-size: ${({ theme }) => theme.typography.small.fontSize};
-  color: ${({ theme }) => theme.colors.textMuted};
-`;
-
-export const Step = styled.article`
-  display: grid;
-  align-content: center;
-  gap: ${({ theme }) => theme.space[2]};
-  min-width: 0;
-  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    min-height: 11rem;
-    padding-block: ${({ theme }) => theme.space[3]};
-  }
-`;
-
-export const StepLabel = styled.p`
-  font-size: ${({ theme }) => theme.typography.small.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  color: ${({ theme }) => theme.colors.accent};
-  font-variant-numeric: tabular-nums;
-`;
-
-export const StepTitle = styled.h4`
-  font-size: ${({ theme }) => theme.typography.bodyLg.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  line-height: 1.4;
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-export const StepBody = styled.p`
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  line-height: 1.75;
-  color: ${({ theme }) => theme.colors.textMuted};
 `;

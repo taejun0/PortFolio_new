@@ -82,9 +82,6 @@ export const MAIN_PROJECTS_UI = {
   aside: "작업을 골라 핵심 과정을 살펴보고, 자세한 이야기를 읽어보세요.",
   cta: "프로젝트 전체 보기",
   detailCta: "과정 보기",
-  previewSuffix: "미리보기",
-  previewRegion: "선택한 프로젝트의 문제 해결 과정",
-  storyLabels: ["문제", "판단", "결과"],
   demoCta: "웹 뷰",
   githubCta: "Github",
 } as const;
