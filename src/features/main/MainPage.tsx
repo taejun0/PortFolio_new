@@ -1,7 +1,7 @@
 /**
  * 생성 이유: 메인 페이지에 속한 UI와 동작을 라우트 계층에서 분리한다.
  * 역할: 섹션 스크롤 메인 페이지다.
- * 책임: Hero→About→Projects→Stack→Blog→Contact 순서를 관리한다.
+ * 책임: Hero→Projects→About→Stack→Blog→Contact 순서를 관리한다.
  *       Featured 책장 데이터는 서버(app/page.tsx)가 고른 필드만 props로 받아 Projects 섹션에 넘긴다.
  */
 "use client";
@@ -23,8 +23,8 @@ type MainPageProps = {
 const MainPage = ({ projects }: MainPageProps) => (
   <S.Wrapper>
     <IntroSection />
-    <AboutSection />
     <ProjectsSection projects={projects} />
+    <AboutSection />
     <StackSection />
     <BlogSection />
     <CloseSection />

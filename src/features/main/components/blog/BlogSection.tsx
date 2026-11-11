@@ -29,7 +29,7 @@ const toOrder = (index: number) => String(index + 1).padStart(2, "0");
 const toDotDate = (date: string) => date.replaceAll("-", ".");
 
 const BlogSection = () => (
-  <P.Section id={MAIN_SECTION_IDS.blog}>
+  <P.Section id={MAIN_SECTION_IDS.blog} $alt $fit>
     <P.SectionInner>
       <SweepText as={P.Label}>{MAIN_BLOG_UI.label}</SweepText>
       <S.Header>

@@ -30,6 +30,12 @@ export type Project = {
    * 썸네일 가장자리 색과 같아야 이음새가 보이지 않는다. 없으면 16:9 박스에 cover한다.
    */
   imageMatte?: string;
+  /** 홈 미리보기에만 전달하는 짧은 문제 해결 서사. */
+  featuredStory?: {
+    category: string;
+    outcome: string;
+    steps: { title: string; description: string }[];
+  };
   overview: string;
   decisions: string[];
   roles: string[];
@@ -52,6 +58,15 @@ export const PROJECTS: Project[] = [
     featured: true,
     image: "/images/projectsImage/behavior-rpa.svg",
     imageSize: { width: 1440, height: 900 },
+    featuredStory: {
+      category: "업무 자동화",
+      outcome: "반복 행동의 기록을 자동화 후보와 실행 초안으로 연결했습니다.",
+      steps: [
+        { title: "반복되는 일을 먼저 이해하기", description: "금융 업무의 화면 조작을 기록하고, 어떤 행동이 반복되는지 찾는 것에서 시작했습니다." },
+        { title: "계산과 AI의 역할 나누기", description: "반복 패턴은 코드로 계산하고 AI는 해석을 맡도록 나눴습니다. 좌표 대신 화면 객체를 기억해 다시 찾도록 설계했습니다." },
+        { title: "검토할 수 있는 자동화로 연결하기", description: "후보 추천에서 초안 편집과 실행까지 연결하고, 실행 전 대상 확인과 실행 후 결과 검증을 넣었습니다." },
+      ],
+    },
     overview:
       "금융 업무에서 되풀이되는 화면 조작을 기록하고, 반복 패턴을 분석해 자동화 초안을 제안하는 데스크톱 RPA 시스템입니다. 웹과 운영체제의 UI 요소를 공통 객체로 다루며, 녹화 → 반복 작업 발견 → 자동화 후보 추천 → 초안 편집 → 실행으로 이어지는 흐름을 구현했습니다. 신한펀드파트너스 IT 인턴십에서 진행한 업무 자동화 과제입니다.",
     decisions: [
@@ -102,6 +117,15 @@ export const PROJECTS: Project[] = [
     featured: true,
     image: "/images/projectsImage/D-order.webp",
     imageSize: { width: 1440, height: 756 },
+    featuredStory: {
+      category: "현장에서 운영한 서비스",
+      outcome: "고객·운영진·서빙 담당자의 주문 흐름을 실시간으로 연결했습니다.",
+      steps: [
+        { title: "축제 현장의 흐름을 나누기", description: "고객의 주문, 운영진의 관리, 직원의 서빙을 역할별 화면으로 나눠 각자 필요한 일에 집중하도록 했습니다." },
+        { title: "같은 상태를 함께 바라보기", description: "서버를 상태의 기준으로 두고 WebSocket으로 주문·테이블·직원 호출의 변화를 전달했습니다." },
+        { title: "현장 조건까지 설계하기", description: "연결 복구와 인증 흐름을 정리하고, 실제 운영에서 역할별 화면이 같은 주문 상태로 수렴하도록 구현했습니다." },
+      ],
+    },
     github: "https://github.com/D-Order/2026-d-order-fe-admin-v3",
     demo: "http://customer.dorder-api.shop",
     overview:
@@ -163,6 +187,15 @@ export const PROJECTS: Project[] = [
     featured: true,
     image: "/images/projectsImage/PortFolio.webp",
     imageSize: { width: 1440, height: 751 },
+    featuredStory: {
+      category: "인터랙션과 정보 설계",
+      outcome: "프로젝트와 기록을 읽는 흐름에 모션·접근성·첫 화면 렌더링을 연결했습니다.",
+      steps: [
+        { title: "나를 설명하는 근거 보여주기", description: "소개·프로젝트·기록의 역할을 나누고, 대표 작업에서 실제 문제 해결 과정을 읽을 수 있도록 구성했습니다." },
+        { title: "움직임에도 역할 부여하기", description: "텍스트·이미지·타임라인의 등장 방식을 구분하고 키보드 탐색과 동작 줄이기 설정을 함께 고려했습니다." },
+        { title: "첫 화면부터 읽을 수 있게 만들기", description: "서버 렌더링과 테마 부트를 정리하고, 화면이 움직이기 전에도 핵심 콘텐츠와 이동 경로가 제공되도록 했습니다." },
+      ],
+    },
     // 1.92:1 스크린숏 — 좌우 내비 문구가 잘리지 않게 가장자리 회색으로 레터박스한다.
     imageMatte: "#f2f2f2",
     github: "https://github.com/taejun0/PortFolio_new",

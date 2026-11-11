@@ -13,7 +13,7 @@ import { MAIN_SECTION_IDS, MAIN_STACK_UI } from "../../constants";
 import StackShowcase from "@/features/stack/components/StackShowcase";
 
 const StackSection = () => (
-  <P.Section id={MAIN_SECTION_IDS.stack} $alt>
+  <P.Section id={MAIN_SECTION_IDS.stack} $fit>
     <P.SectionInner>
       <SweepText as={P.Label}>{MAIN_STACK_UI.label}</SweepText>
       <S.Header>

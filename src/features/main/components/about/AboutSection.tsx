@@ -1,9 +1,9 @@
 /**
  * 생성 이유: About me 요약을 메인에 두고 상세는 AboutPage로 보낸다.
  * 역할: 메인 About 섹션 컴포넌트다.
- * 책임: 능력 지표 후킹·짧은 소개·사진·팩트와 /about 진입 CTA를 렌더링한다.
+ * 책임: 능력 지표·짧은 소개·사진·최근 인턴십과 /about 진입 CTA를 렌더링한다.
  *       등장은 공용 모션 프리미티브로만 한다 — 라벨·타이틀·인용은 어절 스윕, 지표는 칸마다 짧은 순차 스윕,
- *       초상·문단·팩트는 블록 스윕(같이 들어오면 컨트롤러가 읽는 순서대로 60ms씩 잇는다).
+ *       초상·문단·경험은 블록 스윕(같이 들어오면 컨트롤러가 읽는 순서대로 60ms씩 잇는다).
  */
 "use client";
 
@@ -22,7 +22,7 @@ import {
 import { ROUTES } from "@/constants/routes";
 
 const AboutSection = () => (
-  <P.Section id={MAIN_SECTION_IDS.about} $alt>
+  <P.Section id={MAIN_SECTION_IDS.about} $alt $fit>
     <P.SectionInner>
       <SweepText as={P.Label}>{MAIN_ABOUT_UI.label}</SweepText>
       <SweepText as={P.Title}>{MAIN_ABOUT_UI.title}</SweepText>
@@ -49,22 +49,19 @@ const AboutSection = () => (
         </Reveal>
         <S.Copy>
           <SweepText as={S.Quote}>{MAIN_ABOUT_UI.quote}</SweepText>
-          <Reveal as={S.QuoteLead}>{MAIN_ABOUT_UI.quoteLead}</Reveal>
-          {MAIN_ABOUT_UI.paragraphs.map((paragraph) => (
-            <Reveal as={S.Body} key={paragraph}>
-              {paragraph}
-            </Reveal>
-          ))}
-          {/* 팩트·CTA는 한 덩어리로 초상 아래 모서리에 맞춘다 */}
+          <Reveal as={S.Body}>{MAIN_ABOUT_UI.summary}</Reveal>
+          <Reveal as={S.Experience}>
+            <S.ExperienceLabel>{MAIN_ABOUT_UI.experience.label}</S.ExperienceLabel>
+            <S.ExperienceTitle>{MAIN_ABOUT_UI.experience.title}</S.ExperienceTitle>
+            <S.Body>{MAIN_ABOUT_UI.experience.summary}</S.Body>
+            <Link href={MAIN_ABOUT_UI.experience.href}>
+              <P.TextLink>
+                <RollText>{MAIN_ABOUT_UI.experience.cta}</RollText>
+                <HoverArrow aria-hidden />
+              </P.TextLink>
+            </Link>
+          </Reveal>
           <Reveal as={S.Details}>
-            <S.Facts>
-              {MAIN_ABOUT_UI.facts.map((fact) => (
-                <S.Fact key={fact.label}>
-                  <S.FactLabel>{fact.label}</S.FactLabel>
-                  <S.FactValue>{fact.value}</S.FactValue>
-                </S.Fact>
-              ))}
-            </S.Facts>
             <Link href={ROUTES.ABOUT}>
               <P.TextLink>
                 <RollText>{MAIN_ABOUT_UI.cta}</RollText>

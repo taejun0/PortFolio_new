@@ -9,6 +9,8 @@
  */
 "use client";
 
+import Link from "next/link";
+import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import { RollText, SweepText } from "@/components/common/motion";
 import { VisuallyHidden } from "@/components/common/visuallyHidden/VisuallyHidden.styled";
 
@@ -45,6 +47,16 @@ const IntroSection = () => (
       >
         {MAIN_HERO_UI.title}
       </SweepText>
+      <S.Actions aria-label="포트폴리오 바로가기">
+        <S.PrimaryAction href={MAIN_HERO_UI.primaryHref}>
+          <RollText>{MAIN_HERO_UI.primaryCta}</RollText>
+          <HoverArrow aria-hidden />
+        </S.PrimaryAction>
+        <S.SecondaryAction as={Link} href={MAIN_HERO_UI.secondaryHref}>
+          <RollText>{MAIN_HERO_UI.secondaryCta}</RollText>
+          <HoverArrow aria-hidden />
+        </S.SecondaryAction>
+      </S.Actions>
     </S.Inner>
     <S.ScrollHint href={MAIN_HERO_UI.scrollHref}>
       <S.ScrollMouse aria-hidden />

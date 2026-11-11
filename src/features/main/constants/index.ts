@@ -1,6 +1,6 @@
 /**
  * 생성 이유: 메인 섹션 문구를 컴포넌트 JSX에서 분리한다.
- * 역할: Hero→About→Projects→Stack→Blog→Contact 카피·앵커 id를 제공한다.
+ * 역할: Hero→Projects→About→Stack→Blog→Contact 카피·앵커 id를 제공한다.
  * 책임: PortfolioPage 톤을 유지한 채 Thomas Eduardo식 섹션 서사에 배치한다.
  */
 export const MAIN_SECTION_IDS = {
@@ -20,14 +20,18 @@ export const MAIN_HERO_UI = {
    * 대문자 한 덩어리는 한국어 TTS가 철자로 읽기 쉬워 한글 이름과 띄어 쓴 로마자를 함께 둔다(About h1과 같은 표기).
    */
   nameLabel: "오태준 Oh Taejun",
-  title: "웹의 형태로 표현하고 소통하는 개발자 오태준입니다",
+  title: "실제 서비스와 업무 자동화를 만드는 개발자 오태준입니다",
+  primaryCta: "대표 작업 보기",
+  primaryHref: "#projects",
+  secondaryCta: "소개·이력 보기",
+  secondaryHref: "/about",
   scroll: "Scroll",
   /**
    * 보이는 "Scroll" 뒤에 시각적으로만 숨겨 붙이는 설명 — 링크 이름이 "Scroll — 아래로 스크롤"이 된다.
    * aria-label 대신 내용으로 이름을 만들어 롤 복사본 글자가 이름 불일치(label-content-name-mismatch)로 잡히지 않는다.
    */
   scrollHint: "— 아래로 스크롤",
-  scrollHref: "#about",
+  scrollHref: "#projects",
 } as const;
 
 /** 4번째 지표는 수치가 아닌 범위(단어)라 단위·설명이 값을 되풀이하지 않게 둔다. */
@@ -50,6 +54,7 @@ export const MAIN_ABOUT_UI = {
   title: "About me",
   quoteLead: "라는 말을 들은 적이 있습니다.",
   quote: "“집단에서 공유되는 정보가, 곧 그 집단의 IQ다”",
+  summary: "배운 것을 나누고, 동료의 의견을 들으며 더 나은 서비스를 만듭니다. 사용자와 운영자가 겪는 문제를 이해하고 화면부터 서버·배포까지 연결하는 개발을 지향합니다.",
   paragraphs: [
     "아무리 뛰어난 개인이 있더라도, 구성원들 간 대화가 없다면 팀 전체의 성장이 어려워지게 됩니다.",
     "내가 아는 것을 아낌없이 나누고, 다른 사람의 의견을 경청하며, 더 나은 방향으로 함께 나아갈 수 있도록 노력하고 싶습니다.",
@@ -62,14 +67,24 @@ export const MAIN_ABOUT_UI = {
     { label: "학력", value: "동국대학교 컴퓨터정보통신공학부" },
   ],
   cta: "About 자세히 보기",
+  experience: {
+    label: "최근 경험",
+    title: "신한펀드파트너스 IT 인턴십",
+    summary: "금융 업무의 흐름을 이해하고, 반복 작업을 자동화하는 RPA를 기획·개발했습니다.",
+    href: "/about#trajectory",
+    cta: "경험과 배움 보기",
+  },
 } as const;
 
 export const MAIN_PROJECTS_UI = {
   label: "Projects",
   title: "Featured projects",
-  aside: "프로젝트를 누르면 상세 정보를 볼 수 있습니다.",
+  aside: "작업을 골라 핵심 과정을 살펴보고, 자세한 이야기를 읽어보세요.",
   cta: "프로젝트 전체 보기",
-  detailCta: "자세히 보기",
+  detailCta: "과정 보기",
+  previewSuffix: "미리보기",
+  previewRegion: "선택한 프로젝트의 문제 해결 과정",
+  storyLabels: ["문제", "판단", "결과"],
   demoCta: "웹 뷰",
   githubCta: "Github",
 } as const;
@@ -155,8 +170,8 @@ export const MAIN_CLOSE_UI = {
   /** 새 창으로 열리는 채널 링크 뒤에 덧붙는 숨김 안내. */
   newTab: "(새 창)",
   worksLabel: "WORKS",
-  worksTitle: "Frontend",
-  works: ["D-Order", "포트폴리오 페이지", "동아리랑"],
+  worksTitle: "Selected projects",
+  works: ["사용자 행동 분석 기반 RPA", "D-Order", "포트폴리오 페이지"],
   channels: [
     {
       label: "Email",
@@ -177,5 +192,9 @@ export const MAIN_CLOSE_UI = {
       hrefKind: "velog" as const,
     },
   ],
-  cta: "Send email",
+  cta: "메일 보내기",
+  copyEmail: "이메일 복사",
+  copiedEmail: "복사 완료",
+  copyEmailSuccess: "이메일 주소를 복사했습니다.",
+  copyEmailError: "복사하지 못했습니다. 위 이메일 주소를 선택해 복사해주세요.",
 } as const;

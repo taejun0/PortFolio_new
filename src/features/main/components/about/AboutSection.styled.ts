@@ -1,9 +1,9 @@
 /**
  * 생성 이유: 메인 About 티저를 지표 띠와 같은 열 그리드 위에 정돈해 보여 준다.
  * 역할: AboutSection 레이아웃 스타일을 정의한다.
- * 책임: 능력 지표·초상·본문·팩트 배치와 초상 등장 시각(마스크가 열리는 동안 사진이 제자리로 가라앉음)만 소유한다.
+ * 책임: 능력 지표·초상·짧은 소개·최근 경험 배치와 초상 등장 시각을 소유한다.
  *       (상세 구도는 AboutPage, 등장 판정은 공용 Reveal)
- *       데스크톱은 4열 — 초상은 1열, 본문·팩트는 2~4열에 놓여 지표 열과 세로로 맞는다.
+ *       데스크톱은 4열 — 초상은 1열, 소개·경험은 2~4열에 놓여 지표 열과 세로로 맞는다.
  *       모바일·태블릿 지표는 2×2로 접어 한 화면을 다 먹지 않게 한다.
  */
 import { keyframes } from "@emotion/react";
@@ -132,7 +132,7 @@ export const Portrait = styled.div`
   }
 `;
 
-/** 2열 이상에서는 초상 높이만큼 늘어나, 인용은 초상 윗선·팩트와 CTA는 아랫선에 맞는다. */
+/** 초상 옆에서 짧은 소개와 최근 경험을 읽는 열. */
 export const Copy = styled.div`
   display: flex;
   flex-direction: column;
@@ -145,6 +145,28 @@ export const Copy = styled.div`
   }
 `;
 
+export const Experience = styled.div`
+  display: grid;
+  gap: ${({ theme }) => theme.space[2]};
+  padding: ${({ theme }) => theme.space[4]};
+  border-radius: ${({ theme }) => theme.layout.radius.md};
+  background: ${({ theme }) => theme.colors.surfaceAlt};
+  > p { margin-bottom: 0; }
+  > a { display: inline-flex; align-items: center; justify-self: start; min-height: 44px; }
+  > a > span { margin-top: 0; }
+`;
+
+export const ExperienceLabel = styled.p`
+  font-size: ${({ theme }) => theme.typography.small.fontSize};
+  color: ${({ theme }) => theme.colors.accent};
+`;
+
+export const ExperienceTitle = styled.h3`
+  font-size: ${({ theme }) => theme.typography.bodyLg.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
+  color: ${({ theme }) => theme.colors.text};
+`;
+
 export const Quote = styled.p`
   font-size: ${({ theme }) => theme.typography.quote.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
@@ -152,13 +174,6 @@ export const Quote = styled.p`
   letter-spacing: ${({ theme }) => theme.typography.quote.letterSpacing};
   color: ${({ theme }) => theme.colors.text};
   text-wrap: balance;
-`;
-
-export const QuoteLead = styled.p`
-  margin-top: -0.35rem;
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  line-height: 1.6;
-  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 /**
@@ -173,68 +188,18 @@ export const Body = styled.p`
   text-wrap: balance;
 `;
 
-/** 팩트·CTA 묶음 — 2열 이상에서는 남는 높이를 위로 보내 초상 아래 모서리에 붙는다. */
+/** 상세 이력으로 이어지는 보조 링크. */
 export const Details = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: ${({ theme }) => theme.space[2]};
+  align-items: center;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    margin-top: auto;
-  }
-
-  /* 간격은 링크 바깥에 둬 키보드 포커스 링이 글자에 붙는다 */
   > a {
-    margin-top: ${({ theme }) => theme.space[4]};
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
 
   ${TextLink} {
     margin-top: 0;
   }
-`;
-
-/** 데스크톱 3열은 지표 2~4열과 같은 폭·간격이라 세로로 정렬된다. */
-export const Facts = styled.dl`
-  align-self: stretch;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: ${({ theme }) => theme.space[3]} ${({ theme }) => theme.space[5]};
-  padding-top: ${({ theme }) => theme.space[4]};
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: ${({ theme }) => theme.space[7]};
-  }
-`;
-
-export const Fact = styled.div`
-  display: grid;
-  gap: 0.2rem;
-  min-width: 0;
-
-  /* 2열에서 홀로 남는 마지막 항목(학력)은 한 줄을 다 써서 학교·학부명이 끊기지 않게 한다 */
-  &:last-of-type:nth-of-type(odd) {
-    grid-column: 1 / -1;
-
-    @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-      grid-column: auto;
-    }
-  }
-`;
-
-export const FactLabel = styled.dt`
-  font-size: ${({ theme }) => theme.typography.small.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textMuted};
-`;
-
-export const FactValue = styled.dd`
-  min-width: 0;
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  line-height: 1.45;
-  color: ${({ theme }) => theme.colors.text};
 `;

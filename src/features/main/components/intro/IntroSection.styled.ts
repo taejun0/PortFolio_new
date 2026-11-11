@@ -9,6 +9,7 @@ import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import { motionTransition } from "@/components/common/motion";
+import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
 import { motionTokens } from "@/styles/theme";
 
 import { WAVE_START_S, WAVE_TOTAL_S } from "./expandableName/nameLens";
@@ -61,8 +62,8 @@ export const Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 78vh;
+  min-height: 78svh;
   overflow: visible;
   padding: ${({ theme }) => theme.space[8]} ${({ theme }) => theme.layout.gutter}
     ${({ theme }) => theme.space[9]};
@@ -123,6 +124,50 @@ export const Title = styled.p`
   letter-spacing: ${({ theme }) => theme.typography.heading.letterSpacing};
   color: ${({ theme }) => theme.colors.textMuted};
   text-wrap: balance;
+`;
+
+export const Actions = styled.nav`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ${({ theme }) => theme.space[3]};
+  margin-top: ${({ theme }) => theme.space[5]};
+`;
+
+export const PrimaryAction = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  padding: 0.8rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
+  color: ${({ theme }) => theme.colors.accentContrast};
+  background: ${({ theme }) => theme.colors.accent};
+  transition: ${motionTransition(["background-color", "border-color"])};
+  ${hoverArrowParent}
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.accentSecondary};
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.accent};
+    outline-offset: 4px;
+  }
+`;
+
+export const SecondaryAction = styled(PrimaryAction)`
+  border-color: ${({ theme }) => theme.colors.borderStrong};
+  color: ${({ theme }) => theme.colors.text};
+  background: transparent;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.surfaceAlt};
+  }
 `;
 
 export const ScrollHint = styled.a`
