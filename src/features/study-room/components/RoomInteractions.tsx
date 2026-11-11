@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import { ROOM_SPOTS, type RoomAction, type RoomNoteContent, type RoomNoteId, type RoomObjectState, type RoomView } from "../interactions";
+import { ROOM_NOTE_LABELS, ROOM_SPOTS, type RoomAction, type RoomNoteContent, type RoomNoteId, type RoomObjectState, type RoomView } from "../interactions";
 import RoomNote from "./RoomNote";
 import styles from "../StudyRoom.module.css";
 
@@ -175,6 +175,7 @@ export default function RoomInteractions({ enabled, content, objects, onAction, 
         </button>
         {showHints && !active && <span className={styles.objectMarker} data-room-marker={spot.key} data-primary={Boolean(spot.primary)} data-pointed={pointed?.key === spot.key} style={{ left: spot.area.x + spot.area.width / 2, top: spot.area.y + spot.area.height / 2 }} aria-hidden="true">
           <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M4 1v6M1 4h6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+          {spot.primary && spot.note && <span className={styles.objectMarkerLabel}>{ROOM_NOTE_LABELS[spot.note]}</span>}
         </span>}
         </Fragment>
       );})}

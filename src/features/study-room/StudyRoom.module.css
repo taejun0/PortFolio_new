@@ -45,8 +45,9 @@
 .hotspot:focus-visible .objectContour polygon { stroke-width: 2; fill: #f3d49115; }
 @media (hover: hover) and (pointer: fine) { .interactions[data-hints][data-reader-open] .hotspot:hover .objectContour { opacity: .85; } }
 .objectMarker { position: absolute; z-index: 1; display: grid; place-items: center; width: 14px; height: 14px; transform: translate(-50%, -50%); border: 1px solid #fff2d09c; border-radius: 50%; background: #2d3828c9; color: #fff2d0; box-shadow: 0 0 0 3px #f4e3b212, 0 2px 7px #16201066; pointer-events: none; transition: transform .18s ease, background .18s ease; }
-.objectMarker[data-primary="true"] { width: 23px; height: 23px; border-color: #fff2d0de; background: #e5d6afed; color: #374530; box-shadow: 0 0 0 5px #f4e3b224, 0 2px 9px #16201077; }
+.objectMarker[data-primary="true"] { display: inline-flex; gap: 6px; width: auto; height: auto; min-height: 28px; padding: 5px 9px; border-radius: 999px; border-color: #fff2d0de; background: #e5d6afed; color: #374530; box-shadow: 0 0 0 3px #f4e3b224, 0 2px 7px #16201055; }
 .objectMarker[data-primary="true"] svg { width: 10px; height: 10px; }
+.objectMarkerLabel { font-size: 11px; font-weight: 600; line-height: 1.2; white-space: nowrap; }
 .objectMarker[data-pointed="true"] { transform: translate(-50%, -50%) scale(1.15); background: #f1e3bc; color: #3a4930; }
 .objectHint { position: absolute; z-index: 4; display: flex; align-items: center; gap: 14px; transform: translateX(-50%); padding: 7px 12px; border: 1px solid #e3dbb645; border-radius: 5px; color: #f4eedb; background: #293629ed; box-shadow: 0 3px 14px #17200e30; font-size: 11px; line-height: 1.5; white-space: nowrap; pointer-events: none; }
 
