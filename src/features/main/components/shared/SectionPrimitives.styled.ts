@@ -10,6 +10,7 @@
 import { css, type Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 
+import { primaryButton } from "@/components/common/button/buttonStyles";
 import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
 import { motionTransition } from "@/components/common/motion";
 
@@ -79,22 +80,11 @@ export const Body = styled.p`
   white-space: pre-line;
 `;
 
-/** 주 CTA 알약 — 호버는 색만 바꾸고 라벨 움직임은 안쪽 RollText가 맡는다(들림·눌림 크기 변화 없음). */
+/** 공용 주 CTA. 실제 포커스는 바깥 링크가 받는다. */
 export const CtaButton = styled.span`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  ${({ theme }) => primaryButton(theme)}
   margin-top: ${({ theme }) => theme.space[5]};
-  padding: clamp(0.8rem, 0.65rem + 0.5vw, 1rem)
-    clamp(1.35rem, 1rem + 1.2vw, 1.9rem);
-  border-radius: ${({ theme }) => theme.layout.radius.md};
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  color: ${({ theme }) => theme.colors.accentContrast};
-  background: ${({ theme }) => theme.colors.accent};
-  transition: ${motionTransition("background-color")};
 
-  &:hover,
   a:focus-visible > & {
     background: ${({ theme }) => theme.colors.accentSecondary};
   }

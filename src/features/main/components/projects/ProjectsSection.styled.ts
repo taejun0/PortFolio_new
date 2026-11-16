@@ -62,7 +62,7 @@ export const Shelf = styled.ul<{ $count: number }>`
   --shelf-gap: ${({ theme }) => theme.space[2]};
   --shelf-panel: clamp(16rem, 48vh, 22rem);
   --shelf-cut: calc(var(--shelf-panel) - var(--shelf-spine));
-  --shelf-radius: ${({ theme }) => theme.layout.radius.lg};
+  --shelf-radius: 1.125rem;
 
   position: relative;
   width: 100%;

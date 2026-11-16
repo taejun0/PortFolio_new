@@ -11,13 +11,13 @@ import type { Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 import Link from "next/link";
 
+import { primaryButton, secondaryButton } from "@/components/common/button/buttonStyles";
 import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
 import {
   motionTransition,
   underlineSweep,
   underlineSweepActive,
 } from "@/components/common/motion";
-import { LIGHT_MODE } from "@/styles/theme";
 
 /** 본문 열 최대 폭 — 모든 섹션이 같은 읽기 폭을 공유한다. */
 const CONTENT_MAX = "50rem";
@@ -26,14 +26,8 @@ const CONTENT_MAX = "50rem";
 const inkLine = (theme: Theme, amount: number) =>
   `color-mix(in srgb, ${theme.colors.text} ${amount}%, transparent)`;
 
-/** 카드 면(선언 묶음): 다크는 캔버스보다 아주 살짝 밝은 면, 라이트는 흰 서피스. */
-const cardSurface = (theme: Theme) => `
-  background: ${inkLine(theme, 3)};
-
-  ${LIGHT_MODE} & {
-    background: ${theme.colors.surface};
-  }
-`;
+/** 테두리 대신 중립 면으로 카드 영역을 구분한다. */
+const cardSurface = (theme: Theme) => `background: ${theme.colors.surface};`;
 
 const focusRing = (theme: Theme) => `
   outline: 2px solid ${theme.colors.accent};
@@ -128,48 +122,15 @@ export const Links = styled.div`
   margin-top: ${({ theme }) => theme.space[2]};
 `;
 
-/** 외부 링크 알약 — 라벨은 안쪽 RollText가 굴리고, 알약은 들리지 않고 면·테두리 색만 바뀐다. */
+/** 데모는 주요 액션, 소스 링크는 보조 액션으로 구분한다. */
 export const ExtLink = styled.a<{ $primary?: boolean }>`
-  display: inline-flex;
-  align-items: center;
-  padding: clamp(0.6rem, 0.5rem + 0.3vw, 0.75rem)
-    clamp(1.1rem, 0.9rem + 0.6vw, 1.4rem);
-  border-radius: ${({ theme }) => theme.layout.radius.md};
-  border: ${({ theme }) => theme.layout.borderWidth.control} solid
-    ${({ theme, $primary }) =>
-      $primary ? theme.colors.accent : theme.colors.borderStrong};
-  background: ${({ theme, $primary }) =>
-    $primary ? theme.colors.accent : "transparent"};
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  line-height: 1.2;
-  color: ${({ theme, $primary }) =>
-    $primary ? theme.colors.accentContrast : theme.colors.text};
-  text-decoration: none;
-  transition: ${motionTransition(["background-color", "border-color"])};
+  ${({ theme, $primary }) => $primary ? primaryButton(theme) : secondaryButton(theme)}
   ${hoverArrowParent}
-
-  @media (hover: hover) {
-    &:hover {
-      border-color: ${({ theme, $primary }) =>
-        $primary ? theme.colors.accentSecondary : inkLine(theme, 45)};
-      background: ${({ theme, $primary }) =>
-        $primary ? theme.colors.accentSecondary : "transparent"};
-    }
-  }
-
-  &:focus-visible {
-    ${({ theme }) => focusRing(theme)}
-    border-color: ${({ theme, $primary }) =>
-      $primary ? theme.colors.accentSecondary : inkLine(theme, 45)};
-    background: ${({ theme, $primary }) =>
-      $primary ? theme.colors.accentSecondary : "transparent"};
-  }
 `;
 
 /**
  * 커버 커튼 호스트 — 첫 화면 이미지(LCP 후보)라 캔버스색 덮개가 걷히는 curtain 리빌을 건다.
- * Cover는 overflow: hidden이라 덮개(::after)가 1px 테두리를 못 덮으므로 바깥 상자에 건다.
+ * Cover의 overflow가 덮개를 자르지 않도록 바깥 상자에 건다.
  */
 export const CoverFrame = styled.div`
   min-width: 0;
@@ -180,7 +141,7 @@ export const Cover = styled.div`
   width: 100%;
   overflow: hidden;
   border-radius: ${({ theme }) => theme.layout.radius.lg};
-  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
+  border: 0;
   background: ${({ theme }) => theme.colors.surfaceAlt};
 `;
 
@@ -371,17 +332,17 @@ export const TocLink = styled.a<{ $active: boolean }>`
   gap: 0.55em;
   padding: 0.5rem 0.9rem;
   border-radius: ${({ theme }) => theme.layout.radius.md};
-  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.border};
+  border: 0;
+  background: ${({ theme }) => theme.colors.surfaceAlt};
   font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   line-height: 1.35;
   color: ${({ theme }) => theme.colors.textMuted};
-  transition: ${motionTransition(["color", "border-color"])};
+  transition: ${motionTransition("color")};
 
   &:hover,
   &:focus-visible {
     color: ${({ theme }) => theme.colors.text};
-    border-color: ${({ theme }) => inkLine(theme, 32)};
   }
 
   &:focus-visible {
@@ -395,6 +356,7 @@ export const TocLink = styled.a<{ $active: boolean }>`
     padding: 0.55rem 0 0.55rem ${({ theme }) => theme.space[4]};
     border: none;
     border-radius: 0;
+    background: transparent;
     font-weight: ${({ theme, $active }) =>
       $active ? theme.fonts.weights.semiBold : theme.fonts.weights.medium};
     color: ${({ theme, $active }) =>
@@ -543,7 +505,7 @@ export const ChallengeList = styled.ol`
 export const ChallengeCard = styled.li`
   padding: ${({ theme }) => theme.space[6]};
   border-radius: ${({ theme }) => theme.layout.radius.lg};
-  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
+  border: 0;
   ${({ theme }) => cardSurface(theme)}
 `;
 
@@ -637,23 +599,23 @@ export const NextNav = styled.nav`
 `;
 
 /**
- * 다음 프로젝트 카드 — 호버·키보드 포커스에서 테두리가 밝아지고, 제목 밑줄이 왼쪽부터 그어지며,
+ * 다음 프로젝트 카드 — 호버·키보드 포커스에서 면이 밝아지고, 제목 밑줄이 왼쪽부터 그어지며,
  * 썸네일은 목록 카드와 같이 왼쪽 기준으로 천천히 1.03까지 밀려 커진다.
  */
 export const NextCard = styled(Link)`
   display: grid;
   overflow: hidden;
   border-radius: ${({ theme }) => theme.layout.radius.lg};
-  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
+  border: 0;
   ${({ theme }) => cardSurface(theme)}
   color: inherit;
   text-decoration: none;
-  transition: ${motionTransition("border-color")};
+  transition: ${motionTransition("background-color")};
   ${hoverArrowParent}
 
   @media (hover: hover) {
     &:hover {
-      border-color: ${({ theme }) => inkLine(theme, 22)};
+      background: color-mix(in srgb, ${({ theme }) => theme.colors.text} 6%, ${({ theme }) => theme.colors.surface});
     }
 
     &:hover img {
@@ -663,7 +625,7 @@ export const NextCard = styled(Link)`
 
   &:focus-visible {
     ${({ theme }) => focusRing(theme)}
-    border-color: ${({ theme }) => inkLine(theme, 22)};
+    background: color-mix(in srgb, ${({ theme }) => theme.colors.text} 6%, ${({ theme }) => theme.colors.surface});
   }
 
   &:focus-visible img {
@@ -762,30 +724,10 @@ export const NextMedia = styled.span`
   }
 `;
 
-/** 전체 목록 알약 — 라벨은 RollText가 굴리고 ← 화살표는 가는 쪽(왼쪽)으로 2px 물러난다. */
+/** 전체 목록으로 돌아가는 보조 액션. */
 export const ListLink = styled(Link)`
-  display: inline-flex;
+  ${({ theme }) => secondaryButton(theme)}
   justify-self: start;
-  align-items: center;
-  gap: 0.5em;
-  padding: 0.6rem 1.15rem;
-  border-radius: ${({ theme }) => theme.layout.radius.md};
-  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.border};
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  line-height: 1.2;
-  color: ${({ theme }) => theme.colors.textMuted};
-  transition: ${motionTransition(["color", "border-color"])};
-
-  &:hover,
-  &:focus-visible {
-    color: ${({ theme }) => theme.colors.text};
-    border-color: ${({ theme }) => inkLine(theme, 30)};
-  }
-
-  &:focus-visible {
-    ${({ theme }) => focusRing(theme)}
-  }
 `;
 
 export const ListArrow = styled.span`

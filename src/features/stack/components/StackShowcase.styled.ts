@@ -55,7 +55,6 @@ export const ProjectLink = styled(Link)`
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.accent};
     outline-offset: 3px;
-    border-radius: ${({ theme }) => theme.layout.radius.sm};
   }
 `;
 
@@ -498,7 +497,7 @@ export const Tool = styled.li`
   gap: ${({ theme }) => theme.space[3]};
   min-width: 0;
   padding: ${({ theme }) => theme.space[4]} ${({ theme }) => theme.space[2]};
-  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
+  border: 0;
   border-radius: ${({ theme }) => theme.layout.radius.md};
   background: ${({ theme }) => theme.colors.surface};
 
@@ -509,7 +508,6 @@ export const Tool = styled.li`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     gap: ${({ theme }) => theme.space[2]};
     padding-inline: ${({ theme }) => theme.space[1]};
-    border-radius: ${({ theme }) => theme.layout.radius.sm};
   }
 `;
 
@@ -718,7 +716,6 @@ export const Viewport = styled.div`
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.accent};
     outline-offset: 4px;
-    border-radius: ${({ theme }) => theme.layout.radius.sm};
   }
 
   /*

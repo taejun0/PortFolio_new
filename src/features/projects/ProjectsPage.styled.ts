@@ -101,27 +101,26 @@ export const Item = styled.li`
 `;
 
 /**
- * 카드 호버·키보드 포커스 공통 상태 — 테두리·면만 밝힌다(들림·크기 변화 없음).
- * 면 색은 지역 변수로 바꾼다 — 모드는 Card의 LIGHT_MODE 규칙이 변수 값으로 가른다(라이트는 활성도 흰 서피스).
+ * 카드 호버·키보드 포커스 공통 상태 — 면을 밝힌다(들림·크기 변화 없음).
+ * 면 색은 지역 변수로 바꾼다 — 모드는 Card의 LIGHT_MODE 규칙이 변수 값으로 가른다.
  */
-const cardActive = (theme: Theme) => `
-  border-color: ${theme.colors.borderStrong};
+const cardActive = `
   background: var(--card-face-active);
 `;
 
 /**
  * 카드 면 — 링크가 아니라 제목 링크(CardLink)를 품은 상자다.
- * 호버·안쪽 링크의 키보드 포커스(:has)에 테두리·면·화살표·CTA 롤이 같이 반응한다.
+ * 호버·안쪽 링크의 키보드 포커스(:has)에 면·화살표·CTA 롤이 같이 반응한다.
  */
 export const Card = styled.div`
   --card-pad: 0.5rem;
   --card-radius: ${({ theme }) => theme.layout.radius.lg};
-  /* 면: 다크는 캔버스보다 살짝 밝은 wash, 켜지면 잉크 5%를 섞는다 / 라이트는 늘 흰 서피스 */
-  --card-face: ${({ theme }) => theme.colors.wash};
+  /* 면: 다크는 캔버스보다 밝은 서피스, 켜지면 잉크 5%를 섞는다 / 라이트는 흰 서피스 */
+  --card-face: ${({ theme }) => theme.colors.surface};
   --card-face-active: color-mix(
     in srgb,
     ${({ theme }) => theme.colors.text} 5%,
-    ${({ theme }) => theme.colors.background}
+    ${({ theme }) => theme.colors.surface}
   );
 
   position: relative;
@@ -130,15 +129,15 @@ export const Card = styled.div`
   width: 100%;
   padding: var(--card-pad);
   border-radius: var(--card-radius);
-  border: ${({ theme }) => theme.layout.borderWidth.card} solid ${({ theme }) => theme.colors.border};
+  border: 0;
   background: var(--card-face);
-  transition: ${motionTransition(["border-color", "background-color"])};
+  transition: ${motionTransition("background-color")};
   ${hoverArrowParent}
   ${rollTextParent}
 
   ${LIGHT_MODE} & {
     --card-face: ${({ theme }) => theme.colors.surface};
-    --card-face-active: ${({ theme }) => theme.colors.surface};
+    --card-face-active: color-mix(in srgb, ${({ theme }) => theme.colors.text} 3%, ${({ theme }) => theme.colors.surface});
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.wide}) {
@@ -148,7 +147,7 @@ export const Card = styled.div`
 
   @media (hover: hover) {
     &:hover {
-      ${({ theme }) => cardActive(theme)}
+      ${cardActive}
     }
   }
 
@@ -157,7 +156,7 @@ export const Card = styled.div`
     &:has(:focus-visible) {
       outline: 2px solid ${({ theme }) => theme.colors.accent};
       outline-offset: 3px;
-      ${({ theme }) => cardActive(theme)}
+      ${cardActive}
     }
   }
 `;
@@ -197,7 +196,7 @@ export const Media = styled.div<{ $matte?: string }>`
   overflow: hidden;
   border-radius: max(
     0px,
-    calc(var(--card-radius) - var(--card-pad) - ${({ theme }) => theme.layout.borderWidth.card})
+    calc(var(--card-radius) - var(--card-pad))
   );
   background: ${({ theme, $matte }) => $matte ?? theme.colors.surfaceAlt};
 

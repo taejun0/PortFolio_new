@@ -92,19 +92,20 @@ export const Socials = styled.div`
 `;
 
 /**
- * 헤더 테마 토글과 같은 크기·테두리의 원형 아이콘 버튼.
+ * 헤더 테마 토글과 같은 크기의 원형 아이콘 버튼.
  * 새 창 링크라 호버·포커스에서 아이콘이 HoverArrow(→ ↗)와 같은 거리·길이로 오른쪽 위로 살짝 밀린다.
  */
 export const Social = styled.a`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: clamp(2rem, 1.7rem + 0.6vw, 2.35rem);
-  height: clamp(2rem, 1.7rem + 0.6vw, 2.35rem);
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
-  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.border};
+  border: 0;
+  background: ${({ theme }) => theme.colors.surfaceAlt};
   color: ${({ theme }) => theme.colors.textMuted};
-  transition: ${motionTransition(["color", "border-color", "background"])};
+  transition: ${motionTransition(["color", "background-color"])};
 
   svg {
     width: 0.95rem;
@@ -115,11 +116,6 @@ export const Social = styled.a`
   &:hover,
   &:focus-visible {
     color: ${({ theme }) => theme.colors.text};
-    border-color: color-mix(
-      in srgb,
-      ${({ theme }) => theme.colors.text} 30%,
-      transparent
-    );
     background: color-mix(
       in srgb,
       ${({ theme }) => theme.colors.text} 8%,

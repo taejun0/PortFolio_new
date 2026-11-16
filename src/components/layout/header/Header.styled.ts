@@ -229,7 +229,7 @@ export const Nav = styled.nav`
   grid-column: 2;
   position: relative;
   border-radius: 999px;
-  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.border};
+  border: 0;
   background: color-mix(
     in srgb,
     ${({ theme }) => theme.colors.surfaceAlt} 82%,
@@ -353,10 +353,10 @@ export const ThemeToggle = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: clamp(2rem, 1.7rem + 0.6vw, 2.35rem);
-  height: clamp(2rem, 1.7rem + 0.6vw, 2.35rem);
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
-  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.border};
+  border: 0;
   background: color-mix(
     in srgb,
     ${({ theme }) => theme.colors.surfaceAlt} 88%,
@@ -365,16 +365,11 @@ export const ThemeToggle = styled.button`
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   color: ${({ theme }) => theme.colors.text};
-  transition: ${motionTransition(["color", "border-color", "background"])};
+  transition: ${motionTransition(["color", "background-color"])};
 
   &:hover,
   &:focus-visible {
     color: ${({ theme }) => theme.colors.text};
-    border-color: color-mix(
-      in srgb,
-      ${({ theme }) => theme.colors.text} 30%,
-      transparent
-    );
     background: color-mix(
       in srgb,
       ${({ theme }) => theme.colors.text} 8%,

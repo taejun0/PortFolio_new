@@ -253,7 +253,7 @@ export const Window = styled.div`
   position: absolute;
   inset: 0;
   background: ${({ theme }) => theme.colors.surfaceAlt};
-  ${({ theme }) => windowClip(theme, `-${theme.layout.borderWidth.card}`)}
+  ${({ theme }) => windowClip(theme, "-2px")}
 `;
 
 export const Media = styled.div`

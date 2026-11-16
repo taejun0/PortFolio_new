@@ -9,6 +9,7 @@ import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import { motionTransition } from "@/components/common/motion";
+import { primaryButton, secondaryButton } from "@/components/common/button/buttonStyles";
 import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
 import { motionTokens } from "@/styles/theme";
 
@@ -149,39 +150,13 @@ export const Actions = styled.nav`
 `;
 
 export const PrimaryAction = styled.a`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  min-height: 44px;
-  padding: 0.8rem 1.25rem;
-  border: ${({ theme }) => theme.layout.borderWidth.control} solid transparent;
-  border-radius: ${({ theme }) => theme.layout.radius.md};
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  color: ${({ theme }) => theme.colors.accentContrast};
-  background: ${({ theme }) => theme.colors.accent};
-  transition: ${motionTransition(["background-color", "border-color"])};
+  ${({ theme }) => primaryButton(theme)}
   ${hoverArrowParent}
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.accentSecondary};
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.accent};
-    outline-offset: 4px;
-  }
 `;
 
-export const SecondaryAction = styled(PrimaryAction)`
-  border-color: ${({ theme }) => theme.colors.borderStrong};
-  color: ${({ theme }) => theme.colors.text};
-  background: transparent;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.surfaceAlt};
-  }
+export const SecondaryAction = styled.a`
+  ${({ theme }) => secondaryButton(theme)}
+  ${hoverArrowParent}
 `;
 
 export const ScrollHint = styled.a`

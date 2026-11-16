@@ -8,8 +8,8 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 
+import { primaryButton } from "@/components/common/button/buttonStyles";
 import { hoverArrowParent } from "@/components/common/hoverArrow/HoverArrow.styled";
-import { motionTransition } from "@/components/common/motion";
 
 /**
  * 커튼 리빌(제목) 색을 이 페이지 면과 같은 선언에서 준다 — 면 색이 바뀌면 덮개도 함께 바뀐다
@@ -59,35 +59,9 @@ export const Body = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
-/** 홈 CTA 알약 — 들림·크기 변화 없이 면 색만 바뀌고, 화살표는 호버·키보드 포커스에서 ↗로 바뀐다. */
+/** 홈으로 돌아가는 주 CTA. */
 export const Cta = styled(Link)`
-  display: inline-flex;
-  align-items: center;
+  ${({ theme }) => primaryButton(theme)}
   margin-top: ${({ theme }) => theme.space[6]};
-  padding: clamp(0.6rem, 0.5rem + 0.3vw, 0.75rem)
-    clamp(1.1rem, 0.9rem + 0.6vw, 1.4rem);
-  border-radius: ${({ theme }) => theme.layout.radius.md};
-  border: ${({ theme }) => theme.layout.borderWidth.control} solid ${({ theme }) => theme.colors.accent};
-  background: ${({ theme }) => theme.colors.accent};
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
-  line-height: 1.2;
-  color: ${({ theme }) => theme.colors.accentContrast};
-  text-decoration: none;
-  transition: ${motionTransition(["background-color", "border-color"])};
   ${hoverArrowParent}
-
-  @media (hover: hover) {
-    &:hover {
-      border-color: ${({ theme }) => theme.colors.accentSecondary};
-      background: ${({ theme }) => theme.colors.accentSecondary};
-    }
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.accent};
-    outline-offset: 3px;
-    border-color: ${({ theme }) => theme.colors.accentSecondary};
-    background: ${({ theme }) => theme.colors.accentSecondary};
-  }
 `;
