@@ -230,6 +230,7 @@ export const Media = styled.div<{ $matte?: string }>`
 `;
 
 export const Copy = styled.div`
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -302,7 +303,7 @@ export const Role = styled.p`
 `;
 
 export const ItemTitle = styled.h2`
-  font-size: clamp(1.5rem, 1.15rem + 1.1vw, 2.1rem);
+  font-size: clamp(max(1.5rem, 24px), 6cqi, 2.1rem);
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   letter-spacing: -0.03em;
   line-height: 1.15;
@@ -312,7 +313,7 @@ export const ItemTitle = styled.h2`
 export const ItemSummary = styled.p`
   margin-top: ${({ theme }) => theme.space[3]};
   max-width: 34rem;
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  font-size: max(1rem, 16px);
   line-height: ${({ theme }) => theme.typography.bodySm.lineHeight};
   color: ${({ theme }) => theme.colors.textMuted};
   text-wrap: pretty;

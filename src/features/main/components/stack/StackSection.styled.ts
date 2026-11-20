@@ -17,9 +17,10 @@ export const Header = styled.div`
 `;
 
 export const Aside = styled.p`
-  flex-shrink: 0;
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  min-width: 0;
+  max-width: 100%;
+  font-size: max(0.875rem, 14px);
   line-height: 1.5;
   color: ${({ theme }) => theme.colors.textMuted};
-  white-space: nowrap;
+  text-wrap: pretty;
 `;

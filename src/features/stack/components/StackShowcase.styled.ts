@@ -426,6 +426,7 @@ export const IndicatorFill = styled.span<{ $autoplay: boolean }>`
 `;
 
 export const SlideCopy = styled.div`
+  container-type: inline-size;
   min-width: 0;
 `;
 
@@ -443,7 +444,7 @@ export const Index = styled.span`
 export const TitleWrap = styled.div``;
 
 export const Title = styled.h3`
-  font-size: clamp(1.85rem, 1.1rem + 2.2vw, 3rem);
+  font-size: clamp(1.75rem, 10cqi, 3rem);
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   line-height: 0.92;
   letter-spacing: -0.045em;
@@ -454,14 +455,14 @@ export const Title = styled.h3`
 export const Description = styled.p`
   max-width: 24rem;
   margin-top: ${({ theme }) => theme.space[4]};
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
-  line-height: ${({ theme }) => theme.typography.bodySm.lineHeight};
+  font-size: max(1rem, 16px);
+  line-height: 1.65;
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 /**
  * 개수에 맞춰 줄을 꽉 채운다 — 모바일 최대 4열, 태블릿 이상 최대 5열.
- * 아이콘 크기의 기준 컨테이너라 열 수가 달라도 슬라이드끼리 아이콘 크기가 같다.
+ * 열 수를 바꿀 때 타일 순서와 등장 지연도 같은 열 배치를 따른다.
  */
 export const Tools = styled.ul<{ $count: number }>`
   --tile-cols: ${({ $count }) => balancedColumns($count, 4)};
@@ -491,6 +492,7 @@ export const Tool = styled.li`
   /* 스윕 순서 — 왼→오면 왼쪽 열부터, 오→왼이면 오른쪽 열부터 */
   --tile-order: var(--tile-col, 0);
 
+  container-type: inline-size;
   display: grid;
   justify-items: center;
   align-content: start;
@@ -512,8 +514,8 @@ export const Tool = styled.li`
 `;
 
 export const Icon = styled.span`
-  /* 타일 그리드 너비에 비례 — 390px 42px, 320px 35px, 태블릿 64px 안팎 */
-  --stack-icon-size: clamp(2.25rem, 12cqi, 4rem);
+  /* 전체 화면이 아닌 타일 안쪽 폭을 기준으로 크기를 맞춘다. */
+  --stack-icon-size: min(80cqi, 4rem);
 
   position: relative;
   display: grid;
@@ -523,11 +525,6 @@ export const Icon = styled.span`
   overflow: hidden;
   border-radius: 24%;
   background: ${({ theme }) => theme.colors.surfaceAlt};
-
-  /* 2단 배치는 그리드가 좁아 5열 타일 여백이 빠듯하다 — 1024px 55px, 1280px 이상 64~68px */
-  @media (min-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    --stack-icon-size: clamp(2.25rem, 8.5cqi, 4rem);
-  }
 
   /* 아이콘 파일은 타일 마스크에 맞게 미리 잘라 둔 정사각형이라 칸을 그대로 채운다 */
   img {
@@ -554,7 +551,7 @@ export const Monogram = styled.span<{ $color?: string }>`
 
 export const ToolName = styled.span`
   max-width: 100%;
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  font-size: max(0.875rem, 14px);
   font-weight: ${({ theme }) => theme.fonts.weights.semiBold};
   line-height: 1.3;
   color: ${({ theme }) => theme.colors.text};

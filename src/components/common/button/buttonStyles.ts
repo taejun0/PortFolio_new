@@ -13,7 +13,7 @@ const buttonBase = (theme: Theme) => css`
   border: 0;
   border-radius: ${theme.layout.radius.md};
   font-family: inherit;
-  font-size: ${theme.typography.body.fontSize};
+  font-size: max(1rem, 16px);
   font-weight: ${theme.fonts.weights.semiBold};
   line-height: 1.4;
   text-decoration: none;
