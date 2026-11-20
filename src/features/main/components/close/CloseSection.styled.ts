@@ -4,10 +4,6 @@ import styled from "@emotion/styled";
 
 import { primaryButton, secondaryButton } from "@/components/common/button/buttonStyles";
 import {
-  hoverArrowCss,
-  hoverArrowParent,
-} from "@/components/common/hoverArrow/HoverArrow.styled";
-import {
   motionTransition,
   underlineSweep,
   underlineSweepActive,
@@ -93,7 +89,9 @@ export const Header = styled.div`
 `;
 
 export const Aside = styled.p`
-  font-size: ${({ theme }) => theme.typography.bodySm.fontSize};
+  min-width: 0;
+  max-width: 100%;
+  font-size: max(0.875rem, 14px);
   line-height: 1.5;
   color: ${({ theme }) => theme.colors.textMuted};
 
@@ -102,32 +100,28 @@ export const Aside = styled.p`
   }
 `;
 
+/** 충분한 폭의 카드 두 장이 들어갈 때만 나란히 배치한다. */
 export const Deck = styled.div`
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 28rem), 32rem));
+  justify-content: center;
   align-items: start;
   gap: ${({ theme }) => theme.space[7]};
   width: 100%;
-  max-width: 36rem;
   margin-inline: auto;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: none;
-  }
 `;
 
 /** 90 × 50의 가로 명함. 연락 버튼은 밖에 두어 용지 비율을 지킨다.
  * 텍스트를 크게 설정한 경우에는 내용을 자르지 않고 높이가 늘어날 수 있다. */
 export const Card = styled.article`
   position: relative;
+  container-name: business-card;
   container-type: inline-size;
   display: flex;
   flex-direction: column;
   min-width: 0;
   width: 100%;
   aspect-ratio: 90 / 50;
-  padding: clamp(12px, 2.2vw, 1.5rem);
   border-radius: 3px;
   color: ${({ theme }) => theme.colors.text};
   ${({ theme }) => cardFace(theme)}
@@ -147,14 +141,15 @@ export const Card = styled.article`
 export const Front = styled.div`
   display: grid;
   flex: 1;
-  grid-template-columns: minmax(0, 0.65fr) minmax(0, 1.35fr);
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.8fr);
   align-items: center;
-  gap: clamp(14px, 2.4vw, 2rem);
+  gap: clamp(12px, 4cqi, 1.5rem);
+  padding: clamp(max(0.75rem, 12px), 4.5cqi, 1.5rem);
 `;
 
 export const FrontCopy = styled.div`
   display: grid;
-  gap: clamp(12px, 2vw, 1.5rem);
+  gap: clamp(8px, 2.5cqi, 1rem);
   min-width: 0;
 `;
 
@@ -163,7 +158,7 @@ export const Arch = styled.div`
   position: relative;
   justify-self: center;
   width: 100%;
-  max-width: 8rem;
+  max-width: 10rem;
   aspect-ratio: 3 / 4;
   overflow: hidden;
   border-radius: 50% 50% 0.12rem 0.12rem / 32% 32% 0.12rem 0.12rem;
@@ -184,9 +179,9 @@ export const Arch = styled.div`
 `;
 
 export const Quote = styled.p`
-  font-size: clamp(12px, 1.35vw, 1rem);
+  font-size: clamp(max(1rem, 16px), 3.25cqi, 1.125rem);
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
-  line-height: 1.6;
+  line-height: 1.5;
   letter-spacing: -0.02em;
   color: ${({ theme }) => theme.colors.textMuted};
 
@@ -196,15 +191,16 @@ export const Quote = styled.p`
 export const Back = styled.div`
   display: grid;
   flex: 1;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.5fr);
   align-items: center;
-  gap: clamp(12px, 2vw, 1.75rem);
+  gap: clamp(12px, 4cqi, 1.5rem);
+  padding: clamp(max(0.75rem, 12px), 4.5cqi, 1.5rem);
 `;
 
 export const Identity = styled.div`
   display: grid;
   justify-items: start;
-  gap: 0.6rem;
+  gap: clamp(8px, 2.5cqi, 1rem);
   min-width: 0;
 `;
 
@@ -224,7 +220,7 @@ export const Badge = styled.p`
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 11px;
+  font-size: max(0.875rem, 14px);
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   line-height: 1.4;
   color: ${({ theme }) => theme.colors.accent};
@@ -255,15 +251,16 @@ export const BadgeDot = styled.span`
 `;
 
 export const Name = styled.h3`
-  font-size: clamp(22px, 3vw, 2rem);
+  font-size: clamp(max(1.5rem, 24px), 6cqi, 2.25rem);
   font-weight: ${({ theme }) => theme.fonts.weights.bold};
   line-height: 1.2;
   letter-spacing: -0.04em;
 `;
 
 export const Role = styled.p`
-  font-size: clamp(12px, 1.2vw, 0.875rem);
-  line-height: 1.45;
+  font-size: clamp(max(1rem, 16px), 3.25cqi, 1.125rem);
+  line-height: 1.5;
+  text-wrap: balance;
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
@@ -272,45 +269,24 @@ export const Contacts = styled.ul`
   min-width: 0;
 `;
 
-/** 작은 명함에서는 라벨을 읽기 보조로 남기고 주소에 표시 폭을 내준다. */
+/** 라벨을 주소 위에 두어 좁은 카드에서도 주소의 가로 폭을 확보한다. */
 export const RowLabel = styled.span`
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  font-size: 11px;
+  font-size: max(0.875rem, 14px);
   font-weight: ${({ theme }) => theme.fonts.weights.medium};
   color: ${({ theme }) => theme.colors.textMuted};
 
-  @container (min-width: 28rem) {
-    position: static;
-    width: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    clip: auto;
-  }
+  line-height: 1.3;
 `;
 
 export const RowValue = styled.span`
   ${underlineSweep()}
   justify-self: start;
   min-width: 0;
-  font-size: clamp(12px, 1.2vw, 0.875rem);
-  line-height: 1.5;
-  letter-spacing: -0.02em;
+  font-size: clamp(max(1rem, 16px), 3.25cqi, 1.125rem);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
   overflow-wrap: anywhere;
   transition: ${motionTransition("color")};
-`;
-
-export const RowArrow = styled.span`
-  ${hoverArrowCss}
-  margin-left: 0;
-  font-size: 0.75rem;
-  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
 const rowActive = (theme: Theme) => css`
@@ -318,22 +294,17 @@ const rowActive = (theme: Theme) => css`
     color: ${theme.colors.accent};
     ${underlineSweepActive()}
   }
-  ${RowArrow} { color: ${theme.colors.accent}; }
 `;
 
 export const Row = styled.a`
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  column-gap: 0.5rem;
-  min-height: 44px;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  justify-items: start;
+  row-gap: 2px;
+  min-height: clamp(44px, 11cqi, 64px);
   border-radius: 4px;
-  ${hoverArrowParent}
-
-  @container (min-width: 28rem) {
-    grid-template-columns: 3.5rem minmax(0, 1fr) auto;
-  }
 
   @media (hover: hover) {
     &:hover { ${({ theme }) => rowActive(theme)} }
@@ -358,9 +329,6 @@ export const Actions = styled.div`
 export const Cta = styled.a`
   ${({ theme }) => primaryButton(theme)}
   padding-inline: 0.75rem;
-  ${hoverArrowParent}
-
-  [data-hover-arrow] { margin-left: 0; }
 `;
 
 export const CopyButton = styled.button`

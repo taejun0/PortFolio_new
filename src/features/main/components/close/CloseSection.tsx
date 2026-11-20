@@ -9,7 +9,6 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-import { HoverArrow } from "@/components/common/hoverArrow/HoverArrow.styled";
 import { Reveal, RollText, SweepText } from "@/components/common/motion";
 import * as P from "../shared/SectionPrimitives.styled";
 import * as S from "./CloseSection.styled";
@@ -91,7 +90,7 @@ const CloseSection = () => {
                   src={MAIN_CLOSE_UI.photo}
                   alt={MAIN_CLOSE_UI.photoAlt}
                   fill
-                  sizes="(max-width: 767px) 24vw, 160px"
+                  sizes="(max-width: 480px) 24vw, 144px"
                 />
               </S.Arch>
               <S.FrontCopy>
@@ -101,6 +100,10 @@ const CloseSection = () => {
                     <span key={line}>{line}</span>
                   ))}
                 </S.Quote>
+                <S.Badge>
+                  <S.BadgeDot aria-hidden />
+                  {MAIN_CLOSE_UI.availability}
+                </S.Badge>
               </S.FrontCopy>
             </S.Front>
           </Reveal>
@@ -112,10 +115,6 @@ const CloseSection = () => {
           >
             <S.Back>
               <S.Identity>
-                <S.Badge>
-                  <S.BadgeDot aria-hidden />
-                  {MAIN_CLOSE_UI.availability}
-                </S.Badge>
                 <S.Name>{SITE_CONFIG.author}</S.Name>
                 <S.Role>{MAIN_HERO_UI.roles[0]}</S.Role>
               </S.Identity>
@@ -141,7 +140,6 @@ const CloseSection = () => {
                             <S.SrOnly>{MAIN_CLOSE_UI.newTab}</S.SrOnly>
                           </>
                         )}
-                        <S.RowArrow data-hover-arrow aria-hidden />
                       </S.Row>
                     </li>
                   );
@@ -153,7 +151,6 @@ const CloseSection = () => {
         <S.Actions>
           <S.Cta href={MAILTO_HREF}>
             <RollText>{MAIN_CLOSE_UI.cta}</RollText>
-            <HoverArrow aria-hidden />
           </S.Cta>
           <S.CopyButton type="button" onClick={copyEmail}>
             {copyState === "copied" ? MAIN_CLOSE_UI.copiedEmail : MAIN_CLOSE_UI.copyEmail}
